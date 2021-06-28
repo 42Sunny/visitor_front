@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Grid, Typography, TextField, Button, MenuItem } from '@material-ui/core';
-import { staffs, staffSuffix } from '../data/staff';
+import { staffs, staffSuffix } from 'data/staff';
 import { Link } from 'react-router-dom';
-import { encrypt } from '../tools/dataHandler';
-import GridCard from '../components/GridCard';
+import { encrypt } from 'tools/dataHandler';
+import GridCard from 'components/GridCard';
 
 const Login = () => {
   const [staff, setStaff] = useState("");
@@ -31,7 +31,7 @@ const Login = () => {
           </TextField>
         </GridCard>
         <Grid item xs={12}>
-          <Link to={`/reservation?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`} className={`link`}>
+          <Link to={`/staff?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`} className={`link`}>
             <Button variant="contained" color="primary">로그인</Button>
           </Link>
         </Grid>

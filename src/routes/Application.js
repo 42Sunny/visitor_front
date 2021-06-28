@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GridCard from "../components/GridCard";
+import GridCard from "components/GridCard";
 import {
   Typography,
   TextField,
@@ -13,11 +13,11 @@ import {
   DialogTitle,
   DialogActions,
 } from "@material-ui/core";
-import { staffs, staffSuffix } from "../data/staff";
+import { staffs, staffSuffix } from "data/staff";
 import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import styles from "../styles/Application.module.css";
+import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
 
 registerLocale("ko", ko);

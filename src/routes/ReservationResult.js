@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Grid, Typography } from "@material-ui/core";
-import GridCard from "../components/GridCard";
-import { staffSuffix } from "../data/staff";
+import GridCard from "components/GridCard";
+import { staffSuffix } from "data/staff";
 import { Link } from "react-router-dom";
-import styles from "../styles/Result.module.css";
-import { encrypt } from "../tools/dataHandler";
+import styles from "styles/ReservationResult.module.css";
+import { encrypt } from "tools/dataHandler";
 
-const Result = ({ match }) => {
+const ReservationResult = ({ match }) => {
   const [data, setData] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -18,7 +18,7 @@ const Result = ({ match }) => {
       props.active === true ? (
         <Grid item xs={2}>
           <Button variant="contained" color="primary">
-            <Link className={styles.link} to={`/qr?code=${code}`}>
+            <Link className={`${styles.link} link`} to={`/qr?code=${code}`}>
               <Typography variant="h4">QR</Typography>
             </Link>
           </Button>
@@ -97,4 +97,4 @@ const Result = ({ match }) => {
   );
 };
 
-export default Result;
+export default ReservationResult;

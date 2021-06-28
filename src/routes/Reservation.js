@@ -11,10 +11,10 @@ import {
   DialogContentText,
   DialogTitle
 } from '@material-ui/core';
-import GridCard from '../components/GridCard';
+import GridCard from 'components/GridCard';
 import DatePicker from 'react-datepicker';
-import styles from '../styles/Reservation.module.css';
-import { decrypt } from '../tools/dataHandler';
+import styles from 'styles/Reservation.module.css';
+import { decrypt } from 'tools/dataHandler';
 
 const Reservation = ({ history, location }) => {
   const [staff, setStaff] = useState("");

@@ -1,9 +1,9 @@
 import { Container, Grid, Typography, Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import GridCard from "../components/GridCard";
-import styles from "../styles/QR.module.css";
-import { decrypt } from "../tools/dataHandler";
+import GridCard from "components/GridCard";
+import styles from "styles/QR.module.css";
+import { decrypt } from "tools/dataHandler";
 import { Link } from 'react-router-dom';
 
 const QR = ({ location }) => {
@@ -40,7 +40,7 @@ const QR = ({ location }) => {
 						)}
 				</GridCard>
 				<Grid item xs={12}>
-					<Link to="/">
+					<Link to="/" className={`link`}>
 						<Button color="primary" variant="contained">인덱스로 돌아가기</Button>
 					</Link>
 				</Grid>
