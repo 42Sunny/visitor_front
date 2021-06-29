@@ -19,11 +19,13 @@ import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
+import { locItems } from "data/location";
 
 registerLocale("ko", ko);
 
 const Application = ({ history }) => {
   const [staff, setStaff] = useState("");
+  const [loc, setLoc] = useState("");
   const [userName, setUserName] = useState("");
   const [enterDate, setEnterDate] = useState(new Date());
   const [enterTime, setEnterTime] = useState(new Date());
@@ -34,6 +36,7 @@ const Application = ({ history }) => {
   const handleStaffName = (event) => setStaff(event.target.value);
   const handleUserName = (event) => setUserName(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
+  const handleLoc = (event) => setLoc(event.target.value);
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
@@ -72,6 +75,7 @@ const Application = ({ history }) => {
       enterDate: enterDate.toLocaleDateString(),
       enterTime: enterTime.toLocaleTimeString(),
       exitTime: exitTime.toLocaleTimeString(),
+      loc,
       staff,
       userName,
       purpose,
@@ -128,6 +132,25 @@ const Application = ({ history }) => {
               locale="ko"
               className={styles.dateInput}
             />
+          </GridCard>
+
+
+          <GridCard item xs={12}>
+            <Typography variant="h5">방문 장소</Typography>
+            <TextField
+              select
+              fullWidth
+              value={loc}
+              onChange={handleLoc}
+            >
+              {locItems.map((item) => {
+                return (
+                  <MenuItem key={`${item.label}-${item.value}`} value={item}>
+                    {`${item.label} 클러스터`}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
           </GridCard>
 
           <GridCard item xs={12}>
@@ -205,9 +228,10 @@ const Application = ({ history }) => {
             <br />
             {`퇴장 시간  : ${exitTime.toLocaleTimeString("ko-KR", "p")}`}
             <br />
-            {`방문 대상  : ${
-              staff !== null && `${staff.label} ${staffSuffix[staff.role]}`
-            }`}
+            {`방문 장소  : ${loc !== null && `${loc.label} 클러스터`}`}
+            <br />
+            {`방문 대상  : ${staff !== null && `${staff.label} ${staffSuffix[staff.role]}`
+              }`}
             <br />
             {`방문자 이름 : ${userName}`}
             <br />

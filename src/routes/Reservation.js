@@ -10,11 +10,13 @@ import {
   DialogActions,
   DialogContentText,
   DialogTitle,
+  MenuItem,
 } from "@material-ui/core";
 import GridCard from "components/GridCard";
 import DatePicker from "react-datepicker";
 import styles from "styles/Reservation.module.css";
 import { decrypt } from "tools/dataHandler";
+import { locItems } from "data/location";
 
 const Reservation = ({ history, location }) => {
   const [staff, setStaff] = useState("");
@@ -24,9 +26,11 @@ const Reservation = ({ history, location }) => {
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
   const [submitOpen, setOpen] = useState(false);
+  const [loc, setLoc] = useState("");
 
   const handleUserName = (event) => setUserName(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
+  const handleLoc = (event) => setLoc(event.target.value);
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
@@ -72,6 +76,7 @@ const Reservation = ({ history, location }) => {
       enterDate: enterDate.toLocaleDateString(),
       enterTime: enterTime.toLocaleTimeString(),
       exitTime: exitTime.toLocaleTimeString(),
+      loc,
       staff,
       userName,
       purpose,
@@ -131,6 +136,24 @@ const Reservation = ({ history, location }) => {
           </GridCard>
 
           <GridCard item xs={12}>
+            <Typography variant="h5">방문 장소</Typography>
+            <TextField
+              select
+              fullWidth
+              value={loc}
+              onChange={handleLoc}
+            >
+              {locItems.map((item) => {
+                return (
+                  <MenuItem key={`${item.label}-${item.value}`} value={item}>
+                    {`${item.label} 클러스터`}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+          </GridCard>
+
+          <GridCard item xs={12}>
             <Typography variant="h5">방문자 이름</Typography>
             <TextField
               fullWidth
@@ -184,6 +207,8 @@ const Reservation = ({ history, location }) => {
             {`입장 시간  : ${enterTime.toLocaleTimeString("ko-KR", "p")}`}
             <br />
             {`퇴장 시간  : ${exitTime.toLocaleTimeString("ko-KR", "p")}`}
+            <br />
+            {`방문 장소  : ${loc !== null && `${loc.label} 클러스터`}`}
             <br />
             {`방문자 이름 : ${userName}`}
             <br />

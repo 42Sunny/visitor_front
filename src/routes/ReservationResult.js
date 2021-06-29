@@ -72,6 +72,14 @@ const ReservationResult = ({ match, history }) => {
         </GridCard>
 
         <GridCard item xs={12}>
+          <Typography variant="h5">방문 장소</Typography>
+          <Typography>
+            {data !== null &&
+              `${data.loc.label} 클러스터`}
+          </Typography>
+        </GridCard>
+
+        <GridCard item xs={12}>
           <Typography variant="h5">방문 대상</Typography>
           <Typography>
             {data !== null &&

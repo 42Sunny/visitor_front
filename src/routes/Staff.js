@@ -19,11 +19,11 @@ const Staff = ({ location }) => {
       reservations === null
         ? []
         : reservations.filter((reservation) => {
-            return (
-              reservation.staff.value === staff.value &&
-              reservation.state === "wait"
-            );
-          });
+          return (
+            reservation.staff.value === staff.value &&
+            reservation.state === "wait"
+          );
+        });
     return data;
   };
 
@@ -33,11 +33,11 @@ const Staff = ({ location }) => {
       reservations === null
         ? []
         : reservations.filter((reservation) => {
-            return (
-              reservation.staff.value === staff.value &&
-              reservation.state === "accept"
-            );
-          });
+          return (
+            reservation.staff.value === staff.value &&
+            reservation.state === "accept"
+          );
+        });
     return data;
   };
 
@@ -108,11 +108,12 @@ const Staff = ({ location }) => {
           </Link>
         </Box>
         <br />
-        <Grid container>
+        <Grid container spacing={1}>
           <Grid item xs={6}>
             <Typography variant="h4">방문 신청 대기</Typography>
             <Grid container className={styles.applicationContainer} spacing={2}>
               {data.map((element) => {
+                console.log(element);
                 const key = `${element.enterDate} - ${element.exitTime}`;
                 return (
                   <GridCard item xs={12} key={key}>
@@ -135,12 +136,19 @@ const Staff = ({ location }) => {
                       </Typography>
                     </Box>
                     <Box className={styles.applicationBox}>
+                      <Typography variant="h5">방문 장소</Typography>
+                      <Typography>
+                        {element !== null &&
+                          element.loc !== null &&
+                          `${element.loc.label} 클러스터`}
+                      </Typography>
+                    </Box>
+                    <Box className={styles.applicationBox}>
                       <Typography variant="h5">방문 대상</Typography>
                       <Typography>
                         {element !== null &&
                           element.staff !== null &&
-                          `${element.staff.label} ${
-                            staffSuffix[element.staff.role]
+                          `${element.staff.label} ${staffSuffix[element.staff.role]
                           }`}
                       </Typography>
                     </Box>
@@ -205,12 +213,19 @@ const Staff = ({ location }) => {
                       </Typography>
                     </Box>
                     <Box className={styles.applicationBox}>
+                      <Typography variant="h5">방문 장소</Typography>
+                      <Typography>
+                        {element !== null &&
+                          element.loc !== null &&
+                          `${element.loc.label} 클러스터`}
+                      </Typography>
+                    </Box>
+                    <Box className={styles.applicationBox}>
                       <Typography variant="h5">방문 대상</Typography>
                       <Typography>
                         {element !== null &&
                           element.staff !== null &&
-                          `${element.staff.label} ${
-                            staffSuffix[element.staff.role]
+                          `${element.staff.label} ${staffSuffix[element.staff.role]
                           }`}
                       </Typography>
                     </Box>
