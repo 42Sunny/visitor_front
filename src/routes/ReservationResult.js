@@ -6,32 +6,29 @@ import { Link } from "react-router-dom";
 import styles from "styles/ReservationResult.module.css";
 import { encrypt } from "tools/dataHandler";
 
-const ReservationResult = ({ match }) => {
+const ReservationResult = ({ match, history }) => {
   const [data, setData] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
   const QRLink = (props) => {
-    if (data === null)
-      return null;
+    if (data === null) return null;
     const code = encrypt(data, process.env.REACT_APP_AES_KEY);
-    return (
-      props.active === true ? (
-        <Grid item xs={2}>
-          <Button variant="contained" color="primary">
-            <Link className={`${styles.link} link`} to={`/qr?code=${code}`}>
-              <Typography variant="h4">QR</Typography>
-            </Link>
-          </Button>
-        </Grid>
-      ) : null
-    );
+    return props.active === true ? (
+      <Grid item xs={2}>
+        <Button variant="contained" color="primary">
+          <Link className={`${styles.link} link`} to={`/qr?code=${code}`}>
+            <Typography variant="h4">QR</Typography>
+          </Link>
+        </Button>
+      </Grid>
+    ) : null;
   };
 
   const init = () => {
     const data = getData(match.params.number);
     setData(data);
     setIsActive(data.state === "accept");
-  }
+  };
 
   useEffect(() => {
     init();
@@ -41,6 +38,10 @@ const ReservationResult = ({ match }) => {
     const data = JSON.parse(window.localStorage.getItem("reservation"))[idx];
     return data;
   };
+
+  const handleBack = () => {
+    history.go(-2);
+  }
 
   return (
     <Container maxWidth="sm">
@@ -52,9 +53,7 @@ const ReservationResult = ({ match }) => {
             </Grid>
             <QRLink active={isActive} />
           </Grid>
-          <Typography varinat="h6">
-            방문자에게 qr코드가 전송됩니다.
-          </Typography>
+          <Typography varinat="h6">방문자에게 qr코드가 전송됩니다.</Typography>
         </GridCard>
 
         <GridCard item xs={12}>
@@ -91,10 +90,10 @@ const ReservationResult = ({ match }) => {
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>
 
-        <Grid item xs={12}>
-          <Link to="/" className={`link`}>
-            <Button color="primary" variant="contained">인덱스로 돌아가기</Button>
-          </Link>
+        <Grid item xs={3}>
+          <Button color="primary" variant="contained" onClick={handleBack}>
+            돌아가기
+          </Button>
         </Grid>
       </Grid>
     </Container>

@@ -58,6 +58,11 @@ const Application = ({ history }) => {
     history.push(`/application-result/${length - 1}`);
   };
 
+  const handleCancel = (event) => {
+    event.preventDefault();
+    history.go(-1);
+  };
+
   const postData = () => {
     let prevData = window.localStorage.getItem("reservation");
     if (prevData === null) prevData = [];
@@ -166,13 +171,18 @@ const Application = ({ history }) => {
             />
           </GridCard>
 
-          <Grid item xs={12}>
+          <Grid item xs={2}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleClickOpen}
             >
-              제출
+              <Typography variant="h5">제출</Typography>
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button variant="contained" color="primary" onClick={handleCancel}>
+              <Typography variant="h5">돌아가기</Typography>
             </Button>
           </Grid>
         </Grid>
@@ -195,8 +205,9 @@ const Application = ({ history }) => {
             <br />
             {`퇴장 시간  : ${exitTime.toLocaleTimeString("ko-KR", "p")}`}
             <br />
-            {`방문 대상  : ${staff !== null && `${staff.label} ${staffSuffix[staff.role]}`
-              }`}
+            {`방문 대상  : ${
+              staff !== null && `${staff.label} ${staffSuffix[staff.role]}`
+            }`}
             <br />
             {`방문자 이름 : ${userName}`}
             <br />
