@@ -31,7 +31,7 @@ const Login = () => {
           </TextField>
         </GridCard>
         <Grid item xs={12}>
-          <Link to={`/staff?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`} className={`link`}>
+          <Link to={staff.admin === 0 ? `/staff?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}` : `/admin?admin=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`} className={`link`}>
             <Button variant="contained" color="primary">로그인</Button>
           </Link>
         </Grid>

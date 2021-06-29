@@ -22,7 +22,7 @@ const QR = ({ location }) => {
 		let data = "";
 		if (location !== null) {
 			data = location.search.slice(6);
-			data = decrypt(data, process.env.REACT_APP_AES_KEY).toString();
+			data = JSON.stringify(decrypt(data, process.env.REACT_APP_AES_KEY));
 		}
 		generateQR(data);
 	}, [location]);

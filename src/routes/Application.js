@@ -164,11 +164,14 @@ const Application = ({ history }) => {
             >
               {staffs.map((staff) => {
                 const suffix = staffSuffix[staff.role];
-                return (
-                  <MenuItem key={`${staff.role}-${staff.value}`} value={staff}>
-                    {`${staff.label} ${suffix}`}
-                  </MenuItem>
-                );
+                if (staff.admin === 0)
+                  return (
+                    <MenuItem key={`${staff.role}-${staff.value}`} value={staff}>
+                      {`${staff.label} ${suffix}`}
+                    </MenuItem>
+                  );
+                else
+                  return null;
               })}
             </TextField>
           </GridCard>

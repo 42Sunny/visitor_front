@@ -13,12 +13,12 @@ const ApplicationResult = ({ match }) => {
   const QRLink = (props) => {
     if (data === null)
       return null;
-    const code = encrypt(data, process.env.REACT_APP_AES_KEY);
+    const code = JSON.stringify(encrypt(data, process.env.REACT_APP_AES_KEY));
     return (
       props.active === true ? (
         <Grid item xs={2}>
           <Button variant="contained" color="primary">
-            <Link className={`${styles.link} link`} to={`/qr?code=${code}`}>
+            <Link className={`${styles.link} link`} to={`/qr?code=${code.slice(1, code.length - 1)}`}>
               <Typography variant="h4">QR</Typography>
             </Link>
           </Button>
