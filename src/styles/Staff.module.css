@@ -2,3 +2,24 @@
 	height: 100vh;
 	width: 100%;
 }
+
+.title {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.applicationBox {
+	margin-bottom: 0.5vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.applicationBtns {
+	margin-top: 1vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}

@@ -30,9 +30,7 @@ const ReservationResult = ({ match }) => {
   const init = () => {
     const data = getData(match.params.number);
     setData(data);
-    setInterval(() => {
-      setIsActive(true);
-    }, 500);
+    setIsActive(data.state === "accept");
   }
 
   useEffect(() => {
@@ -50,12 +48,12 @@ const ReservationResult = ({ match }) => {
         <GridCard item xs={12}>
           <Grid container>
             <Grid item xs={10}>
-              <Typography variant="h3">방문 신청 정보</Typography>
+              <Typography variant="h3">방문 예약 정보</Typography>
             </Grid>
             <QRLink active={isActive} />
           </Grid>
           <Typography varinat="h6">
-            방문 대상이 수락하면 qr코드가 sms를 통해 전송됩니다.
+            방문자에게 qr코드가 전송됩니다.
           </Typography>
         </GridCard>
 
@@ -92,6 +90,12 @@ const ReservationResult = ({ match }) => {
           <Typography variant="h5">방문 목적</Typography>
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>
+
+        <Grid item xs={12}>
+          <Link to="/" className={`link`}>
+            <Button color="primary" variant="contained">인덱스로 돌아가기</Button>
+          </Link>
+        </Grid>
       </Grid>
     </Container>
   );

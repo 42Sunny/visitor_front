@@ -46,7 +46,7 @@ const Reservation = ({ history, location }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const length = postData();
-    history.push(`/application-result/${length - 1}`);
+    history.push(`/reservation-result/${length - 1}`);
   };
 
 
@@ -64,7 +64,7 @@ const Reservation = ({ history, location }) => {
     if (prevData === null) prevData = [];
     else prevData = JSON.parse(prevData);
     prevData.push({
-      state: "wait",
+      state: "accecpt",
       enterDate: enterDate.toLocaleDateString(),
       enterTime: enterTime.toLocaleTimeString(),
       exitTime: exitTime.toLocaleTimeString(),

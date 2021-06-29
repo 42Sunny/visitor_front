@@ -30,9 +30,7 @@ const ApplicationResult = ({ match }) => {
   const init = () => {
     const data = getData(match.params.number);
     setData(data);
-    setInterval(() => {
-      setIsActive(true);
-    }, 500);
+    setIsActive(data.state === "accept");
   }
 
   useEffect(() => {
@@ -92,6 +90,12 @@ const ApplicationResult = ({ match }) => {
           <Typography variant="h5">방문 목적</Typography>
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>
+
+        <Grid item xs={12}>
+          <Link to="/" className={`link`}>
+            <Button color="primary" variant="contained">인덱스로 돌아가기</Button>
+          </Link>
+        </Grid>
       </Grid>
     </Container>
   );
