@@ -6,7 +6,7 @@ import styles from "styles/Staff.module.css";
 import { decrypt } from "tools/dataHandler";
 import { Link } from "react-router-dom";
 
-const Staff = ({ location, history }) => {
+const Staff = ({ location }) => {
   const staff = useState(
     decrypt(location.search.slice(7), process.env.REACT_APP_AES_KEY)
   )[0];
