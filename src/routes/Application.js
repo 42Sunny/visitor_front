@@ -27,6 +27,7 @@ const Application = ({ history }) => {
   const [staff, setStaff] = useState("");
   const [loc, setLoc] = useState("");
   const [userName, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
   const [enterDate, setEnterDate] = useState(new Date());
   const [enterTime, setEnterTime] = useState(new Date());
   const [exitTime, setExitTime] = useState(new Date());
@@ -35,6 +36,7 @@ const Application = ({ history }) => {
 
   const handleStaffName = (event) => setStaff(event.target.value);
   const handleUserName = (event) => setUserName(event.target.value);
+  const handleUserPhone = (event) => setUserPhone(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
   const handleLoc = (event) => setLoc(event.target.value);
   const handleEnterDate = (date) => setEnterDate(date);
@@ -45,13 +47,17 @@ const Application = ({ history }) => {
 
   const [staffNameError, setStaffNameError] = useState(false);
   const [userNameError, setUserNameError] = useState(false);
+  const [userPhoneError, setUserPhoneError] = useState(false);
   const [purposeError, setPurposeError] = useState(false);
+  const [locError, setLocError] = useState(false);
 
   const checkValues = (staff, userName, purpose) => {
-    const result = staff === null || userName === "" || purpose === "";
+    const result = staff === null || userName === "" || purpose === "" || userPhone === "" || loc === "";
     setStaffNameError(staff === "");
     setUserNameError(userName === "");
     setPurposeError(purpose === "");
+    setUserPhoneError(userPhone === "");
+    setLocError(loc === "");
     return !result;
   };
 
@@ -71,13 +77,15 @@ const Application = ({ history }) => {
     if (prevData === null) prevData = [];
     else prevData = JSON.parse(prevData);
     prevData.push({
+      id: prevData.length,
       state: "wait",
-      enterDate: enterDate.toLocaleDateString(),
-      enterTime: enterTime.toLocaleTimeString(),
-      exitTime: exitTime.toLocaleTimeString(),
+      enterDate: enterDate.toLocaleDateString("ko-KR", "P"),
+      enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
+      exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
       loc,
       staff,
       userName,
+      userPhone,
       purpose,
     });
     window.localStorage.setItem("reservation", JSON.stringify(prevData));
@@ -142,6 +150,7 @@ const Application = ({ history }) => {
               fullWidth
               value={loc}
               onChange={handleLoc}
+              error={locError}
             >
               {locItems.map((item) => {
                 return (
@@ -183,6 +192,16 @@ const Application = ({ history }) => {
               value={userName}
               onChange={handleUserName}
               error={userNameError}
+            />
+          </GridCard>
+
+          <GridCard item xs={12}>
+            <Typography variant="h5">방문자 번호</Typography>
+            <TextField
+              fullWidth
+              value={userPhone}
+              onChange={handleUserPhone}
+              error={userPhoneError}
             />
           </GridCard>
 
@@ -237,6 +256,8 @@ const Application = ({ history }) => {
               }`}
             <br />
             {`방문자 이름 : ${userName}`}
+            <br />
+            {`방문자 번호 : ${userPhone}`}
             <br />
             {`방문 목적  : ${purpose}`}
           </DialogContentText>

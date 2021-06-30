@@ -27,8 +27,10 @@ const Reservation = ({ history, location }) => {
   const [purpose, setPurpose] = useState("");
   const [submitOpen, setOpen] = useState(false);
   const [loc, setLoc] = useState("");
-
+  const [userPhone, setUserPhone] = useState("");
+  
   const handleUserName = (event) => setUserName(event.target.value);
+  const handleUserPhone = (event) => setUserPhone(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
   const handleLoc = (event) => setLoc(event.target.value);
   const handleEnterDate = (date) => setEnterDate(date);
@@ -36,14 +38,18 @@ const Reservation = ({ history, location }) => {
   const handleExitTime = (time) => setExitTime(time);
   const handleClickOpen = () => setOpen(checkValues(userName, purpose));
   const handleClose = () => setOpen(false);
-
+  
   const [userNameError, setUserNameError] = useState(false);
+  const [userPhoneError, setUserPhoneError] = useState(false);
   const [purposeError, setPurposeError] = useState(false);
-
-  const checkValues = (userName, purpose) => {
-    const result = userName === "" || purpose === "";
+  const [locError, setLocError] = useState(false);
+  
+  const checkValues = (staff, userName, purpose) => {
+    const result = staff === null || userName === "" || purpose === "" || userPhone === "" || loc === "";
     setUserNameError(userName === "");
     setPurposeError(purpose === "");
+    setUserPhoneError(userPhone === "");
+    setLocError(loc === "");
     return !result;
   };
 
@@ -72,10 +78,12 @@ const Reservation = ({ history, location }) => {
     if (prevData === null) prevData = [];
     else prevData = JSON.parse(prevData);
     prevData.push({
+      id: prevData.length,
       state: "accept",
-      enterDate: enterDate.toLocaleDateString(),
-      enterTime: enterTime.toLocaleTimeString(),
-      exitTime: exitTime.toLocaleTimeString(),
+      enterDate: enterDate.toLocaleDateString("ko-KR", "P"),
+      enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
+      exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
+      userPhone,
       loc,
       staff,
       userName,
@@ -142,6 +150,7 @@ const Reservation = ({ history, location }) => {
               fullWidth
               value={loc}
               onChange={handleLoc}
+              error={locError}
             >
               {locItems.map((item) => {
                 return (
@@ -160,6 +169,16 @@ const Reservation = ({ history, location }) => {
               value={userName}
               onChange={handleUserName}
               error={userNameError}
+            />
+          </GridCard>
+
+          <GridCard item xs={12}>
+            <Typography variant="h5">방문자 번호</Typography>
+            <TextField
+              fullWidth
+              value={userPhone}
+              onChange={handleUserPhone}
+              error={userPhoneError}
             />
           </GridCard>
 
@@ -211,6 +230,8 @@ const Reservation = ({ history, location }) => {
             {`방문 장소  : ${loc !== null && `${loc.label} 클러스터`}`}
             <br />
             {`방문자 이름 : ${userName}`}
+            <br />
+            {`방문자 번호 : ${userPhone}`}
             <br />
             {`방문 목적  : ${purpose}`}
           </DialogContentText>

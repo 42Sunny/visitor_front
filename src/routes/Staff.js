@@ -113,7 +113,6 @@ const Staff = ({ location }) => {
             <Typography variant="h4">방문 신청 대기</Typography>
             <Grid container className={styles.applicationContainer} spacing={2}>
               {data.map((element) => {
-                console.log(element);
                 const key = `${element.enterDate} - ${element.exitTime}`;
                 return (
                   <GridCard item xs={12} key={key}>
@@ -156,6 +155,12 @@ const Staff = ({ location }) => {
                       <Typography variant="h5">방문자 이름</Typography>
                       <Typography>
                         {element !== null && `${element.userName}`}
+                      </Typography>
+                    </Box>
+                    <Box className={styles.applicationBox}>
+                      <Typography variant="h5">방문자 번호</Typography>
+                      <Typography>
+                        {element !== null && `${element.userPhone}`}
                       </Typography>
                     </Box>
                     <Box className={styles.applicationBox}>

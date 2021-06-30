@@ -1,11 +1,32 @@
 .title {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
 	flex-direction: row;
 }
 
 .dataBox {
-	height: 20vh;
+	height: 50vh;
 	width: 100%;
+	margin-bottom: 5vh;
+}
+
+.waitAvatar {
+	background-color: gray;
+}
+
+.rejectAvatar {
+	background-color: red;
+}
+
+.acceptAvatar {
+	background-color: green;
+}
+
+.progressAvatar {
+	background-color: greenyellow;
+}
+
+.finishAvatar {
+	background-color: black;
 }

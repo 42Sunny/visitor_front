@@ -95,6 +95,11 @@ const ApplicationResult = ({ match }) => {
         </GridCard>
 
         <GridCard item xs={12}>
+          <Typography variant="h5">방문자 번호</Typography>
+          <Typography>{data !== null && `${data.userPhone}`}</Typography>
+        </GridCard>
+
+        <GridCard item xs={12}>
           <Typography variant="h5">방문 목적</Typography>
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>

@@ -5,9 +5,21 @@ import { Link } from 'react-router-dom';
 import { encrypt } from 'tools/dataHandler';
 import GridCard from 'components/GridCard';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [staff, setStaff] = useState("");
+  const [staffError, setStaffError] = useState(false);
   const handleStaffName = (event) => setStaff(event.target.value);
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    if (staff === "")
+      setStaffError(true);
+    else
+      if (staff.admin === 0)
+        history.push(`/staff?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`);
+      else
+        history.push(`/admin?admin=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`);
+  }
 
   return (
     <Container maxWidth="sm">
@@ -18,7 +30,11 @@ const Login = () => {
             select
             fullWidth
             value={staff}
-            onChange={handleStaffName}
+            onChange={(event) => {
+              handleStaffName(event);
+              setStaffError(false);
+            }}
+            error={staffError}
           >
             {staffs.map((staff) => {
               const suffix = staffSuffix[staff.role];
@@ -31,9 +47,7 @@ const Login = () => {
           </TextField>
         </GridCard>
         <Grid item xs={12}>
-          <Link to={staff.admin === 0 ? `/staff?staff=${encrypt(staff, process.env.REACT_APP_AES_KEY)}` : `/admin?admin=${encrypt(staff, process.env.REACT_APP_AES_KEY)}`} className={`link`}>
-            <Button variant="contained" color="primary">로그인</Button>
-          </Link>
+          <Button variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
         </Grid>
       </Grid>
     </Container>

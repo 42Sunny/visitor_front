@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Container, Box, Typography, Button } from "@material-ui/core";
+import { Container, Box, Typography, Button, Avatar } from "@material-ui/core";
 import styles from "styles/Admin.module.css";
 import { decrypt } from "tools/dataHandler";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
+import { staffSuffix } from "data/staff";
 
-const useData = () => {
+const getStaffName = ({ value }) => {
+  return `${value.label} ${staffSuffix[value.role]}`;
+}
+
+const getAvatar = ({ value }) => {
+  if (value === "wait")
+    return <Avatar className={styles.waitAvatar}>대기</Avatar>;
+  if (value === "reject")
+    return <Avatar className={styles.rejectAvatar}>거절</Avatar>;
+  if (value === "progress")
+    return <Avatar className={styles.progressAvatar}>진행</Avatar>;
+  if (value === "accept")
+    return <Avatar className={styles.acceptAvatar}>수락</Avatar>;
+  if (value === "finish")
+    return <Avatar className={styles.finishAvatar}>종료</Avatar>;
+  return null;
+}
+
+const useData = (admin) => {
+  const [raw, setRaw] = useState([]);
   const [data, setData] = useState([]);
   const [waitData, setWaitData] = useState([]);
   const [acceptData, setAcceptData] = useState([]);
@@ -15,11 +35,15 @@ const useData = () => {
 
   useEffect(() => {
     const data = JSON.parse(window.localStorage.getItem("reservation"));
-    setData(data);
-  }, []);
+    setRaw(data);
+    if (data !== null) {
+      const selectedData = data.filter((elem) => (elem.loc.label === (admin !== null && admin.label)))
+      setData(selectedData);
+    }
+  }, [admin]);
 
   useEffect(() => {
-    if (data !== null) {
+    if (data !== []) {
       setWaitData(data.filter((d) => d.state === "wait"));
       setAcceptData(data.filter((d) => d.state === "accept"));
       setRejectData(data.filter((d) => d.state === "reject"));
@@ -28,53 +52,55 @@ const useData = () => {
     }
   }, [data]);
 
-  return { data, waitData, acceptData, rejectData, finishData, progressData };
+  return { raw, data, waitData, acceptData, rejectData, finishData, progressData };
 };
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 100 },
   {
-    field: 'firstName',
-    headerName: 'First name',
+    field: 'state',
+    headerName: '상태',
+    width: 120,
+    renderCell: (params) => (
+      getAvatar(params)
+    ),
+  },
+  {
+    field: 'enterDate',
+    headerName: '방문 날짜',
     width: 150,
-    editable: true,
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
+    field: 'enterTime',
+    headerName: '입장 시간',
     width: 150,
-    editable: true,
   },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true,
+    field: 'exitTime',
+    headerName: '퇴장 시간',
+    width: 150,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.getValue(params.id, 'firstName') || ''} ${
-        params.getValue(params.id, 'lastName') || ''
-      }`,
+    field: 'staff',
+    headerName: '방문 대상',
+    width: 150,
+    valueGetter: getStaffName,
   },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  {
+    field: 'userName',
+    headerName: '방문자 이름',
+    width: 150,
+  },
+  {
+    field: 'userPhone',
+    headerName: '방문자 번호',
+    width: 150,
+  },
+  {
+    field: 'purpose',
+    headerName: '방문 목적',
+    width: 150,
+  },
 ];
 
 const Admin = ({ location }) => {
@@ -82,7 +108,7 @@ const Admin = ({ location }) => {
     decrypt(location.search.slice(7), process.env.REACT_APP_AES_KEY)
   )[0];
   const { data, waitData, acceptData, rejectData, finishData, progressData } =
-    useData();
+    useData(admin);
 
   return (
     <Container maxWidth="xl">
@@ -95,14 +121,74 @@ const Admin = ({ location }) => {
         </Link>
       </Box>
       <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 신청 승인 대기</Typography>
+        <Typography variant="h4">방문 현황</Typography>
         <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+          rows={data}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 신청 대기</Typography>
+        <DataGrid
+          rows={waitData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 신청 수락</Typography>
+        <DataGrid
+          rows={acceptData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 신청 거절</Typography>
+        <DataGrid
+          rows={rejectData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 신청 수락</Typography>
+        <DataGrid
+          rows={acceptData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 진행</Typography>
+        <DataGrid
+          rows={progressData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </Box>
+      <Box className={styles.dataBox}>
+        <Typography variant="h4">방문 완료</Typography>
+        <DataGrid
+          rows={finishData}
+          columns={columns}
+          pageSize={100}
+          checkboxSelection
+          disableSelectionOnClick
+        />
       </Box>
     </Container>
   );
