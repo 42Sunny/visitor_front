@@ -5,6 +5,8 @@ import { decrypt } from "tools/dataHandler";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { staffSuffix } from "data/staff";
+import ApplicationForAdmin from "components/ApplicationForAdmin";
+
 
 const getStaffName = ({ value }) => {
   return `${value.label} ${staffSuffix[value.role]}`;
@@ -14,17 +16,17 @@ const getAvatar = ({ value }) => {
   if (value === "wait")
     return <Avatar>대기</Avatar>;
   if (value === "reject")
-    return <Avatar style={{backgroundColor: "red"}}>거절</Avatar>;
+    return <Avatar style={{ backgroundColor: "red" }}>거절</Avatar>;
   if (value === "progress")
-    return <Avatar style={{backgroundColor: "#009b00"}}>진행</Avatar>;
+    return <Avatar style={{ backgroundColor: "#009b00" }}>진행</Avatar>;
   if (value === "accept")
-    return <Avatar style={{backgroundColor: "#007b00"}}>수락</Avatar>;
+    return <Avatar style={{ backgroundColor: "#cbcb00" }}>수락</Avatar>;
   if (value === "finish")
-    return <Avatar style={{backgroundColor: "black"}}>종료</Avatar>;
+    return <Avatar style={{ backgroundColor: "black" }}>종료</Avatar>;
   return null;
 }
 
-const useData = (admin) => {
+const useData = (admin, createOpen) => {
   const [raw, setRaw] = useState([]);
   const [data, setData] = useState([]);
   const [waitData, setWaitData] = useState([]);
@@ -40,7 +42,7 @@ const useData = (admin) => {
       const selectedData = data.filter((elem) => (elem.loc.label === (admin !== null && admin.label)))
       setData(selectedData);
     }
-  }, [admin]);
+  }, [admin, createOpen]);
 
   useEffect(() => {
     if (data !== []) {
@@ -56,7 +58,6 @@ const useData = (admin) => {
 };
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
   {
     field: 'state',
     headerName: '상태',
@@ -101,92 +102,122 @@ const columns = [
     headerName: '방문 목적',
     width: 150,
   },
+  {
+    field: 'id',
+    headerName: '관리',
+    renderCell: (params) => (
+      <Box>
+        <Button variant="contained" color="primary">수정</Button>
+        <Button variant="contained" color="secondary">삭제</Button>
+      </Box>
+    ),
+    width: 200,
+    sortable: false,
+  }
 ];
 
 const Admin = ({ location }) => {
   const admin = useState(
     decrypt(location.search.slice(7), process.env.REACT_APP_AES_KEY)
   )[0];
+  const [createOpen, setCreateOpen] = useState(false);
   const { data, waitData, acceptData, rejectData, finishData, progressData } =
-    useData(admin);
+    useData(admin, createOpen);
+
+  const handleCreateClose = () => {
+    setCreateOpen(false);
+  };
+
+  const handleCreateOpen = () => {
+    setCreateOpen(true);
+  }
 
   return (
-    <Container maxWidth="xl">
-      <Box className={styles.title}>
-        <Typography variant="h2">{`${admin.label} 관리자`}</Typography>
-        <Link to={`/`} className={`link`}>
-          <Button color="secondary" variant="contained">
-            <Typography variant="h6">로그아웃</Typography>
-          </Button>
-        </Link>
-      </Box>
+    <>
+      <Container maxWidth="xl">
+        <Box className={styles.title}>
+          <Typography variant="h2">{`${admin.label} 관리자`}</Typography>
+          <Box>
+            <Button variant="contained" color="primary" onClick={handleCreateOpen}>
+              <Typography variant="h6" onClick={handleCreateOpen}>방문 신청</Typography>
+            </Button>
+            <Link to={`/`} className={`link`}>
+              <Button color="secondary" variant="contained">
+                <Typography variant="h6">로그아웃</Typography>
+              </Button>
+            </Link>
+          </Box>
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 현황</Typography>
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+        <Box className={styles.dataBoxMain}>
+          <Typography variant="h4">방문 현황</Typography>
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 신청 대기</Typography>
-        <DataGrid
-          rows={waitData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+        <Box className={styles.dataBox}>
+          <Typography variant="h4">방문 신청 대기</Typography>
+          <DataGrid
+            rows={waitData}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 신청 수락</Typography>
-        <DataGrid
-          rows={acceptData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+        <Box className={styles.dataBox}>
+          <Typography variant="h4">방문 신청 수락</Typography>
+          <DataGrid
+            rows={acceptData}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 신청 거절</Typography>
-        <DataGrid
-          rows={rejectData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+        <Box className={styles.dataBox}>
+          <Typography variant="h4">방문 신청 거절</Typography>
+          <DataGrid
+            rows={rejectData}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 진행</Typography>
-        <DataGrid
-          rows={progressData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+        <Box className={styles.dataBox}>
+          <Typography variant="h4">방문 진행</Typography>
+          <DataGrid
+            rows={progressData}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
 
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 완료</Typography>
-        <DataGrid
-          rows={finishData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
-    </Container>
+        <Box className={styles.dataBox}>
+          <Typography variant="h4">방문 완료</Typography>
+          <DataGrid
+            rows={finishData}
+            columns={columns}
+            pageSize={100}
+            checkboxSelection
+            disableSelectionOnClick
+          />
+        </Box>
+      </Container>
+
+      <ApplicationForAdmin open={createOpen} onClose={handleCreateClose}/>
+    </>
   );
 };
 
