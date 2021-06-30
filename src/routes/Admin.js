@@ -12,15 +12,15 @@ const getStaffName = ({ value }) => {
 
 const getAvatar = ({ value }) => {
   if (value === "wait")
-    return <Avatar className={styles.waitAvatar}>대기</Avatar>;
+    return <Avatar>대기</Avatar>;
   if (value === "reject")
-    return <Avatar className={styles.rejectAvatar}>거절</Avatar>;
+    return <Avatar style={{backgroundColor: "red"}}>거절</Avatar>;
   if (value === "progress")
-    return <Avatar className={styles.progressAvatar}>진행</Avatar>;
+    return <Avatar style={{backgroundColor: "#009b00"}}>진행</Avatar>;
   if (value === "accept")
-    return <Avatar className={styles.acceptAvatar}>수락</Avatar>;
+    return <Avatar style={{backgroundColor: "#007b00"}}>수락</Avatar>;
   if (value === "finish")
-    return <Avatar className={styles.finishAvatar}>종료</Avatar>;
+    return <Avatar style={{backgroundColor: "black"}}>종료</Avatar>;
   return null;
 }
 
@@ -120,6 +120,7 @@ const Admin = ({ location }) => {
           </Button>
         </Link>
       </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 현황</Typography>
         <DataGrid
@@ -130,6 +131,7 @@ const Admin = ({ location }) => {
           disableSelectionOnClick
         />
       </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 신청 대기</Typography>
         <DataGrid
@@ -140,6 +142,7 @@ const Admin = ({ location }) => {
           disableSelectionOnClick
         />
       </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 신청 수락</Typography>
         <DataGrid
@@ -150,6 +153,7 @@ const Admin = ({ location }) => {
           disableSelectionOnClick
         />
       </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 신청 거절</Typography>
         <DataGrid
@@ -160,16 +164,7 @@ const Admin = ({ location }) => {
           disableSelectionOnClick
         />
       </Box>
-      <Box className={styles.dataBox}>
-        <Typography variant="h4">방문 신청 수락</Typography>
-        <DataGrid
-          rows={acceptData}
-          columns={columns}
-          pageSize={100}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 진행</Typography>
         <DataGrid
@@ -180,6 +175,7 @@ const Admin = ({ location }) => {
           disableSelectionOnClick
         />
       </Box>
+
       <Box className={styles.dataBox}>
         <Typography variant="h4">방문 완료</Typography>
         <DataGrid

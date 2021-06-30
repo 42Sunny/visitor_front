@@ -10,23 +10,3 @@
 	width: 100%;
 	margin-bottom: 5vh;
 }
-
-.waitAvatar {
-	background-color: gray;
-}
-
-.rejectAvatar {
-	background-color: red;
-}
-
-.acceptAvatar {
-	background-color: green;
-}
-
-.progressAvatar {
-	background-color: greenyellow;
-}
-
-.finishAvatar {
-	background-color: black;
-}
