@@ -241,6 +241,12 @@ const Staff = ({ location }) => {
                       </Typography>
                     </Box>
                     <Box className={styles.applicationBox}>
+                      <Typography variant="h5">방문자 번호</Typography>
+                      <Typography>
+                        {element !== null && `${element.userPhone}`}
+                      </Typography>
+                    </Box>
+                    <Box className={styles.applicationBox}>
                       <Typography variant="h5">방문 목적</Typography>
                       <Typography>
                         {element !== null && `${element.purpose}`}
