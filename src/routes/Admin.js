@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { staffSuffix } from "data/staff";
 import ApplicationForAdmin from "components/ApplicationForAdmin";
+import UpdateForAdmin from "components/UpdateForAdmin";
 
 
 const getStaffName = ({ value }) => {
@@ -26,7 +27,7 @@ const getAvatar = ({ value }) => {
   return null;
 }
 
-const useData = (admin, createOpen) => {
+const useData = (admin, createOpen, updateOpen) => {
   const [raw, setRaw] = useState([]);
   const [data, setData] = useState([]);
   const [waitData, setWaitData] = useState([]);
@@ -42,7 +43,7 @@ const useData = (admin, createOpen) => {
       const selectedData = data.filter((elem) => (elem.loc.label === (admin !== null && admin.label)))
       setData(selectedData);
     }
-  }, [admin, createOpen]);
+  }, [admin, createOpen, updateOpen]);
 
   useEffect(() => {
     if (data !== []) {
@@ -57,72 +58,15 @@ const useData = (admin, createOpen) => {
   return { raw, data, waitData, acceptData, rejectData, finishData, progressData };
 };
 
-const columns = [
-  {
-    field: 'state',
-    headerName: '상태',
-    width: 120,
-    renderCell: (params) => (
-      getAvatar(params)
-    ),
-  },
-  {
-    field: 'enterDate',
-    headerName: '방문 날짜',
-    width: 150,
-  },
-  {
-    field: 'enterTime',
-    headerName: '입장 시간',
-    width: 150,
-  },
-  {
-    field: 'exitTime',
-    headerName: '퇴장 시간',
-    width: 150,
-  },
-  {
-    field: 'staff',
-    headerName: '방문 대상',
-    width: 150,
-    valueGetter: getStaffName,
-  },
-  {
-    field: 'userName',
-    headerName: '방문자 이름',
-    width: 150,
-  },
-  {
-    field: 'userPhone',
-    headerName: '방문자 번호',
-    width: 150,
-  },
-  {
-    field: 'purpose',
-    headerName: '방문 목적',
-    width: 150,
-  },
-  {
-    field: 'id',
-    headerName: '관리',
-    renderCell: (params) => (
-      <Box>
-        <Button variant="contained" color="primary">수정</Button>
-        <Button variant="contained" color="secondary">삭제</Button>
-      </Box>
-    ),
-    width: 200,
-    sortable: false,
-  }
-];
-
 const Admin = ({ location }) => {
   const admin = useState(
     decrypt(location.search.slice(7), process.env.REACT_APP_AES_KEY)
   )[0];
   const [createOpen, setCreateOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
   const { data, waitData, acceptData, rejectData, finishData, progressData } =
-    useData(admin, createOpen);
+    useData(admin, createOpen, updateOpen);
 
   const handleCreateClose = () => {
     setCreateOpen(false);
@@ -131,6 +75,76 @@ const Admin = ({ location }) => {
   const handleCreateOpen = () => {
     setCreateOpen(true);
   }
+
+  const handleUpdateClose = () => {
+    setUpdateOpen(false);
+  };
+
+  const handleUpdateOpen = () => {
+    setUpdateOpen(true);
+  }
+
+  const columns = [
+    {
+      field: 'state',
+      headerName: '상태',
+      width: 120,
+      renderCell: (params) => (
+        getAvatar(params)
+      ),
+    },
+    {
+      field: 'enterDate',
+      headerName: '방문 날짜',
+      width: 150,
+    },
+    {
+      field: 'enterTime',
+      headerName: '입장 시간',
+      width: 150,
+    },
+    {
+      field: 'exitTime',
+      headerName: '퇴장 시간',
+      width: 150,
+    },
+    {
+      field: 'staff',
+      headerName: '방문 대상',
+      width: 150,
+      valueGetter: getStaffName,
+    },
+    {
+      field: 'userName',
+      headerName: '방문자 이름',
+      width: 150,
+    },
+    {
+      field: 'userPhone',
+      headerName: '방문자 번호',
+      width: 150,
+    },
+    {
+      field: 'purpose',
+      headerName: '방문 목적',
+      width: 150,
+    },
+    {
+      field: 'id',
+      headerName: '관리',
+      renderCell: (params) => (
+        <Box>
+          <Button variant="contained" color="primary" onClick={() => {
+            setSelectedData(data[params.value]);
+            handleUpdateOpen();
+          }}>수정</Button>
+          <Button variant="contained" color="secondary">삭제</Button>
+        </Box>
+      ),
+      width: 200,
+      sortable: false,
+    }
+  ];
 
   return (
     <>
@@ -216,7 +230,8 @@ const Admin = ({ location }) => {
         </Box>
       </Container>
 
-      <ApplicationForAdmin open={createOpen} onClose={handleCreateClose}/>
+      <ApplicationForAdmin open={createOpen} onClose={handleCreateClose} />
+      <UpdateForAdmin open={updateOpen} onClose={handleUpdateClose} {...selectedData} />
     </>
   );
 };
