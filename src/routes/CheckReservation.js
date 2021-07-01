@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Container, Typography, Box, Grid, Button, Avatar } from '@material-ui/core';
+import { TextField, Container, Typography, Box, Grid, Button } from '@material-ui/core';
 import { useStyles } from 'styles/CheckReservationStyle';
 import { staffSuffix } from 'data/staff';
 import { getStateAvatar } from 'tools/getStateAvatar';
@@ -51,7 +51,7 @@ const CheckReservation = ({ history }) => {
     history.go(-1);
   }
 
-  const handleCheckClick = (elem) => {
+  const handleClickAvatar = (elem) => {
     const id = elem.id;
     setResultIdx(id);
     setResultOpen(true);
@@ -113,7 +113,7 @@ const CheckReservation = ({ history }) => {
                     <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.exitTime}</Typography></Grid>
                     <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.loc.label}</Typography></Grid>
                     <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{`${elem.staff.label} ${staffSuffix[elem.staff.role]}`}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Button onClick={() => { handleCheckClick(elem); }}>{getStateAvatar(elem.state)}</Button></Grid>
+                    <Grid item xs={2} className={styles.checkElem}><Button onClick={() => { handleClickAvatar(elem); }}>{getStateAvatar(elem.state)}</Button></Grid>
                   </Grid>
                 ))}
               </>
@@ -123,7 +123,7 @@ const CheckReservation = ({ history }) => {
       </Container>
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-          <ApplicationResult idx={resultIdx}/>
+          <ApplicationResult idx={resultIdx} onRefresh={handleCheck} onClose={handleResultClose}/>
         </DialogContent>
       </Dialog>
     </>

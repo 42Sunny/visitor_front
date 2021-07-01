@@ -281,7 +281,7 @@ const Application = ({ history }) => {
       </Dialog>
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-          <ApplicationResult idx={resultIdx} />
+          <ApplicationResult idx={resultIdx} onClose={handleResultClose}/>
         </DialogContent>
       </Dialog>
     </>

@@ -11,5 +11,7 @@ export const getStateAvatar = (state) => {
     return <Avatar style={{ backgroundColor: "#cbcb00" }}>수락</Avatar>;
   if (state === "finish")
     return <Avatar style={{ backgroundColor: "black" }}>종료</Avatar>;
+    if (state === "cancel")
+    return <Avatar style={{ backgroundColor: "black" }}>취소</Avatar>;
   return null;
 }
