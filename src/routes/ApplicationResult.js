@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import styles from "styles/ApplicationResult.module.css";
 import { encrypt } from "tools/dataHandler";
 
-const ApplicationResult = ({ match }) => {
+const ApplicationResult = (props) => {
   const [data, setData] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -28,7 +28,9 @@ const ApplicationResult = ({ match }) => {
   };
 
   const init = () => {
-    const data = getData(match.params.number);
+    if (props.idx === -1)
+      return ;
+    const data = getData(props.idx);
     setData(data);
     setIsActive(data.state === "accept");
   }
@@ -103,12 +105,6 @@ const ApplicationResult = ({ match }) => {
           <Typography variant="h5">방문 목적</Typography>
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>
-
-        <Grid item xs={12}>
-          <Link to="/" className={`link`}>
-            <Button color="primary" variant="contained">인덱스로 돌아가기</Button>
-          </Link>
-        </Grid>
       </Grid>
     </Container>
   );

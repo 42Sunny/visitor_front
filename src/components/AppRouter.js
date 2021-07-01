@@ -4,8 +4,6 @@ import Admin from 'routes/Admin';
 import Staff from 'routes/Staff';
 import Application from 'routes/Application';
 import Reservation from 'routes/Reservation';
-import ApplicationResult from 'routes/ApplicationResult';
-import ReservationResult from 'routes/ReservationResult';
 import QR from 'routes/QR';
 import Login from 'routes/Login';
 import CheckReservation from 'routes/CheckReservation';
@@ -16,8 +14,6 @@ const AppRouter = () => <Router>
     <Route path='/admin' exact component={Admin} />
     <Route path='/staff' exact component={Staff} />
     <Route path='/application' exact component={Application} />
-    <Route path='/application-result/:number' exact component={ApplicationResult} />
-    <Route path='/reservation-result/:number' exact component={ReservationResult} />
     <Route path='/check-reservation' exact component={CheckReservation} />
     <Route path='/reservation' exact component={Reservation} />
     <Route path='/login' exact component={Login} />

@@ -6,23 +6,10 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { staffSuffix } from "data/staff";
 import ApplicationForAdmin from "components/ApplicationForAdmin";
+import { getStateAvatar } from "tools/getStateAvatar";
 
 const getStaffName = ({ value }) => {
   return `${value.label} ${staffSuffix[value.role]}`;
-}
-
-const getAvatar = ({ value }) => {
-  if (value === "wait")
-    return <Avatar>대기</Avatar>;
-  if (value === "reject")
-    return <Avatar style={{ backgroundColor: "red" }}>거절</Avatar>;
-  if (value === "progress")
-    return <Avatar style={{ backgroundColor: "#009b00" }}>진행</Avatar>;
-  if (value === "accept")
-    return <Avatar style={{ backgroundColor: "#cbcb00" }}>수락</Avatar>;
-  if (value === "finish")
-    return <Avatar style={{ backgroundColor: "black" }}>종료</Avatar>;
-  return null;
 }
 
 const useData = (admin, createOpen, updateOpen) => {
@@ -84,7 +71,7 @@ const Admin = ({ location }) => {
       headerName: '상태',
       width: 120,
       renderCell: (params) => (
-        getAvatar(params)
+        getStateAvatar(params.value)
       ),
     },
     {

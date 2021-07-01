@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import styles from "styles/ReservationResult.module.css";
 import { encrypt } from "tools/dataHandler";
 
-const ReservationResult = ({ match, history }) => {
+const ReservationResult = (props) => {
   const [data, setData] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -25,7 +25,7 @@ const ReservationResult = ({ match, history }) => {
   };
 
   const init = () => {
-    const data = getData(match.params.number);
+    const data = getData(props.idx);
     setData(data);
     setIsActive(data.state === "accept");
   };
@@ -40,7 +40,7 @@ const ReservationResult = ({ match, history }) => {
   };
 
   const handleBack = () => {
-    history.go(-2);
+    props.history.go(-2);
   }
 
   return (
@@ -102,12 +102,6 @@ const ReservationResult = ({ match, history }) => {
           <Typography variant="h5">방문 목적</Typography>
           <Typography>{data !== null && `${data.purpose}`}</Typography>
         </GridCard>
-
-        <Grid item xs={3}>
-          <Button color="primary" variant="contained" onClick={handleBack}>
-            돌아가기
-          </Button>
-        </Grid>
       </Grid>
     </Container>
   );

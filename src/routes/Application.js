@@ -20,19 +20,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
 import { locItems } from "data/location";
+import ApplicationResult from "./ApplicationResult";
 
 registerLocale("ko", ko);
 
 const Application = ({ history }) => {
   const [staff, setStaff] = useState("");
   const [loc, setLoc] = useState("");
+  const [resultIdx, setResultIdx] = useState(-1);
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [enterDate, setEnterDate] = useState(new Date());
   const [enterTime, setEnterTime] = useState(new Date());
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
-  const [submitOpen, setOpen] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
+  const [resultOpen, setResultOpen] = useState(false);
 
   const handleStaffName = (event) => setStaff(event.target.value);
   const handleUserName = (event) => setUserName(event.target.value);
@@ -42,8 +45,11 @@ const Application = ({ history }) => {
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
-  const handleClickOpen = () => setOpen(checkValues(staff, userName, purpose));
-  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setSubmitOpen(checkValues(staff, userName, purpose));
+  const handleClose = () => setSubmitOpen(false);
+  const handleResultClose = () => {
+    history.push("/");
+  }
 
   const [staffNameError, setStaffNameError] = useState(false);
   const [userNameError, setUserNameError] = useState(false);
@@ -64,7 +70,9 @@ const Application = ({ history }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const length = postData();
-    history.push(`/application-result/${length - 1}`);
+    setResultIdx(length - 1);
+    setSubmitOpen(false);
+    setResultOpen(true);
   };
 
   const handleCancel = (event) => {
@@ -270,6 +278,11 @@ const Application = ({ history }) => {
             신청
           </Button>
         </DialogActions>
+      </Dialog>
+      <Dialog open={resultOpen} onClose={handleResultClose}>
+        <DialogContent>
+          <ApplicationResult idx={resultIdx} />
+        </DialogContent>
       </Dialog>
     </>
   );

@@ -17,17 +17,20 @@ import DatePicker from "react-datepicker";
 import styles from "styles/Reservation.module.css";
 import { decrypt } from "tools/dataHandler";
 import { locItems } from "data/location";
+import ReservationResult from "./ReservationResult";
 
 const Reservation = ({ history, location }) => {
   const [staff, setStaff] = useState("");
   const [userName, setUserName] = useState("");
+  const [resultIdx, setResultIdx] = useState(-1);
   const [enterDate, setEnterDate] = useState(new Date());
   const [enterTime, setEnterTime] = useState(new Date());
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
-  const [submitOpen, setOpen] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
   const [loc, setLoc] = useState("");
   const [userPhone, setUserPhone] = useState("");
+  const [resultOpen, setResultOpen] = useState(false);
   
   const handleUserName = (event) => setUserName(event.target.value);
   const handleUserPhone = (event) => setUserPhone(event.target.value);
@@ -36,8 +39,11 @@ const Reservation = ({ history, location }) => {
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
-  const handleClickOpen = () => setOpen(checkValues(userName, purpose));
-  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setSubmitOpen(checkValues(userName, purpose));
+  const handleClose = () => setSubmitOpen(false);
+  const handleResultClose = () => {
+    history.go(-1);
+  }
   
   const [userNameError, setUserNameError] = useState(false);
   const [userPhoneError, setUserPhoneError] = useState(false);
@@ -56,7 +62,9 @@ const Reservation = ({ history, location }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const length = postData();
-    history.push(`/reservation-result/${length - 1}`);
+    setResultIdx(length - 1);
+    setSubmitOpen(false);
+    setResultOpen(true);
   };
 
   const handleCancel = (event) => {
@@ -244,6 +252,12 @@ const Reservation = ({ history, location }) => {
             신청
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog open={resultOpen} onClose={handleResultClose}>
+        <DialogContent>
+          <ReservationResult idx={resultIdx} />
+        </DialogContent>
       </Dialog>
     </>
   );
