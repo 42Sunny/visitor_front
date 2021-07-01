@@ -105,10 +105,8 @@ const ApplicationForAdmin = (props) => {
 
   return (
     <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title" fullWidth>
-      <DialogTitle>
-        <Typography variant="h3">방문 신청</Typography>
-      </DialogTitle>
       <DialogContent>
+        <Typography variant="h3">방문 신청</Typography>
         <Grid container spacing={2}>
           <GridCard item xs={12}>
             <Typography variant="h5">상태</Typography>

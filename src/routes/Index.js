@@ -11,6 +11,11 @@ const Index = () => (
         <Typography variant="h5">방문 예약 신청</Typography>
       </Button>
     </Link>
+    <Link to="check-reservation" className={`${styles.link} link`}>
+      <Button variant="contained" color="primary">
+        <Typography variant="h5">방문 예약 조회</Typography>
+      </Button>
+    </Link>
     <Link to="login" className={`${styles.link} link`}>
       <Button variant="contained" color="primary">
         <Typography variant="h5">직원 로그인</Typography>

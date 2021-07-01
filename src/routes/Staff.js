@@ -193,7 +193,7 @@ const Staff = ({ location }) => {
             </Grid>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h4">방문 예약</Typography>
+            <Typography variant="h4">수락된 방문</Typography>
             <Grid container className={styles.applicationContainer} spacing={2}>
               {acceptedData.map((element) => {
                 const key = element.id;

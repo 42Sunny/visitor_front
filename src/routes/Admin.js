@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { staffSuffix } from "data/staff";
 import ApplicationForAdmin from "components/ApplicationForAdmin";
-import UpdateForAdmin from "components/UpdateForAdmin";
-
 
 const getStaffName = ({ value }) => {
   return `${value.label} ${staffSuffix[value.role]}`;
@@ -64,7 +62,6 @@ const Admin = ({ location }) => {
   )[0];
   const [createOpen, setCreateOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
   const { data, waitData, acceptData, rejectData, finishData, progressData } =
     useData(admin, createOpen, updateOpen);
 
@@ -76,29 +73,11 @@ const Admin = ({ location }) => {
     setCreateOpen(true);
   }
   
-  const handleUpdateClose = () => {
-    setUpdateOpen(false);
-  };
-  
-  const handleUpdateOpen = () => {
-    setUpdateOpen(true);
-  }
-  
   const columns = [
     {
       field: 'id',
       headerName: 'ID',
-      // renderCell: (params) => (
-      //   <Box>
-      //     <Button variant="contained" color="primary" onClick={() => {
-      //       setSelectedData(data[params.value]);
-      //       handleUpdateOpen();
-      //     }}>수정</Button>
-      //     <Button variant="contained" color="secondary">삭제</Button>
-      //   </Box>
-      // ),
       width: 200,
-      // sortable: false,
     },
     {
       field: 'state',
@@ -231,7 +210,6 @@ const Admin = ({ location }) => {
       </Container>
 
       <ApplicationForAdmin open={createOpen} onClose={handleCreateClose} />
-      {/* <UpdateForAdmin open={updateOpen} onClose={handleUpdateClose} {...selectedData} /> */}
     </>
   );
 };
