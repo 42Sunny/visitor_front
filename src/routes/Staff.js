@@ -50,7 +50,7 @@ const Staff = ({ location }) => {
     const reservations = JSON.parse(window.localStorage.getItem("reservation"));
     for (let idx = 0; idx < reservations.length; idx++) {
       if (
-        `${reservations[idx].enterDate} - ${reservations[idx].exitTime}` === key
+        reservations[idx].id === key
       ) {
         reservations[idx].state = "accept";
         break;
@@ -65,7 +65,7 @@ const Staff = ({ location }) => {
     const reservations = JSON.parse(window.localStorage.getItem("reservation"));
     for (let idx = 0; idx < reservations.length; idx++) {
       if (
-        `${reservations[idx].enterDate} - ${reservations[idx].exitTime}` === key
+        reservations[idx].id === key
       ) {
         reservations[idx].state = "reject";
         break;
@@ -79,7 +79,7 @@ const Staff = ({ location }) => {
     const reservations = JSON.parse(window.localStorage.getItem("reservation"));
     for (let idx = 0; idx < reservations.length; idx++) {
       if (
-        `${reservations[idx].enterDate} - ${reservations[idx].exitTime}` === key
+        reservations[idx].id === key
       ) {
         reservations[idx].state = "finish";
         break;
@@ -113,7 +113,7 @@ const Staff = ({ location }) => {
             <Typography variant="h4">방문 신청 대기</Typography>
             <Grid container className={styles.applicationContainer} spacing={2}>
               {data.map((element) => {
-                const key = `${element.enterDate} - ${element.exitTime}`;
+                const key = element.id;
                 return (
                   <GridCard item xs={12} key={key}>
                     <Box className={styles.applicationBox}>
@@ -196,7 +196,7 @@ const Staff = ({ location }) => {
             <Typography variant="h4">방문 예약</Typography>
             <Grid container className={styles.applicationContainer} spacing={2}>
               {acceptedData.map((element) => {
-                const key = `${element.enterDate} - ${element.exitTime}`;
+                const key = element.id;
                 return (
                   <GridCard item xs={12} key={key}>
                     <Box className={styles.applicationBox}>
