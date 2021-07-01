@@ -47,11 +47,9 @@ const ApplicationResult = (props) => {
     const data = JSON.parse(window.localStorage.getItem("reservation"));
     data[props.idx].state = "cancel";
     window.localStorage.setItem("reservation", JSON.stringify(data));
-    if (props.onRefresh !== undefined)
-      props.onRefresh();
+    if (props.onRefresh !== undefined) props.onRefresh();
+    if (props.onClose !== undefined) props.onClose();
     setData(data[props.idx]);
-    console.log(props);
-    props.onClose();
   };
 
   return (
