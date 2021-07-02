@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GridCard from "components/GridCard";
+
 import {
   Typography,
   TextField,
@@ -9,9 +9,10 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
-  DialogActions,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@material-ui/core";
 import { staffs, staffSuffix } from "data/staff";
 import DatePicker from "react-datepicker";
@@ -34,7 +35,6 @@ const Application = ({ history }) => {
   const [enterTime, setEnterTime] = useState(new Date());
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
-  const [submitOpen, setSubmitOpen] = useState(false);
   const [resultOpen, setResultOpen] = useState(false);
 
   const handleStaffName = (event) => setStaff(event.target.value);
@@ -45,8 +45,10 @@ const Application = ({ history }) => {
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
-  const handleClickOpen = () => setSubmitOpen(checkValues(staff, userName, purpose));
-  const handleClose = () => setSubmitOpen(false);
+  const handleClickSubmit = () => {
+    if (checkValues(staff, userName, purpose))
+      dataSubmit();
+  };
   const handleResultClose = () => {
     history.push("/");
   }
@@ -67,11 +69,9 @@ const Application = ({ history }) => {
     return !result;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const dataSubmit = () => {
     const length = postData();
     setResultIdx(length - 1);
-    setSubmitOpen(false);
     setResultOpen(true);
   };
 
@@ -90,7 +90,7 @@ const Application = ({ history }) => {
       enterDate: enterDate.toLocaleDateString("ko-KR", "P"),
       enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
       exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
-      loc,
+      loc: JSON.parse(loc),
       staff,
       userName,
       userPhone,
@@ -104,16 +104,10 @@ const Application = ({ history }) => {
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
-          <GridCard item xs={12}>
+          <Grid item xs={12}>
             <Typography variant="h3">방문 신청</Typography>
-            <br />
-            <Typography variant="h6">개포 클러스터</Typography>
-            <Typography>서울 강남구 개포로 416</Typography>
-            <Typography variant="h6">서초 클러스터</Typography>
-            <Typography>서울 서초구 강남대로 327 대륭서초타워 4층</Typography>
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">방문 날짜</Typography>
             <DatePicker
               selected={enterDate}
@@ -122,9 +116,8 @@ const Application = ({ history }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">입장 시간</Typography>
             <DatePicker
               selected={enterTime}
@@ -135,9 +128,8 @@ const Application = ({ history }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">퇴장 시간</Typography>
             <DatePicker
               selected={exitTime}
@@ -148,29 +140,18 @@ const Application = ({ history }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문 장소</Typography>
-            <TextField
-              select
-              fullWidth
-              value={loc}
-              onChange={handleLoc}
-              error={locError}
-            >
-              {locItems.map((item) => {
-                return (
-                  <MenuItem key={`${item.label}-${item.value}`} value={item}>
-                    {`${item.label} 클러스터`}
-                  </MenuItem>
-                );
-              })}
-            </TextField>
-          </GridCard>
-
-          <GridCard item xs={12}>
+            <FormControl component="fieldset" error={locError}>
+              <RadioGroup row aria-label="position" name="position" value={loc} onChange={handleLoc}>
+                {locItems.map((item) =>
+                  <FormControlLabel key={`${item.id}`} value={JSON.stringify(item)} control={<Radio color="primary" />} label={`${item.label}`}/>
+                )}
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문 대상</Typography>
             <TextField
               select
@@ -191,9 +172,8 @@ const Application = ({ history }) => {
                   return null;
               })}
             </TextField>
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문자 이름</Typography>
             <TextField
               fullWidth
@@ -201,9 +181,8 @@ const Application = ({ history }) => {
               onChange={handleUserName}
               error={userNameError}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문자 번호</Typography>
             <TextField
               fullWidth
@@ -211,9 +190,8 @@ const Application = ({ history }) => {
               onChange={handleUserPhone}
               error={userPhoneError}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문 목적</Typography>
             <TextField
               fullWidth
@@ -222,66 +200,26 @@ const Application = ({ history }) => {
               onChange={handlePurpose}
               error={purposeError}
             />
-          </GridCard>
-
+          </Grid>
           <Grid item xs={2}>
             <Button
               variant="contained"
-              color="primary"
-              onClick={handleClickOpen}
+              onClick={handleClickSubmit}
             >
-              <Typography variant="h5">제출</Typography>
+              제출
             </Button>
           </Grid>
           <Grid item xs={3}>
-            <Button variant="contained" color="primary" onClick={handleCancel}>
-              <Typography variant="h5">돌아가기</Typography>
+            <Button variant="contained" onClick={handleCancel}>
+              돌아가기
             </Button>
           </Grid>
         </Grid>
       </Container>
 
-      <Dialog
-        open={submitOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"아래 내용으로 신청하시겠습니까?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {`방문 날짜  : ${enterDate.toLocaleDateString("ko-KR", "P")}`}
-            <br />
-            {`입장 시간  : ${enterTime.toLocaleTimeString("ko-KR", "p")}`}
-            <br />
-            {`퇴장 시간  : ${exitTime.toLocaleTimeString("ko-KR", "p")}`}
-            <br />
-            {`방문 장소  : ${loc !== null && `${loc.label} 클러스터`}`}
-            <br />
-            {`방문 대상  : ${staff !== null && `${staff.label} ${staffSuffix[staff.role]}`
-              }`}
-            <br />
-            {`방문자 이름 : ${userName}`}
-            <br />
-            {`방문자 번호 : ${userPhone}`}
-            <br />
-            {`방문 목적  : ${purpose}`}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            취소
-          </Button>
-          <Button onClick={handleSubmit} color="primary" autoFocus>
-            신청
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-          <ApplicationResult idx={resultIdx} onClose={handleResultClose}/>
+          <ApplicationResult idx={resultIdx} onClose={handleResultClose} />
         </DialogContent>
       </Dialog>
     </>
