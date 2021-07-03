@@ -17,7 +17,7 @@ import DatePicker from "react-datepicker";
 import styles from "styles/Reservation.module.css";
 import { decrypt } from "tools/dataHandler";
 import { locItems } from "data/location";
-import ReservationResult from "./ReservationResult";
+import ReservationResult from "components/ReservationResult";
 
 const Reservation = ({ history, location }) => {
   const [staff, setStaff] = useState("");

@@ -5,4 +5,7 @@
 
 .container {
   padding-top: 1vh;
+  background-image: url("images/phone.png");
+  width: 20vh;
+  height: 30vh;
 }

@@ -1,27 +1,48 @@
 import React from "react";
-import { Button, Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "styles/Index.module.css";
+import logo42 from "images/42Seoul.png";
 
-const Index = () => (
+const useStyles = makeStyles({
+  menuButton: {
+    width: "10vh",
+    height: "10vh"
+  },
+  menuBox: {
+    display: "flex",
+    color: "white",
+  },
+  logo42: {
+    // backgroundColor: "black",
+    width: "34vh",
+  }
+})
+
+const Index = () => {
+  const classes = useStyles();
+  return (
   <Box className={styles.mainContainer}>
-    <Typography variant="h2">42서울 방문 신청</Typography>
+    <img src={logo42} alt="logo42" className={classes.logo42}/>
+    <Box className={classes.menuBox}>
     <Link to="application" className={`${styles.link} link`}>
-      <Button variant="contained" color="primary">
-        <Typography variant="h5">방문 예약 신청</Typography>
+      <Button variant="contained" className={classes.menuButton}>
+        <Typography variant="h5">방문 신청</Typography>
       </Button>
     </Link>
     <Link to="check-reservation" className={`${styles.link} link`}>
-      <Button variant="contained" color="primary">
-        <Typography variant="h5">방문 예약 조회</Typography>
+      <Button variant="contained" className={classes.menuButton}>
+        <Typography variant="h5">방문 조회</Typography>
       </Button>
     </Link>
     <Link to="login" className={`${styles.link} link`}>
-      <Button variant="contained" color="primary">
-        <Typography variant="h5">직원 로그인</Typography>
+      <Button variant="contained" className={classes.menuButton}>
+        <Typography variant="h5">직원<br/>로그인</Typography>
       </Button>
     </Link>
+    </Box>
   </Box>
-);
+  )
+  };
 
 export default Index;

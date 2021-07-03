@@ -47,6 +47,7 @@ const Login = ({ history }) => {
         </GridCard>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
+          <Button variant="contained" color="primary" onClick={()=>{history.go(-1)}}>돌아가기</Button>
         </Grid>
       </Grid>
     </Container>

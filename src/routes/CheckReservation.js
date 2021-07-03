@@ -5,7 +5,7 @@ import { staffSuffix } from 'data/staff';
 import { getStateAvatar } from 'tools/getStateAvatar';
 import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
-import ApplicationResult from './ApplicationResult';
+import ApplicationResult from 'components/ApplicationResult';
 
 const CheckReservation = ({ history }) => {
   const styles = useStyles();

@@ -13,19 +13,42 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  makeStyles,
+  Box,
 } from "@material-ui/core";
-import { staffs, staffSuffix } from "data/staff";
+import { staffs } from "data/staff";
 import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
 import { locItems } from "data/location";
-import ApplicationResult from "./ApplicationResult";
+import QR from "components/QR";
+import { encrypt } from "tools/dataHandler";
 
 registerLocale("ko", ko);
 
+const useStyles = makeStyles({
+  appContainer: {
+    marginTop: "20vh",
+    backgroundColor: "rgba( 255, 255, 255, 0.7 )",
+    borderRadius: "2vh",
+    padding: "3vh",
+  },
+  btns: {
+    marginTop: "1vh",
+    backgroundColor: "rgba( 255, 255, 255, 0 )",
+    width: "5vh",
+    height: "5vh",
+  },
+  btnsBox: {
+    display: "flex",
+    justifyContent: "space-between",
+  }
+})
+
 const Application = ({ history }) => {
+  const classes = useStyles();
   const [staff, setStaff] = useState("");
   const [loc, setLoc] = useState("");
   const [resultIdx, setResultIdx] = useState(-1);
@@ -36,6 +59,7 @@ const Application = ({ history }) => {
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
   const [resultOpen, setResultOpen] = useState(false);
+  const [data, setData] = useState(null);
 
   const handleStaffName = (event) => setStaff(event.target.value);
   const handleUserName = (event) => setUserName(event.target.value);
@@ -86,7 +110,7 @@ const Application = ({ history }) => {
     else prevData = JSON.parse(prevData);
     prevData.push({
       id: prevData.length,
-      state: "wait",
+      state: "accept",
       enterDate: enterDate.toLocaleDateString("ko-KR", "P"),
       enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
       exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
@@ -97,12 +121,13 @@ const Application = ({ history }) => {
       purpose,
     });
     window.localStorage.setItem("reservation", JSON.stringify(prevData));
+    const code = encrypt(prevData[prevData.length - 1], process.env.REACT_APP_AES_KEY);
+    setData(code);
     return prevData.length;
   };
-
   return (
     <>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className={classes.appContainer}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h3">방문 신청</Typography>
@@ -146,7 +171,7 @@ const Application = ({ history }) => {
             <FormControl component="fieldset" error={locError}>
               <RadioGroup row aria-label="position" name="position" value={loc} onChange={handleLoc}>
                 {locItems.map((item) =>
-                  <FormControlLabel key={`${item.id}`} value={JSON.stringify(item)} control={<Radio color="primary" />} label={`${item.label}`}/>
+                  <FormControlLabel key={`${item.id}`} value={JSON.stringify(item)} control={<Radio color="primary" />} label={`${item.label}`} />
                 )}
               </RadioGroup>
             </FormControl>
@@ -161,11 +186,10 @@ const Application = ({ history }) => {
               error={staffNameError}
             >
               {staffs.map((staff) => {
-                const suffix = staffSuffix[staff.role];
                 if (staff.admin === 0)
                   return (
                     <MenuItem key={`${staff.role}-${staff.value}`} value={staff}>
-                      {`${staff.label} ${suffix}`}
+                      {`${staff.label}`}
                     </MenuItem>
                   );
                 else
@@ -201,25 +225,31 @@ const Application = ({ history }) => {
               error={purposeError}
             />
           </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              onClick={handleClickSubmit}
-            >
-              제출
-            </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" onClick={handleCancel}>
-              돌아가기
-            </Button>
+          <Grid item xs={12}>
+            <Box className={classes.btnsBox}>
+              <Button
+                variant="contained"
+                onClick={handleCancel}
+                className={classes.btns}
+              >
+                <Typography variant="h4">{"<"}</Typography>
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleClickSubmit}
+                className={classes.btns}
+              >
+                <Typography variant="h4">{">"}</Typography>
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Container>
 
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-          <ApplicationResult idx={resultIdx} onClose={handleResultClose} />
+            {/* <ApplicationResult idx={resultIdx} onClose={handleResultClose} /> */}
+            <QR code={data} />
         </DialogContent>
       </Dialog>
     </>

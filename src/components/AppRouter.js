@@ -4,7 +4,7 @@ import Admin from 'routes/Admin';
 import Staff from 'routes/Staff';
 import Application from 'routes/Application';
 import Reservation from 'routes/Reservation';
-import QR from 'routes/QR';
+import QR from 'components/QR';
 import Login from 'routes/Login';
 import CheckReservation from 'routes/CheckReservation';
 
