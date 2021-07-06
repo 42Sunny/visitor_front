@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, TextField, Button, MenuItem } from '@material-ui/core';
-import { staffs, staffSuffix } from 'data/staff';
+import { Container, Grid, Typography, TextField, Button, MenuItem, makeStyles } from '@material-ui/core';
+import { staffs } from 'data/staff';
 import { encrypt } from 'tools/dataHandler';
-import GridCard from 'components/GridCard';
+
+const useStyles = makeStyles({
+  loginBox: {
+    marginTop: "40vh",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    padding: "3vh",
+    borderRadius: "2vh",
+  },
+  loginBtn: {
+    backgroundColor: "rgba(255, 255, 255, 0.0)",
+  }
+});
 
 const Login = ({ history }) => {
+  const classes = useStyles();
   const [staff, setStaff] = useState("");
   const [staffError, setStaffError] = useState(false);
   const handleStaffName = (event) => setStaff(event.target.value);
@@ -21,9 +33,9 @@ const Login = ({ history }) => {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className={classes.loginBox}>
       <Grid container spacing={1}>
-        <GridCard item xs={12}>
+        <Grid item xs={12}>
           <Typography variant="h3">로그인</Typography>
           <TextField
             select
@@ -36,18 +48,17 @@ const Login = ({ history }) => {
             error={staffError}
           >
             {staffs.map((staff) => {
-              const suffix = staffSuffix[staff.role];
               return (
                 <MenuItem key={`${staff.role}-${staff.value}`} value={staff}>
-                  {`${staff.label} ${suffix}`}
+                  {`${staff.label}`}
                 </MenuItem>
               );
             })}
           </TextField>
-        </GridCard>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
-          <Button variant="contained" color="primary" onClick={()=>{history.go(-1)}}>돌아가기</Button>
+          <Grid item xs={12}>
+            <Button variant="contained" className={classes.loginBtn} onClick={handleLogin}>로그인</Button>
+            <Button variant="contained" className={classes.loginBtn} onClick={() => { history.go(-1) }}>돌아가기</Button>
+          </Grid>
         </Grid>
       </Grid>
     </Container>

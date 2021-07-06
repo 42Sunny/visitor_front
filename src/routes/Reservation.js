@@ -1,37 +1,69 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Grid,
-  Typography,
-  Dialog,
-  Button,
-  TextField,
-  DialogContent,
-  DialogActions,
-  DialogContentText,
-  DialogTitle,
-  MenuItem,
-} from "@material-ui/core";
-import GridCard from "components/GridCard";
-import DatePicker from "react-datepicker";
-import styles from "styles/Reservation.module.css";
-import { decrypt } from "tools/dataHandler";
-import { locItems } from "data/location";
-import ReservationResult from "components/ReservationResult";
+import React, { useState } from "react";
 
-const Reservation = ({ history, location }) => {
+import {
+  Typography,
+  TextField,
+  Grid,
+  Container,
+  Button,
+  Dialog,
+  DialogContent,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  makeStyles,
+  Box,
+} from "@material-ui/core";
+import DatePicker from "react-datepicker";
+import { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "styles/Reservation.module.css";
+import ko from "date-fns/locale/ko";
+import { locItems } from "data/location";
+import QR from "components/QR";
+import { encrypt } from "tools/dataHandler";
+
+registerLocale("ko", ko);
+
+const useStyles = makeStyles({
+  appContainer: {
+    marginTop: "20vh",
+    backgroundColor: "rgba( 255, 255, 255, 0.7 )",
+    borderRadius: "2vh",
+    padding: "3vh",
+  },
+  btns: {
+    marginTop: "1vh",
+    backgroundColor: "rgba( 255, 255, 255, 0 )",
+    width: "5vh",
+    height: "5vh",
+  },
+  btnsBox: {
+    display: "flex",
+    justifyContent: "space-between",
+  }
+})
+
+const makeStaff = (staffName, role) => {
+  return {label: staffName, value: staffName, role};
+}
+
+const Reservation = ({ history }) => {
+  const classes = useStyles();
   const [staff, setStaff] = useState("");
-  const [userName, setUserName] = useState("");
+  const [loc, setLoc] = useState("");
   const [resultIdx, setResultIdx] = useState(-1);
+  const [userName, setUserName] = useState("");
+  const [userPhone, setUserPhone] = useState("");
   const [enterDate, setEnterDate] = useState(new Date());
   const [enterTime, setEnterTime] = useState(new Date());
   const [exitTime, setExitTime] = useState(new Date());
   const [purpose, setPurpose] = useState("");
-  const [submitOpen, setSubmitOpen] = useState(false);
-  const [loc, setLoc] = useState("");
-  const [userPhone, setUserPhone] = useState("");
   const [resultOpen, setResultOpen] = useState(false);
-  
+  const [data, setData] = useState(null);
+
+  const handleStaffName = (event) => setStaff(event.target.value);
   const handleUserName = (event) => setUserName(event.target.value);
   const handleUserPhone = (event) => setUserPhone(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
@@ -39,19 +71,23 @@ const Reservation = ({ history, location }) => {
   const handleEnterDate = (date) => setEnterDate(date);
   const handleEnterTime = (time) => setEnterTime(time);
   const handleExitTime = (time) => setExitTime(time);
-  const handleClickOpen = () => setSubmitOpen(checkValues(userName, purpose));
-  const handleClose = () => setSubmitOpen(false);
+  const handleClickSubmit = () => {
+    if (checkValues(staff, userName, purpose))
+      dataSubmit();
+  };
   const handleResultClose = () => {
-    history.go(-1);
+    history.push("/");
   }
-  
+
+  const [staffNameError, setStaffNameError] = useState(false);
   const [userNameError, setUserNameError] = useState(false);
   const [userPhoneError, setUserPhoneError] = useState(false);
   const [purposeError, setPurposeError] = useState(false);
   const [locError, setLocError] = useState(false);
-  
+
   const checkValues = (staff, userName, purpose) => {
     const result = staff === null || userName === "" || purpose === "" || userPhone === "" || loc === "";
+    setStaffNameError(staff === "");
     setUserNameError(userName === "");
     setPurposeError(purpose === "");
     setUserPhoneError(userPhone === "");
@@ -59,11 +95,9 @@ const Reservation = ({ history, location }) => {
     return !result;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const dataSubmit = () => {
     const length = postData();
     setResultIdx(length - 1);
-    setSubmitOpen(false);
     setResultOpen(true);
   };
 
@@ -71,15 +105,6 @@ const Reservation = ({ history, location }) => {
     event.preventDefault();
     history.go(-1);
   };
-
-  useEffect(() => {
-    let data = null;
-    if (location !== null) {
-      data = location.search.slice(7);
-      data = decrypt(data, process.env.REACT_APP_AES_KEY);
-    }
-    setStaff(data);
-  }, [location]);
 
   const postData = () => {
     let prevData = window.localStorage.getItem("reservation");
@@ -91,30 +116,25 @@ const Reservation = ({ history, location }) => {
       enterDate: enterDate.toLocaleDateString("ko-KR", "P"),
       enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
       exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
-      userPhone,
-      loc,
-      staff,
+      loc: JSON.parse(loc),
+      staff:makeStaff(staff, "mentor"),
       userName,
+      userPhone,
       purpose,
     });
     window.localStorage.setItem("reservation", JSON.stringify(prevData));
+    const code = encrypt(prevData[prevData.length - 1], process.env.REACT_APP_AES_KEY);
+    setData(code);
     return prevData.length;
   };
-
   return (
     <>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className={classes.appContainer}>
         <Grid container spacing={2}>
-          <GridCard item xs={12}>
-            <Typography variant="h3">방문 예약</Typography>
-            <br />
-            <Typography variant="h6">개포 클러스터</Typography>
-            <Typography>서울 강남구 개포로 416</Typography>
-            <Typography variant="h6">서초 클러스터</Typography>
-            <Typography>서울 서초구 강남대로 327 대륭서초타워 4층</Typography>
-          </GridCard>
-
-          <GridCard item xs={12}>
+          <Grid item xs={12}>
+            <Typography variant="h3">방문 신청</Typography>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">방문 날짜</Typography>
             <DatePicker
               selected={enterDate}
@@ -123,9 +143,8 @@ const Reservation = ({ history, location }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">입장 시간</Typography>
             <DatePicker
               selected={enterTime}
@@ -136,9 +155,8 @@ const Reservation = ({ history, location }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={4}>
             <Typography variant="h5">퇴장 시간</Typography>
             <DatePicker
               selected={exitTime}
@@ -149,28 +167,27 @@ const Reservation = ({ history, location }) => {
               locale="ko"
               className={styles.dateInput}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문 장소</Typography>
+            <FormControl component="fieldset" error={locError}>
+              <RadioGroup row aria-label="position" name="position" value={loc} onChange={handleLoc}>
+                {locItems.map((item) =>
+                  <FormControlLabel key={`${item.id}`} value={JSON.stringify(item)} control={<Radio color="primary" />} label={`${item.label}`} />
+                )}
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5">방문 대상</Typography>
             <TextField
-              select
               fullWidth
-              value={loc}
-              onChange={handleLoc}
-              error={locError}
-            >
-              {locItems.map((item) => {
-                return (
-                  <MenuItem key={`${item.label}-${item.value}`} value={item}>
-                    {`${item.label} 클러스터`}
-                  </MenuItem>
-                );
-              })}
-            </TextField>
-          </GridCard>
-
-          <GridCard item xs={12}>
+              value={staff}
+              onChange={handleStaffName}
+              error={staffNameError}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문자 이름</Typography>
             <TextField
               fullWidth
@@ -178,9 +195,8 @@ const Reservation = ({ history, location }) => {
               onChange={handleUserName}
               error={userNameError}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문자 번호</Typography>
             <TextField
               fullWidth
@@ -188,9 +204,8 @@ const Reservation = ({ history, location }) => {
               onChange={handleUserPhone}
               error={userPhoneError}
             />
-          </GridCard>
-
-          <GridCard item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">방문 목적</Typography>
             <TextField
               fullWidth
@@ -199,64 +214,32 @@ const Reservation = ({ history, location }) => {
               onChange={handlePurpose}
               error={purposeError}
             />
-          </GridCard>
-
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleClickOpen}
-            >
-              <Typography variant="h5">제출</Typography>
-            </Button>
           </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" color="primary" onClick={handleCancel}>
-              <Typography variant="h5">돌아가기</Typography>
-            </Button>
+          <Grid item xs={12}>
+            <Box className={classes.btnsBox}>
+              <Button
+                variant="contained"
+                onClick={handleCancel}
+                className={classes.btns}
+              >
+                <Typography variant="subtitle1">이전</Typography>
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleClickSubmit}
+                className={classes.btns}
+              >
+                <Typography variant="subtitle1">신청</Typography>
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Container>
 
-      <Dialog
-        open={submitOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"아래 내용으로 예약하시겠습니까?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {`방문 날짜  : ${enterDate.toLocaleDateString("ko-KR", "P")}`}
-            <br />
-            {`입장 시간  : ${enterTime.toLocaleTimeString("ko-KR", "p")}`}
-            <br />
-            {`퇴장 시간  : ${exitTime.toLocaleTimeString("ko-KR", "p")}`}
-            <br />
-            {`방문 장소  : ${loc !== null && `${loc.label} 클러스터`}`}
-            <br />
-            {`방문자 이름 : ${userName}`}
-            <br />
-            {`방문자 번호 : ${userPhone}`}
-            <br />
-            {`방문 목적  : ${purpose}`}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            취소
-          </Button>
-          <Button onClick={handleSubmit} color="primary" autoFocus>
-            신청
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-          <ReservationResult idx={resultIdx} />
+            {/* <ApplicationResult idx={resultIdx} onClose={handleResultClose} /> */}
+            <QR code={data} />
         </DialogContent>
       </Dialog>
     </>

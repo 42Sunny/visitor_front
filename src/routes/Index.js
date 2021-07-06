@@ -7,7 +7,8 @@ import logo42 from "images/42Seoul.png";
 const useStyles = makeStyles({
   menuButton: {
     width: "10vh",
-    height: "10vh"
+    height: "10vh",
+    backgroundColor: "rgba(255, 255, 255, 1)",
   },
   menuBox: {
     display: "flex",
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
   logo42: {
     // backgroundColor: "black",
     width: "34vh",
-  }
+  },
 })
 
 const Index = () => {
