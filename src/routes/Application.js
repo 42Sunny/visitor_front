@@ -47,6 +47,10 @@ const useStyles = makeStyles({
   }
 })
 
+const makeStaff = (staffName, role) => {
+  return {label: staffName, value: staffName, role};
+}
+
 const Application = ({ history }) => {
   const classes = useStyles();
   const [staff, setStaff] = useState("");
@@ -115,7 +119,7 @@ const Application = ({ history }) => {
       enterTime: enterTime.toLocaleTimeString("ko-KR", "p"),
       exitTime: exitTime.toLocaleTimeString("ko-KR", "p"),
       loc: JSON.parse(loc),
-      staff,
+      staff:makeStaff(staff, "mentor"),
       userName,
       userPhone,
       purpose,
@@ -179,23 +183,11 @@ const Application = ({ history }) => {
           <Grid item xs={12}>
             <Typography variant="h5">방문 대상</Typography>
             <TextField
-              select
               fullWidth
               value={staff}
               onChange={handleStaffName}
               error={staffNameError}
-            >
-              {staffs.map((staff) => {
-                if (staff.admin === 0)
-                  return (
-                    <MenuItem key={`${staff.role}-${staff.value}`} value={staff}>
-                      {`${staff.label}`}
-                    </MenuItem>
-                  );
-                else
-                  return null;
-              })}
-            </TextField>
+            />
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h5">방문자 이름</Typography>
@@ -232,14 +224,14 @@ const Application = ({ history }) => {
                 onClick={handleCancel}
                 className={classes.btns}
               >
-                <Typography variant="h4">{"<"}</Typography>
+                <Typography variant="subtitle1">이전</Typography>
               </Button>
               <Button
                 variant="contained"
                 onClick={handleClickSubmit}
                 className={classes.btns}
               >
-                <Typography variant="h4">{">"}</Typography>
+                <Typography variant="subtitle1">신청</Typography>
               </Button>
             </Box>
           </Grid>

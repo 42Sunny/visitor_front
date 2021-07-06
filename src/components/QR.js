@@ -69,11 +69,13 @@ const QR = (props) => {
     <Box className={classes.phoneBox}>
       <img src={phoneImg} alt="phone" className={classes.phone} />
       {openMsg === false ?
-        <>
-          <Button onClick={handleOpenMsgClick} className={classes.msgBox}>
+        <Box className={classes.msgBox}>
+          <Typography variant="h3">방문객</Typography>
+          <Typography variant="subtitle2">메세지가 도착했습니다!</Typography>
+          <Button onClick={handleOpenMsgClick}>
             <img src={msg} alt="msg" className={classes.msgImg} />
           </Button>
-        </>
+        </Box>
         :
         <Box className={classes.msgBox}>
           <Typography variant="h3">방문 확인</Typography>
