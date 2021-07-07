@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   Typography,
   TextField,
-  MenuItem,
   Grid,
   Container,
   Button,
@@ -16,7 +15,6 @@ import {
   makeStyles,
   Box,
 } from "@material-ui/core";
-import { staffs } from "data/staff";
 import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -31,6 +29,7 @@ registerLocale("ko", ko);
 const useStyles = makeStyles({
   appContainer: {
     marginTop: "20vh",
+    marginBottom: "10vh",
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
     borderRadius: "2vh",
     padding: "3vh",

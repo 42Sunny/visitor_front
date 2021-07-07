@@ -10,21 +10,23 @@ import msg from 'images/msg.png';
 
 const useStyles = makeStyles(
   {
+    phoneBox: {
+      width: "500px",
+      height: "500px",
+    },
     phone: {
-      // position: "absolute",
-      // paddingTop: "1vh",
-      // zIndex: "-1",
-      // left: "-35vh",
       width: "100%",
       height: "100%",
       objectFit: "cover",
     },
     msgBox: {
-      width: "15vh",
-      height: "15vh",
+      width: "200px",
+      height: "200px",
       position: "absolute",
-      left: "15.5vh",
-      top: "10vh"
+      display: "flex",
+      flexDirection: "column",
+      left: "175px",
+      top: "80px"
     },
     msgImg: {
       width: "100%",

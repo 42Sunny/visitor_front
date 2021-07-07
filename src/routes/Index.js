@@ -8,6 +8,8 @@ const useStyles = makeStyles({
   menuButton: {
     width: "10vh",
     height: "10vh",
+    minWidth: "80px",
+    minHeight: "80px",
     backgroundColor: "rgba(255, 255, 255, 1)",
   },
   menuBox: {
@@ -15,8 +17,8 @@ const useStyles = makeStyles({
     color: "white",
   },
   logo42: {
-    // backgroundColor: "black",
     width: "34vh",
+    minWidth: "260px",
   },
 })
 
@@ -28,17 +30,17 @@ const Index = () => {
     <Box className={classes.menuBox}>
     <Link to="application" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="h5">방문 신청</Typography>
+        <Typography variant="subTitle2">방문<br/>신청</Typography>
       </Button>
     </Link>
     <Link to="check-reservation" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="h5">방문 조회</Typography>
+        <Typography variant="subTitle2">방문<br/>조회</Typography>
       </Button>
     </Link>
     <Link to="login" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="h5">직원<br/>로그인</Typography>
+        <Typography variant="subTitle2">직원<br/>로그인</Typography>
       </Button>
     </Link>
     </Box>
