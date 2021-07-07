@@ -28,7 +28,7 @@ registerLocale("ko", ko);
 
 const useStyles = makeStyles({
   appContainer: {
-    marginTop: "20vh",
+    marginTop: "10vh",
     marginBottom: "10vh",
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
     borderRadius: "2vh",
