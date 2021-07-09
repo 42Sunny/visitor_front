@@ -30,17 +30,17 @@ const Index = () => {
     <Box className={classes.menuBox}>
     <Link to="application" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="subTitle2">방문<br/>신청</Typography>
+        <Typography variant="subtitle2">방문<br/>신청</Typography>
       </Button>
     </Link>
     <Link to="check-reservation" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="subTitle2">방문<br/>조회</Typography>
+        <Typography variant="subtitle2">방문<br/>조회</Typography>
       </Button>
     </Link>
     <Link to="login" className={`${styles.link} link`}>
       <Button variant="contained" className={classes.menuButton}>
-        <Typography variant="subTitle2">직원<br/>로그인</Typography>
+        <Typography variant="subtitle2">직원<br/>로그인</Typography>
       </Button>
     </Link>
     </Box>

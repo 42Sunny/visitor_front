@@ -23,13 +23,14 @@ import ko from "date-fns/locale/ko";
 import { locItems } from "data/location";
 import QR from "components/QR";
 import { encrypt } from "tools/dataHandler";
+import PrivacyPolicy from "components/PrivacyPolicy";
 
 registerLocale("ko", ko);
 
 const useStyles = makeStyles({
   applicationContainer: {
     paddingTop: "10vh",
-    paddingBottom: "10vh"
+    paddingBottom: "10vh",
   },
   appContainer: {
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
@@ -56,6 +57,7 @@ const Application = ({ history }) => {
   const classes = useStyles();
   const [staff, setStaff] = useState("");
   const [loc, setLoc] = useState("");
+  const [accept, setAccept] = useState(false);
   const [resultIdx, setResultIdx] = useState(-1);
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
@@ -80,6 +82,9 @@ const Application = ({ history }) => {
   };
   const handleResultClose = () => {
     history.push("/");
+  }
+  const handleAcceptedChange = (event) => {
+    setAccept(event.target.checked);
   }
 
   const [staffNameError, setStaffNameError] = useState(false);
@@ -207,6 +212,9 @@ const Application = ({ history }) => {
             />
           </Grid>
           <Grid item xs={12}>
+            <PrivacyPolicy accept={accept} handleAcceptedChange={handleAcceptedChange}/>
+          </Grid>
+          <Grid item xs={12}>
             <Box className={classes.btnsBox}>
               <Button
                 variant="contained"
@@ -219,6 +227,7 @@ const Application = ({ history }) => {
                 variant="contained"
                 onClick={handleClickSubmit}
                 className={classes.btns}
+                disabled={!accept}
               >
                 <Typography variant="subtitle1">신청</Typography>
               </Button>
