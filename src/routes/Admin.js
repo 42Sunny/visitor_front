@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Box, Typography, Button, Avatar } from "@material-ui/core";
+import { Container, Box, Typography, Button } from "@material-ui/core";
 import styles from "styles/Admin.module.css";
 import { decrypt } from "tools/dataHandler";
 import { Link } from "react-router-dom";
@@ -59,7 +59,7 @@ const Admin = ({ location }) => {
   const handleCreateOpen = () => {
     setCreateOpen(true);
   }
-  
+
   const columns = [
     {
       field: 'id',

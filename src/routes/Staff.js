@@ -91,20 +91,18 @@ const Staff = ({ location }) => {
             <>
               <Box className={classes.checkListComment}>상태를 클릭하여 상세 페이지로 이동할 수 있습니다.</Box>
               <Grid container spacing={1}>
-                <Grid item xs={2} className={classes.checkListTitle}><Typography variant="h5">방문 날짜</Typography></Grid>
-                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">입장 시간</Typography></Grid>
-                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">퇴장 시간</Typography></Grid>
-                <Grid item xs={2} className={classes.checkListTitle}><Typography variant="h5">방문 장소</Typography></Grid>
-                <Grid item xs={2} className={classes.checkListTitle}><Typography variant="h5">상태</Typography></Grid>
+                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">방문 날짜</Typography></Grid>
+                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">방문 시간</Typography></Grid>
+                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">방문 장소</Typography></Grid>
+                <Grid item xs={3} className={classes.checkListTitle}><Typography variant="h5">상태</Typography></Grid>
               </Grid>
 
               {data.map((elem) => (
                 <Grid container spacing={1} key={elem.id}>
-                  <Grid item xs={2} className={classes.checkElem}><Typography variant="h6">{elem.enterDate}</Typography></Grid>
+                  <Grid item xs={3} className={classes.checkElem}><Typography variant="h6">{elem.enterDate}</Typography></Grid>
                   <Grid item xs={3} className={classes.checkElem}><Typography variant="h6">{elem.enterTime}</Typography></Grid>
-                  <Grid item xs={3} className={classes.checkElem}><Typography variant="h6">{elem.exitTime}</Typography></Grid>
-                  <Grid item xs={2} className={classes.checkElem}><Typography variant="h6">{elem.loc.label}</Typography></Grid>
-                  <Grid item xs={2} className={classes.checkElem}>{getStateAvatar(elem.state)}</Grid>
+                  <Grid item xs={3} className={classes.checkElem}><Typography variant="h6">{elem.loc.label}</Typography></Grid>
+                  <Grid item xs={3} className={classes.checkElem}>{getStateAvatar(elem.state)}</Grid>
                 </Grid>
               ))}
             </>

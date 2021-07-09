@@ -7,7 +7,6 @@ import Version from "./Version";
 
 const useStyles = makeStyles({
   appContainer: {
-    width: "100vw",
     height: "100vh",
   }
 })
@@ -21,7 +20,9 @@ const App = () => {
         <AppRouter />
       </Box>
       <Background />
-      <Version />
+      <footer>
+        <Version />
+      </footer>
     </>
   )
 };

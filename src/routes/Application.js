@@ -27,9 +27,11 @@ import { encrypt } from "tools/dataHandler";
 registerLocale("ko", ko);
 
 const useStyles = makeStyles({
+  applicationContainer: {
+    paddingTop: "10vh",
+    paddingBottom: "10vh"
+  },
   appContainer: {
-    marginTop: "10vh",
-    marginBottom: "10vh",
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
     borderRadius: "2vh",
     padding: "3vh",
@@ -129,7 +131,7 @@ const Application = ({ history }) => {
     return prevData.length;
   };
   return (
-    <>
+    <Box className={classes.applicationContainer}>
       <Container maxWidth="sm" className={classes.appContainer}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -146,22 +148,10 @@ const Application = ({ history }) => {
             />
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="h5">입장 시간</Typography>
+            <Typography variant="h5">방문 시간</Typography>
             <DatePicker
               selected={enterTime}
               onChange={handleEnterTime}
-              showTimeSelect
-              showTimeSelectOnly
-              dateFormat="p"
-              locale="ko"
-              className={styles.dateInput}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="h5">퇴장 시간</Typography>
-            <DatePicker
-              selected={exitTime}
-              onChange={handleExitTime}
               showTimeSelect
               showTimeSelectOnly
               dateFormat="p"
@@ -239,11 +229,10 @@ const Application = ({ history }) => {
 
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>
-            {/* <ApplicationResult idx={resultIdx} onClose={handleResultClose} /> */}
             <QR code={data} />
         </DialogContent>
       </Dialog>
-    </>
+    </Box>
   );
 };
 
