@@ -3,7 +3,6 @@ import { makeStyles, Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
 	version: {
-		bottom: "0px",
 		display: "flex",
 		width: "100%",
 		alignItems: "center",
