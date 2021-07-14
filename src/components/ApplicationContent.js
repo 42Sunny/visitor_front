@@ -210,6 +210,7 @@ const ApplicationContent = () => {
               error={staffNameError}
             />
           </Grid>
+
           <Grid item xs={4}>
             <Typography variant="h5">신청자 소속</Typography>
             <TextField
@@ -237,6 +238,32 @@ const ApplicationContent = () => {
               error={userPhoneError}
             />
           </Grid>
+
+          {/* <Grid item xs={4}>
+            <TextField
+              fullWidth
+              value={userAffiliation}
+              onChange={handleUserAffiliation}
+              error={userAffiliationError}
+            />
+          </Grid>
+		  <Grid item xs={4}>
+            <TextField
+              fullWidth
+              value={userAffiliation}
+              onChange={handleUserAffiliation}
+              error={userAffiliationError}
+            />
+          </Grid>
+		  <Grid item xs={4}>
+            <TextField
+              fullWidth
+              value={userAffiliation}
+              onChange={handleUserAffiliation}
+              error={userAffiliationError}
+            />
+          </Grid> */}
+
           <Grid item xs={12}>
             <Typography variant="h5">방문 목적</Typography>
             <TextField
