@@ -1,10 +1,8 @@
-import { Container, Grid, Typography, Button, makeStyles, Box } from "@material-ui/core";
+import { Typography, Button, makeStyles, Box } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import QRCode from "qrcode";
-import GridCard from "components/GridCard";
 import styles from "styles/QR.module.css";
 import { decrypt } from "tools/dataHandler";
-import { Link } from 'react-router-dom';
 import phoneImg from "images/phone.png";
 import msg from 'images/msg.png';
 
