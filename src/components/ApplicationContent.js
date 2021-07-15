@@ -48,6 +48,14 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  plusMinusGrid: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  plusMinusBtn: {
+    backgroundColor: "rgba(255, 255, 255, 0)",
+  },
 });
 
 const makeStaff = (staffName, role) => {
@@ -69,6 +77,7 @@ const ApplicationContent = () => {
   const [purpose, setPurpose] = useState("");
   const [resultOpen, setResultOpen] = useState(false);
   const [data, setData] = useState(null);
+  const [numberOfUser, setNumberOfUser] = useState([]);
 
   const history = useHistory();
 
@@ -98,6 +107,34 @@ const ApplicationContent = () => {
   const [userPhoneError, setUserPhoneError] = useState(false);
   const [purposeError, setPurposeError] = useState(false);
   const [locError, setLocError] = useState(false);
+
+  const makeUser = (key) => {
+    return (
+      <React.Fragment key={key}>
+        <Grid item xs={3}>
+          <TextField />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField />
+        </Grid>
+        <Grid item xs={2} className={classes.plusMinusGrid}>
+          <Button
+            className={classes.plusMinusBtn}
+            variant="contained"
+            onClick={() => {
+              const number = numberOfUser.filter((target) => key !== target);
+              setNumberOfUser(number);
+            }}
+          >
+            삭제
+          </Button>
+        </Grid>
+      </React.Fragment>
+    );
+  };
 
   const checkValues = (staff, userName, purpose) => {
     const result =
@@ -211,7 +248,7 @@ const ApplicationContent = () => {
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Typography variant="h5">신청자 소속</Typography>
             <TextField
               fullWidth
@@ -220,7 +257,7 @@ const ApplicationContent = () => {
               error={userAffiliationError}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Typography variant="h5">신청자 이름</Typography>
             <TextField
               fullWidth
@@ -238,31 +275,23 @@ const ApplicationContent = () => {
               error={userPhoneError}
             />
           </Grid>
+          <Grid item xs={2} className={classes.plusMinusGrid}>
+            <Button
+              className={classes.plusMinusBtn}
+              variant="contained"
+              onClick={() => {
+                const number = numberOfUser.slice();
+                number.push(new Date().getMilliseconds());
+                setNumberOfUser(number);
+              }}
+            >
+              추가
+            </Button>
+          </Grid>
 
-          {/* <Grid item xs={4}>
-            <TextField
-              fullWidth
-              value={userAffiliation}
-              onChange={handleUserAffiliation}
-              error={userAffiliationError}
-            />
-          </Grid>
-		  <Grid item xs={4}>
-            <TextField
-              fullWidth
-              value={userAffiliation}
-              onChange={handleUserAffiliation}
-              error={userAffiliationError}
-            />
-          </Grid>
-		  <Grid item xs={4}>
-            <TextField
-              fullWidth
-              value={userAffiliation}
-              onChange={handleUserAffiliation}
-              error={userAffiliationError}
-            />
-          </Grid> */}
+          {numberOfUser.map((user) => {
+            return makeUser(user);
+          })}
 
           <Grid item xs={12}>
             <Typography variant="h5">방문 목적</Typography>
