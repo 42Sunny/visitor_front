@@ -44,7 +44,6 @@ const Index = () => {
         <Button
           variant="contained"
           className={[classes.menuButton, classes.link]}
-          disabled
           onClick={() => {
             history.push("/check-reservation");
           }}

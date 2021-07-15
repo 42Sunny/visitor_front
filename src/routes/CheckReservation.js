@@ -6,6 +6,29 @@ import { getStateAvatar } from 'tools/getStateAvatar';
 import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import ApplicationResult from 'components/ApplicationResult';
+import axios from 'axios';
+
+/*
+{
+  "result": "Boolean",
+  "contents" :
+  [
+    {
+      "id": "Long",
+      "place": "String",
+      "targetStaff": "Long",
+      "visitorOrganization": "String",
+      "visitorName": "String",
+      "visitorPhone": "String",
+      "purpose": "String", 
+      "date": "Datetime"
+    },
+    {
+      ...
+    }
+  ]
+}
+*/
 
 const CheckReservation = ({ history }) => {
   const styles = useStyles();
@@ -25,9 +48,18 @@ const CheckReservation = ({ history }) => {
     return !result;
   }
   
-  const handleCheck = () => {
+  const handleCheck = async () => {
     if (checkError()) {
-      const data = JSON.parse(window.localStorage.getItem("reservation"));
+      // const data = JSON.parse(window.localStorage.getItem("reservation"));
+      const data = await axios({
+        method: "post",
+        url: "http://localhost:8080/reserves",
+        data: {
+          name: userName,
+          phone: userPhone,
+        }
+      })
+      console.log(data);
       if (data !== null) {
         const checked = data.filter((elem) => elem.userName === userName && elem.userPhone === userPhone);
         setData(checked);
@@ -65,7 +97,7 @@ const CheckReservation = ({ history }) => {
             <Typography variant="h2">방문 예약 조회</Typography>
           </Grid>
           <Grid item xs={2}>
-            <Button variant="outlined" onClick={handleBack} className={styles.checkButton}>
+            <Button variant="contained" onClick={handleBack} className={styles.checkButton}>
               <Typography variant="h5">홈 화면</Typography>
             </Button>
           </Grid>
@@ -84,7 +116,7 @@ const CheckReservation = ({ history }) => {
             </Box>
           </Grid>
           <Grid item xs={2}>
-            <Button variant="outlined" className={styles.checkButton} onClick={handleCheck}>
+            <Button variant="contained" className={styles.checkButton} onClick={handleCheck}>
               <Typography variant="h5">조회</Typography>
             </Button>
           </Grid>
@@ -98,22 +130,18 @@ const CheckReservation = ({ history }) => {
               <>
                 <Box className={styles.checkListComment}>상태를 클릭하여 상세 페이지로 이동할 수 있습니다.</Box>
                 <Grid container spacing={1}>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">방문 날짜</Typography></Grid>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">입장 시간</Typography></Grid>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">퇴장 시간</Typography></Grid>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">방문 장소</Typography></Grid>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">방문 대상</Typography></Grid>
-                  <Grid item xs={2} className={styles.checkListTitle}><Typography variant="h5">상태</Typography></Grid>
+                  <Grid item xs={3} className={styles.checkListTitle}><Typography variant="h5">방문 날짜</Typography></Grid>
+                  <Grid item xs={3} className={styles.checkListTitle}><Typography variant="h5">방문 장소</Typography></Grid>
+                  <Grid item xs={3} className={styles.checkListTitle}><Typography variant="h5">방문 대상</Typography></Grid>
+                  <Grid item xs={3} className={styles.checkListTitle}><Typography variant="h5">방문 목적</Typography></Grid>
                 </Grid>
 
                 {data.map((elem) => (
                   <Grid container spacing={1} key={elem.id}>
-                    <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.enterDate}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.enterTime}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.exitTime}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{elem.loc.label}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Typography variant="h6">{`${elem.staff.label} ${staffSuffix[elem.staff.role]}`}</Typography></Grid>
-                    <Grid item xs={2} className={styles.checkElem}><Button onClick={() => { handleClickAvatar(elem); }}>{getStateAvatar(elem.state)}</Button></Grid>
+                    <Grid item xs={3} className={styles.checkElem}><Typography variant="h6">{elem.date}</Typography></Grid>
+                    <Grid item xs={3} className={styles.checkElem}><Typography variant="h6">{elem.place}</Typography></Grid>
+                    <Grid item xs={3} className={styles.checkElem}><Typography variant="h6">{elem.targetStaff}</Typography></Grid>
+                    <Grid item xs={3} className={styles.checkElem}><Typography variant="h6">{elem.purpose}</Typography></Grid>
                   </Grid>
                 ))}
               </>

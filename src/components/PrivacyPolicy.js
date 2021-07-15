@@ -10,11 +10,11 @@ const useStyles = makeStyles({
     marginBottom: "10px",
   },
   gridTitle: {
-    fontSize: "1.2rem",
+    fontSize: "1.0rem",
   },
   gridItem: {},
   title: {
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
     display: "flex",
     justifyContent: "space-between",
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    fontSize: "1.3rem",
+    fontSize: "1.0rem",
     paddingTop: "10px",
   },
   btns: {
