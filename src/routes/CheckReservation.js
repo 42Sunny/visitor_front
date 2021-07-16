@@ -1,54 +1,21 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Button,
-} from "@material-ui/core";
+import { TextField, Typography, Box, Grid, Button } from "@material-ui/core";
 import { useStyles } from "styles/CheckReservationStyle";
-import { getStateAvatar } from "tools/getStateAvatar";
 import { Dialog } from "@material-ui/core";
 import { DialogContent } from "@material-ui/core";
-import ApplicationResult from "components/ApplicationResult";
-import axios from "axios";
 import PutContent from "components/PutContent";
-
-// const url = "http://localhost:8080";
-const url = "https://api.visitor.dev.42seoul.io";
-
-/*
-{
-  "result": "Boolean",
-  "contents" :
-  [
-    {
-      "id": "Long",
-      "place": "String",
-      "targetStaff": "Long",
-      "visitorOrganization": "String",
-      "visitorName": "String",
-      "visitorPhone": "String",
-      "purpose": "String", 
-      "date": "Datetime"
-    },
-    {
-      ...
-    }
-  ]
-}
-*/
+import { getReserves } from "tools/apiHandler";
+import { deleteReserve } from "tools/apiHandler";
 
 const CheckReservation = ({ history }) => {
   const styles = useStyles();
+
   const [data, setData] = useState(null);
   const [userName, setUserName] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [resultIdx, setResultIdx] = useState(-1);
   const [resultOpen, setResultOpen] = useState(false);
   const [selectedElem, setElem] = useState(null);
-
   const [userNameError, setUserNameError] = useState(false);
   const [userPhoneError, setUserPhoneError] = useState(false);
 
@@ -63,21 +30,10 @@ const CheckReservation = ({ history }) => {
     if (checkError()) {
       let result;
       try {
-        result = await axios(
-          {
-            method: "post",
-            url: `${url}/reserves`,
-            data: {
-              name: userName,
-              phone: userPhone,
-            },
-          },
-          { withCredentials: true }
-        );
+        result = await getReserves(userName, userPhone);
       } catch {
         result = { data: [] };
       } finally {
-        console.log(result);
         setData(result.data);
       }
     }
@@ -109,17 +65,8 @@ const CheckReservation = ({ history }) => {
     <Box className={styles.checkReservationBox}>
       <Box className={styles.rootContainer}>
         <Grid container spacing={1}>
-          <Grid item xs={10} className={styles.checkHeader}>
+          <Grid item xs={12} className={styles.checkHeader}>
             <Typography variant="h4">방문 예약 조회</Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              onClick={handleBack}
-              className={styles.checkButton}
-            >
-              홈 화면
-            </Button>
           </Grid>
         </Grid>
         <Grid container spacing={1}>
@@ -143,7 +90,7 @@ const CheckReservation = ({ history }) => {
               />
             </Box>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2} className={styles.checkBtnGrid}>
             <Button
               variant="contained"
               className={styles.checkButton}
@@ -160,9 +107,6 @@ const CheckReservation = ({ history }) => {
             </Box>
           ) : (
             <>
-              <Box className={styles.checkListComment}>
-                상태를 클릭하여 상세 페이지로 이동할 수 있습니다.
-              </Box>
               <Grid container spacing={1}>
                 <Grid item xs={3} className={styles.checkListTitle}>
                   <Typography variant="h6">방문 날짜</Typography>
@@ -183,9 +127,6 @@ const CheckReservation = ({ history }) => {
                 <Grid container spacing={1} key={elem.id}>
                   <Grid item xs={3} className={styles.checkElem}>
                     <Typography variant="h6">
-                      {/* {`${new Date(elem.date).toLocaleDateString()} ${
-                        new Date(elem.date).getHours() + 1
-                      }:${new Date(elem.date).getMinutes()}`} */}
                       {`${elem.date[0]}-${elem.date[1]}-${elem.date[2]} ${elem.date[3]}:${elem.date[4]}`}
                     </Typography>
                   </Grid>
@@ -212,18 +153,17 @@ const CheckReservation = ({ history }) => {
                     <Button
                       variant="contained"
                       className={styles.deleteBtn}
-                      onClick={() => {
-                        axios(
-                          {
-                            method: "delete",
-                            url: `${url}/reserve?reserve_id=${elem.visitor.reserveId}`,
-                            data: {
-                              name: elem.visitor.name,
-                              phone: elem.visitor.phone,
-                            },
-                          },
-                          { withCredentials: true }
-                        );
+                      onClick={async () => {
+                        const {
+                          visitor: { name },
+                        } = elem;
+                        const {
+                          visitor: { phone },
+                        } = elem;
+                        const {
+                          visitor: { reserveId },
+                        } = elem;
+                        await deleteReserve(name, phone, reserveId);
                         const newData = data.filter(
                           (target) => target.id !== elem.id
                         );
@@ -238,6 +178,15 @@ const CheckReservation = ({ history }) => {
             </>
           )}
         </Box>
+        <Box className={styles.prevBtnBox}>
+            <Button
+              variant="contained"
+              onClick={handleBack}
+              className={styles.prevButton}
+            >
+              이전
+            </Button>
+          </Box>
       </Box>
       <Dialog open={resultOpen} onClose={handleResultClose}>
         <DialogContent>

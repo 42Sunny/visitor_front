@@ -7,7 +7,10 @@ export const useStyles = makeStyles({
     flexDirection: "column",
   },
   checkButton: {
+    backgroundColor: "rgba(255,255,255,0)",
     width: "100%",
+  },
+  prevButton: {
     backgroundColor: "rgba(255,255,255,0)",
   },
   rootContainer: {
@@ -17,7 +20,8 @@ export const useStyles = makeStyles({
     borderRadius: "1vh",
     backgroundColor: "rgba(255,255,255,0.7)",
     minHeight: "100%",
-    width: "100%"
+    width: "100%",
+    position: "relative",
   },
   checkList: {
     marginTop: "3vh",
@@ -56,5 +60,17 @@ export const useStyles = makeStyles({
     height: "100vh",
     width: "100%",
     padding: "5vh",
-  }
+  },
+  prevBtnBox: {
+    display: "flex",
+    alignItems: "start",
+    justifyContent: "flex-start",
+    bottom: "2vh",
+    position: "absolute"
+  },
+  checkBtnGrid: {
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
+  },
 });

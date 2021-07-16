@@ -6,8 +6,6 @@ import {
   Grid,
   Container,
   Button,
-  Dialog,
-  DialogContent,
   FormControl,
   RadioGroup,
   FormControlLabel,
@@ -20,17 +18,14 @@ import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
-import { locItems } from "data/location";
-import QR from "components/QR";
 import PrivacyPolicy from "components/PrivacyPolicy";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { updateReserve } from "tools/apiHandler";
 
 registerLocale("ko", ko);
 
 const useStyles = makeStyles({
-  applicationContainer: {
-  },
+  applicationContainer: {},
   appContainer: {
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
     borderRadius: "2vh",
@@ -56,31 +51,23 @@ const useStyles = makeStyles({
   },
 });
 
-// const url = "http://localhost:8080";
-const url = "https://api.visitor.dev.42seoul.io";
-
-const PutContent = ({ elem }) => {
+const PutContent = ({ elem, onClose }) => {
   const newDate = new Date();
   newDate.setFullYear(elem.date[0]);
   newDate.setMonth(elem.date[1] - 1);
   newDate.setDate(elem.date[2]);
   newDate.setHours(elem.date[3]);
   newDate.setMinutes(elem.date[4]);
+
   const classes = useStyles();
+  const history = useHistory();
+
   const [staff, setStaff] = useState(elem.staff.name);
-  const [loc, setLoc] = useState({
-    id: "서초" === elem.place,
-    label: elem.place,
-    value: elem.place,
-  });
+  const [loc, setLoc] = useState(elem.place);
   const [accept, setAccept] = useState(false);
   const [enterDate, setEnterDate] = useState(newDate);
   const [purpose, setPurpose] = useState(elem.purpose);
-  const [resultOpen, setResultOpen] = useState(false);
-  const [data, setData] = useState(elem);
   const [visitor, setVisitor] = useState([elem.visitor]);
-
-  const history = useHistory();
 
   const handleStaffName = (event) => setStaff(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
@@ -88,9 +75,6 @@ const PutContent = ({ elem }) => {
   const handleEnterDate = (date) => setEnterDate(date);
   const handleClickSubmit = () => {
     if (checkValues(staff, purpose)) submitData();
-  };
-  const handleResultClose = () => {
-    history.push("/check-reservation");
   };
   const handleAcceptedChange = (event) => {
     setAccept(event.target.checked);
@@ -141,10 +125,11 @@ const PutContent = ({ elem }) => {
             className={classes.plusMinusBtn}
             variant="contained"
             onClick={() => {
-              const number = visitor.filter(
+              const data = visitor.filter(
                 (target) => elem.key !== target.key
               );
-              setVisitor(number);
+              if (data.length !== 0)
+                setVisitor(data);
             }}
           >
             삭제
@@ -177,29 +162,18 @@ const PutContent = ({ elem }) => {
       }-${monthOfDate.length === 1 ? `0${monthOfDate}` : monthOfDate} ${
         hour.length === 1 ? `0${hour}` : hour
       }:${minutes.length === 1 ? `0${minutes}` : minutes}`,
-      place: JSON.parse(loc).label,
+      place: loc,
       purpose,
       targetStaffName: staff,
       reserveId: elem.visitor.reserveId,
       visitor,
     };
-    const result = await axios(
-      {
-        method: "put",
-        url: `${url}/reserve`,
-        data,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-      { withCredentials: true }
-    );
+    const result = await updateReserve(data);
     history.push("/");
   };
 
-  const handleCancel = (event) => {
-    event.preventDefault();
-    history.push("/check-reservation");
+  const handleCancel = () => {
+    onClose();
   };
 
   return (
@@ -207,7 +181,7 @@ const PutContent = ({ elem }) => {
       <Container maxWidth="sm" className={classes.appContainer}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h4">방문 신청</Typography>
+            <Typography variant="h4">방문 수정</Typography>
           </Grid>
 
           <Grid item xs={12}>
@@ -220,15 +194,16 @@ const PutContent = ({ elem }) => {
                 value={loc}
                 onChange={handleLoc}
               >
-                {locItems.map((item) => (
-                  <FormControlLabel
-                    key={`${item.id}`}
-                    value={JSON.stringify(item)}
-                    control={<Radio color="primary" />}
-                    label={`${item.label}`}
-                    selected={loc.label === item.label}
-                  />
-                ))}
+                <FormControlLabel
+                  value="서초"
+                  control={<Radio color="primary" />}
+                  label="서초"
+                />
+                <FormControlLabel
+                  value="개포"
+                  control={<Radio color="primary" />}
+                  label="개포"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -324,12 +299,6 @@ const PutContent = ({ elem }) => {
           </Grid>
         </Grid>
       </Container>
-
-      <Dialog open={resultOpen} onClose={handleResultClose}>
-        <DialogContent>
-          <QR code={data} />
-        </DialogContent>
-      </Dialog>
     </Box>
   );
 };

@@ -20,11 +20,10 @@ import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "styles/Application.module.css";
 import ko from "date-fns/locale/ko";
-import { locItems } from "data/location";
 import QR from "components/QR";
 import PrivacyPolicy from "components/PrivacyPolicy";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { createReserve } from "tools/apiHandler";
 
 registerLocale("ko", ko);
 
@@ -58,13 +57,10 @@ const useStyles = makeStyles({
   },
 });
 
-// const url = "http://localhost:8080";
-const url = "https://api.visitor.dev.42seoul.io";
-
 const ApplicationContent = () => {
   const classes = useStyles();
   const [staff, setStaff] = useState("");
-  const [loc, setLoc] = useState("");
+  const [loc, setLoc] = useState("서초");
   const [accept, setAccept] = useState(false);
   const [enterDate, setEnterDate] = useState(new Date());
   const [purpose, setPurpose] = useState("");
@@ -140,10 +136,8 @@ const ApplicationContent = () => {
             className={classes.plusMinusBtn}
             variant="contained"
             onClick={() => {
-              const number = visitor.filter(
-                (target) => elem.key !== target.key
-              );
-              setVisitor(number);
+              const data = visitor.filter((target) => elem.key !== target.key);
+              if (data.length !== 0) setVisitor(data);
             }}
           >
             삭제
@@ -154,20 +148,20 @@ const ApplicationContent = () => {
   };
 
   const checkValues = (staff, purpose) => {
-    const result = staff === null || purpose === "" || loc === "";
+    const result = staff === "" || purpose === "" || loc === "";
     setStaffNameError(staff === "");
     setPurposeError(purpose === "");
     setLocError(loc === "");
-    return !result;
+    const checkVisitor = visitor.every(
+      (user) =>
+        user.name !== "" && user.phone !== "" && user.organization !== ""
+    );
+    return checkVisitor && !result;
   };
 
   const submitData = () => {
     submitDataToServer();
   };
-
-  useEffect(() => {
-    console.log(loc);
-  }, [loc]);
 
   const submitDataToServer = async () => {
     const hour = enterDate.getHours().toString();
@@ -180,23 +174,12 @@ const ApplicationContent = () => {
       }-${monthOfDate.length === 1 ? `0${monthOfDate}` : monthOfDate} ${
         hour.length === 1 ? `0${hour}` : hour
       }:${minutes.length === 1 ? `0${minutes}` : minutes}`,
-      place: JSON.parse(loc).label,
+      place: loc,
       purpose,
       targetStaffName: staff,
       visitor,
     };
-    console.log(data);
-    const result = await axios(
-      {
-        method: "post",
-        url: `${url}/reserve/create`,
-        data: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-      { withCredentials: true }
-    );
+    const result = await createReserve(data);
     history.push("/");
   };
 
@@ -222,18 +205,19 @@ const ApplicationContent = () => {
                 name="position"
                 value={loc}
                 onChange={(event) => {
-                  console.log(loc);
                   handleLoc(event);
                 }}
               >
-                {locItems.map((item) => (
-                  <FormControlLabel
-                    key={`${item.id}`}
-                    value={JSON.stringify(item)}
-                    control={<Radio color="primary" />}
-                    label={`${item.label}`}
-                  />
-                ))}
+                <FormControlLabel
+                  value="서초"
+                  control={<Radio color="primary" />}
+                  label="서초"
+                />
+                <FormControlLabel
+                  value="개포"
+                  control={<Radio color="primary" />}
+                  label="개포"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>

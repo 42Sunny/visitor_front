@@ -12,6 +12,7 @@
   background-color: rgba(0, 0, 0, 0);
   font-size: 0.9rem;
   padding: 6px 0 5px;
+  width: 100%;
 }
 
 .dateInput:hover {
