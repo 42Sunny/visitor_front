@@ -29,8 +29,8 @@ import axios from "axios";
 registerLocale("ko", ko);
 
 const staffs = {
-  이재하: 1,
-  안영선: 2,
+  오종인: 1,
+  이호준: 2,
 };
 
 const useStyles = makeStyles({
@@ -66,23 +66,21 @@ const useStyles = makeStyles({
 // const url = "http://localhost:8080";
 const url = "https://api.visitor.dev.42seoul.io";
 
-const ApplicationContent = () => {
+const PutContent = ({ elem }) => {
   const classes = useStyles();
-  const [staff, setStaff] = useState("");
-  const [loc, setLoc] = useState("");
+  const [reserveId, setReserveId] = useState(elem.visitor.reserveId);
+  const [staff, setStaff] = useState(elem.staff.name);
+  const [loc, setLoc] = useState({
+    id: "서초" === elem.place,
+    label: elem.place,
+    value: elem.place,
+  });
   const [accept, setAccept] = useState(false);
-  const [enterDate, setEnterDate] = useState(new Date());
-  const [purpose, setPurpose] = useState("");
+  const [enterDate, setEnterDate] = useState(new Date(elem.date));
+  const [purpose, setPurpose] = useState(elem.purpose);
   const [resultOpen, setResultOpen] = useState(false);
-  const [data, setData] = useState(null);
-  const [visitor, setVisitor] = useState([
-    {
-      name: "",
-      phone: "",
-      organization: "",
-      key: `${new Date().toLocaleTimeString()}-${new Date().getMilliseconds()}`,
-    },
-  ]);
+  const [data, setData] = useState(elem);
+  const [visitor, setVisitor] = useState([elem.visitor]);
 
   const history = useHistory();
 
@@ -94,7 +92,7 @@ const ApplicationContent = () => {
     if (checkValues(staff, purpose)) submitData();
   };
   const handleResultClose = () => {
-    history.push("/");
+    history.push("/check-reservation");
   };
   const handleAcceptedChange = (event) => {
     setAccept(event.target.checked);
@@ -184,14 +182,14 @@ const ApplicationContent = () => {
       place: JSON.parse(loc).label,
       purpose,
       targetStaff: staffs[staff],
+      reserveId: elem.visitor.reserveId,
       visitor,
     };
-    console.log(data);
     const result = await axios(
       {
-        method: "post",
-        url: `${url}/reserve/create`,
-        data: JSON.stringify(data),
+        method: "put",
+        url: `${url}/reserve`,
+        data,
         headers: {
           "Content-Type": "application/json",
         },
@@ -203,7 +201,7 @@ const ApplicationContent = () => {
 
   const handleCancel = (event) => {
     event.preventDefault();
-    history.go(-1);
+    history.push("/check-reservation");
   };
 
   return (
@@ -230,6 +228,7 @@ const ApplicationContent = () => {
                     value={JSON.stringify(item)}
                     control={<Radio color="primary" />}
                     label={`${item.label}`}
+                    selected={loc.label === item.label}
                   />
                 ))}
               </RadioGroup>
@@ -313,7 +312,7 @@ const ApplicationContent = () => {
                 onClick={handleCancel}
                 className={classes.btns}
               >
-                <Typography variant="subtitle1">이전</Typography>
+                <Typography variant="subtitle1">종료</Typography>
               </Button>
               <Button
                 variant="contained"
@@ -337,4 +336,4 @@ const ApplicationContent = () => {
   );
 };
 
-export default ApplicationContent;
+export default PutContent;

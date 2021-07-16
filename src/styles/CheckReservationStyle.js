@@ -8,14 +8,16 @@ export const useStyles = makeStyles({
   },
   checkButton: {
     width: "100%",
-	backgroundColor: "rgba(255,255,255,0)",
+    backgroundColor: "rgba(255,255,255,0)",
   },
   rootContainer: {
-    marginTop: "5vh",
-	padding: "2vh",
-	borderRadius: "1vh",
+    minWidth: "600px",
+    maxWidth: "50vw",
+    padding: "2vh",
+    borderRadius: "1vh",
     backgroundColor: "rgba(255,255,255,0.7)",
-	minHeight: "100vh",
+    minHeight: "100%",
+    width: "100%"
   },
   checkList: {
     marginTop: "3vh",
@@ -25,7 +27,7 @@ export const useStyles = makeStyles({
     height: "5vh",
     alignItems: "center",
     justifyContent: "center",
-	marginTop: "2vh",
+    marginTop: "2vh",
   },
   checkListTitle: {
     display: "flex",
@@ -39,4 +41,20 @@ export const useStyles = makeStyles({
     width: "100%",
     marginBottom: "1vh",
   },
+  deleteBtn: {
+    backgroundColor: "rgba(255,255,255,0)",
+  },
+  deleteGrid: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkReservationBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    width: "100%",
+    padding: "5vh",
+  }
 });

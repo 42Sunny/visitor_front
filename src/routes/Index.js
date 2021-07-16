@@ -43,7 +43,7 @@ const Index = () => {
         </Link>
         <Button
           variant="contained"
-          className={[classes.menuButton, classes.link]}
+          className={`${classes.menuButton} ${classes.link}`}
           onClick={() => {
             history.push("/check-reservation");
           }}
@@ -56,7 +56,7 @@ const Index = () => {
         </Button>
         <Button
           variant="contained"
-          className={[classes.menuButton, classes.link]}
+          className={`${classes.menuButton} ${classes.link}`}
           disabled
           onClick={() => {
             history.push("/login");
