@@ -183,9 +183,10 @@ const CheckReservation = ({ history }) => {
                 <Grid container spacing={1} key={elem.id}>
                   <Grid item xs={3} className={styles.checkElem}>
                     <Typography variant="h6">
-                      {`${new Date(elem.date).toLocaleDateString()} ${
+                      {/* {`${new Date(elem.date).toLocaleDateString()} ${
                         new Date(elem.date).getHours() + 1
-                      }:${new Date(elem.date).getMinutes()}`}
+                      }:${new Date(elem.date).getMinutes()}`} */}
+                      {`${elem.date[0]}-${elem.date[1]}-${elem.date[2]} ${elem.date[3]}:${elem.date[4]}`}
                     </Typography>
                   </Grid>
                   <Grid item xs={2} className={styles.checkElem}>
@@ -212,14 +213,17 @@ const CheckReservation = ({ history }) => {
                       variant="contained"
                       className={styles.deleteBtn}
                       onClick={() => {
-                        axios({
-                          method: "delete",
-                          url: `${url}/reserve?reserve_id=${elem.visitor.reserveId}`,
-                          data: {
-                            name: elem.visitor.name,
-                            phone: elem.visitor.phone,
+                        axios(
+                          {
+                            method: "delete",
+                            url: `${url}/reserve?reserve_id=${elem.visitor.reserveId}`,
+                            data: {
+                              name: elem.visitor.name,
+                              phone: elem.visitor.phone,
+                            },
                           },
-                        });
+                          { withCredentials: true }
+                        );
                         const newData = data.filter(
                           (target) => target.id !== elem.id
                         );

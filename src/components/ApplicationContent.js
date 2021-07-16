@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Typography,
@@ -27,11 +27,6 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 registerLocale("ko", ko);
-
-const staffs = {
-  이재하: 1,
-  안영선: 2,
-};
 
 const useStyles = makeStyles({
   applicationContainer: {
@@ -170,6 +165,10 @@ const ApplicationContent = () => {
     submitDataToServer();
   };
 
+  useEffect(() => {
+    console.log(loc);
+  }, [loc]);
+
   const submitDataToServer = async () => {
     const hour = enterDate.getHours().toString();
     const minutes = enterDate.getMinutes().toString();
@@ -183,7 +182,7 @@ const ApplicationContent = () => {
       }:${minutes.length === 1 ? `0${minutes}` : minutes}`,
       place: JSON.parse(loc).label,
       purpose,
-      targetStaff: staffs[staff],
+      targetStaffName: staff,
       visitor,
     };
     console.log(data);
@@ -222,7 +221,10 @@ const ApplicationContent = () => {
                 aria-label="position"
                 name="position"
                 value={loc}
-                onChange={handleLoc}
+                onChange={(event) => {
+                  console.log(loc);
+                  handleLoc(event);
+                }}
               >
                 {locItems.map((item) => (
                   <FormControlLabel

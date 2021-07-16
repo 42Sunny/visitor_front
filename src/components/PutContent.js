@@ -28,15 +28,8 @@ import axios from "axios";
 
 registerLocale("ko", ko);
 
-const staffs = {
-  오종인: 1,
-  이호준: 2,
-};
-
 const useStyles = makeStyles({
   applicationContainer: {
-    paddingTop: "10vh",
-    paddingBottom: "10vh",
   },
   appContainer: {
     backgroundColor: "rgba( 255, 255, 255, 0.7 )",
@@ -67,8 +60,13 @@ const useStyles = makeStyles({
 const url = "https://api.visitor.dev.42seoul.io";
 
 const PutContent = ({ elem }) => {
+  const newDate = new Date();
+  newDate.setFullYear(elem.date[0]);
+  newDate.setMonth(elem.date[1] - 1);
+  newDate.setDate(elem.date[2]);
+  newDate.setHours(elem.date[3]);
+  newDate.setMinutes(elem.date[4]);
   const classes = useStyles();
-  const [reserveId, setReserveId] = useState(elem.visitor.reserveId);
   const [staff, setStaff] = useState(elem.staff.name);
   const [loc, setLoc] = useState({
     id: "서초" === elem.place,
@@ -76,7 +74,7 @@ const PutContent = ({ elem }) => {
     value: elem.place,
   });
   const [accept, setAccept] = useState(false);
-  const [enterDate, setEnterDate] = useState(new Date(elem.date));
+  const [enterDate, setEnterDate] = useState(newDate);
   const [purpose, setPurpose] = useState(elem.purpose);
   const [resultOpen, setResultOpen] = useState(false);
   const [data, setData] = useState(elem);
@@ -181,7 +179,7 @@ const PutContent = ({ elem }) => {
       }:${minutes.length === 1 ? `0${minutes}` : minutes}`,
       place: JSON.parse(loc).label,
       purpose,
-      targetStaff: staffs[staff],
+      targetStaffName: staff,
       reserveId: elem.visitor.reserveId,
       visitor,
     };

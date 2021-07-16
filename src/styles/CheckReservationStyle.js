@@ -11,8 +11,8 @@ export const useStyles = makeStyles({
     backgroundColor: "rgba(255,255,255,0)",
   },
   rootContainer: {
-    minWidth: "600px",
-    maxWidth: "50vw",
+    minWidth: "800px",
+    maxWidth: "60vw",
     padding: "2vh",
     borderRadius: "1vh",
     backgroundColor: "rgba(255,255,255,0.7)",
