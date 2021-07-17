@@ -3,6 +3,7 @@ import { Button, Typography, Box, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import styles from "styles/Index.module.css";
 import logo42 from "images/42Seoul.png";
+import { encrypt } from "tools/dataHandler";
 
 const useStyles = makeStyles({
   menuButton: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 const Index = () => {
   const classes = useStyles();
   const history = useHistory();
+
   return (
     <Box className={styles.mainContainer}>
       <img src={logo42} alt="logo42" className={classes.logo42} />

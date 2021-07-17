@@ -61,13 +61,14 @@ const PutContent = ({ elem, onClose }) => {
 
   const classes = useStyles();
   const history = useHistory();
+  console.log(elem);
 
   const [staff, setStaff] = useState(elem.staff.name);
   const [loc, setLoc] = useState(elem.place);
   const [accept, setAccept] = useState(false);
   const [enterDate, setEnterDate] = useState(newDate);
   const [purpose, setPurpose] = useState(elem.purpose);
-  const [visitor, setVisitor] = useState([elem.visitor]);
+  const [visitor, setVisitor] = useState(elem.visitor);
 
   const handleStaffName = (event) => setStaff(event.target.value);
   const handlePurpose = (event) => setPurpose(event.target.value);
