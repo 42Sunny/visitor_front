@@ -61,12 +61,11 @@ const PutContent = ({ elem, onClose }) => {
 
   const classes = useStyles();
   const history = useHistory();
-  console.log(elem);
 
   const [staff, setStaff] = useState(elem.staff.name);
   const [loc, setLoc] = useState(elem.place);
   const [accept, setAccept] = useState(false);
-  const [enterDate, setEnterDate] = useState(newDate);
+  const [enterDate, setEnterDate] = useState(new Date(elem.date));
   const [purpose, setPurpose] = useState(elem.purpose);
   const [visitor, setVisitor] = useState(elem.visitor);
 
@@ -86,6 +85,8 @@ const PutContent = ({ elem, onClose }) => {
   const [locError, setLocError] = useState(false);
 
   const makeUser = (idx, elem) => {
+    if (visitor[idx].isChanged === undefined)
+      visitor[idx].isChanged = false;
     return (
       <React.Fragment key={elem.key}>
         <Grid item xs={3}>
@@ -95,6 +96,7 @@ const PutContent = ({ elem, onClose }) => {
             onChange={(event) => {
               const newVistor = visitor.slice();
               newVistor[idx].organization = event.target.value;
+              newVistor[idx].isChanged = true;
               setVisitor(newVistor);
             }}
           />
@@ -106,6 +108,7 @@ const PutContent = ({ elem, onClose }) => {
             onChange={(event) => {
               const newVistor = visitor.slice();
               newVistor[idx].name = event.target.value;
+              newVistor[idx].isChanged = true;
               setVisitor(newVistor);
             }}
           />
@@ -117,6 +120,7 @@ const PutContent = ({ elem, onClose }) => {
             onChange={(event) => {
               const newVistor = visitor.slice();
               newVistor[idx].phone = event.target.value;
+              newVistor[idx].isChanged = true;
               setVisitor(newVistor);
             }}
           />
@@ -166,9 +170,10 @@ const PutContent = ({ elem, onClose }) => {
       place: loc,
       purpose,
       targetStaffName: staff,
-      reserveId: elem.visitor.reserveId,
+      reserveId: elem.visitor[0].reserveId,
       visitor,
     };
+    console.log(data);
     const result = await updateReserve(data);
     history.push("/");
   };
@@ -249,6 +254,7 @@ const PutContent = ({ elem, onClose }) => {
                   organization: "",
                   phone: "",
                   reserve_id: visitor.length,
+                  isChanged: false,
                   key: `${new Date().toLocaleTimeString()}-${new Date().getMilliseconds()}`,
                 };
                 newVisitor.push(newData);
@@ -294,7 +300,7 @@ const PutContent = ({ elem, onClose }) => {
                 className={classes.btns}
                 disabled={!accept}
               >
-                <Typography variant="subtitle1">신청</Typography>
+                <Typography variant="subtitle1">수정</Typography>
               </Button>
             </Box>
           </Grid>

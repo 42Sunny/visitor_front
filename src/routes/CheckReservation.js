@@ -55,12 +55,6 @@ const CheckReservation = ({ history }) => {
     history.go(-1);
   };
 
-  const handleClickAvatar = (elem) => {
-    const id = elem.id;
-    setResultIdx(id);
-    setResultOpen(true);
-  };
-
   return (
     <Box className={styles.checkReservationBox}>
       <Box className={styles.rootContainer}>
@@ -127,7 +121,8 @@ const CheckReservation = ({ history }) => {
                 <Grid container spacing={1} key={elem.id}>
                   <Grid item xs={3} className={styles.checkElem}>
                     <Typography variant="h6">
-                      {`${elem.date[0]}-${elem.date[1]}-${elem.date[2]} ${elem.date[3]}:${elem.date[4]}`}
+                      {/* {`${elem.date[0]}-${elem.date[1]}-${elem.date[2]} ${elem.date[3]}:${elem.date[4]}`} */}
+                      {`${new Date(elem.date).toLocaleDateString()}`}
                     </Typography>
                   </Grid>
                   <Grid item xs={2} className={styles.checkElem}>
