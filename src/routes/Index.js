@@ -39,7 +39,7 @@ const Index = () => {
           variant="contained"
           className={`${classes.menuButton} ${classes.link}`}
           onClick={() => {
-            history.push("/application");
+            history.push("/reservation");
           }}
         >
           <Typography variant="subtitle2">방문 신청</Typography>
@@ -53,20 +53,6 @@ const Index = () => {
         >
           <Typography variant="subtitle2">방문 조회</Typography>
         </Button>
-        {/* <Button
-          variant="contained"
-          className={`${classes.menuButton} ${classes.link}`}
-          disabled
-          onClick={() => {
-            history.push("/login");
-          }}
-        >
-          <Typography variant="subtitle2">
-            직원
-            <br />
-            로그인
-          </Typography>
-        </Button> */}
       </Box>
     </Box>
   );
