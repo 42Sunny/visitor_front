@@ -52,13 +52,6 @@ const useStyles = makeStyles({
 });
 
 const PutContent = ({ elem, onClose }) => {
-  const newDate = new Date();
-  newDate.setFullYear(elem.date[0]);
-  newDate.setMonth(elem.date[1] - 1);
-  newDate.setDate(elem.date[2]);
-  newDate.setHours(elem.date[3]);
-  newDate.setMinutes(elem.date[4]);
-
   const classes = useStyles();
   const history = useHistory();
 
