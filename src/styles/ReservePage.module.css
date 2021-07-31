@@ -1,0 +1,353 @@
+.ReserveBackground {
+  background-color: #f5f5f5;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0px;
+}
+
+.ReserveHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  height: 50px;
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  z-index: 2147483647;
+}
+
+.ReserveLogo {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.ReserveLogoImg {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.ReserveMenu {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.ReserveMenuImg {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.ReserveContent {
+  top: 60px;
+  width: 100%;
+}
+
+.ReserveHeaderTitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.ReserveBox {
+  box-sizing: border-box;
+  padding: 15px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.ReserveBoxTitle {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.ReservePlaceContent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ReservePlaceInputBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ReservePlaceInput {
+  margin: 0.3rem;
+  appearance: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  background-image: url('../images/radio_button_unchecked.svg');
+  background-size: 100%;
+}
+
+.ReservePlaceInput:checked {
+  margin: 0.3rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  background-image: url('../images/radio_button_checked.svg');
+  background-size: 100%;
+}
+
+.ReserveInputBox {
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f6f6f6;
+  box-sizing: border-box;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.ReserveDatePickerBox {
+  display: flex;
+  align-items: center;
+}
+
+.ReserveDatePickerBox input {
+  background-color: #f6f6f6;
+  border-style: none;
+  color: #3b3b3e;
+  font-size: 1rem;
+}
+
+.ReserveDatePickerImg {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.ReserveStaffInput {
+  border-style: none;
+  background-color: #f6f6f6;
+  width: 100%;
+  font-size: 1.05rem;
+}
+
+.ReservePolicyTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ReservePolicyLink {
+  color: #03d5a3;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.ReservePolicyLink:visited {
+  color: #03d5a3;
+}
+
+.ReserveSubmitBox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.ReserveSubmitButton {
+  margin: 0 20px;
+  width: 100%;
+  height: 40px;
+  background-color: #03d5a3;
+  border-style: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.ReserveSubmitButton:disabled {
+  background-color: #c6c6c6;
+  cursor: not-allowed;
+}
+
+.ReserveVisitorButton {
+  background: white;
+  border-color: #e7e7e7;
+  border-style: solid;
+  color: #03d5a3;
+  width: 100%;
+  height: 50px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border-width: 0.5px;
+  cursor: pointer;
+}
+
+.ReserveVisitorBox {
+  margin-bottom: 10px;
+}
+
+.ReserveVisitorBoxTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ReserveVisitorInfoBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  align-items: center;
+  height: 20px;
+}
+
+.ReserveVisitorInfoTitle {
+  font-weight: bold;
+  width: 30%;
+}
+
+.ReserveVisitorInfoValue {
+  width: 70%;
+}
+
+.ReserveVistiorNumber {
+  font-weight: normal;
+}
+
+.ReserveVisitorInputButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ReserveVistiorDeleteButton {
+  background-color: #f3f3f3;
+  border-style: none;
+  font-size: 1.05rem;
+  color: #b5b5b5;
+  cursor: pointer;
+}
+
+.ReserveVistiorUpdateButton {
+  background-color: #f3f3f3;
+  border-style: none;
+  font-size: 1.05rem;
+  color: #03d5a3;
+  cursor: pointer;
+}
+
+.ReserveVistiorInsertButton {
+  background-color: #f3f3f3;
+  border-style: none;
+  font-size: 1.05rem;
+  color: #03d5a3;
+  cursor: pointer;
+}
+
+.ReserveVisitorInput {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  border-style: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.05rem;
+}
+
+.ReserveVisitorInput::placeholder {
+  font-size: 1rem;
+  color: #bababa;
+}
+
+.ReserveModalBox {
+  position: absolute;
+  inset: 50px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.ResultModal {
+  position: absolute;
+  inset: 13rem 2rem 13rem 2rem;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 0.7rem;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.ResultModalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.ResultModalButton {
+  border-style: none;
+  background-color: #03d5a3;
+  color: white;
+  margin: 1.2rem;
+  width: 8rem;
+  height: 2.3rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.ReservePolicyCheckBox {
+  appearance: none;
+  background-image: url('../images/checkbox_unchecked.svg');
+  background-size: 100%;
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.ReservePolicyCheckBox:checked {
+  appearance: none;
+  background-image: url('../images/checkbox_checked.svg');
+  background-size: 100%;
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.ReservePolicyTitleContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReserveInputSelect {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  border-style: none;
+  background-color: #f6f6f6;
+}
+
+.ReserveInputPurpose {
+  margin-top: 1rem;
+}
+
+.ReserveError {
+  font-size: 0.7rem;
+  color: red;
+  box-sizing: border-box;
+  margin-top: 0.5rem;
+}
+
+.ReserveStar {
+  color: red;
+}
