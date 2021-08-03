@@ -115,7 +115,10 @@ const ReserveSubmit = () => {
 
   const postErrorHandler = (error) => {
     if (error.response) {
-      const { response, status } = error;
+      const {
+        response,
+        response: { status },
+      } = error;
       const inputData = {
         date,
         place,

@@ -34,6 +34,7 @@ const updateReserve = (data) => {
 const postError = ({ status, payload }) => {
   const data = { status, payload };
   console.log(data);
+  // TODO: API 엔드포인트가 완성되면 입력
   // return apiHandler("post", "/error-message", data);
 };
 
