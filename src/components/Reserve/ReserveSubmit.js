@@ -113,6 +113,13 @@ const ReserveSubmit = () => {
   } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
 
+  const postErrorHandler = (error) => {
+    if (error.response) {
+      const data = { date, place, purpose, targetStaffName, visitor };
+      postError({ ...error.response.data, payload: data });
+    }
+  };
+
   const handleClick = async () => {
     if (
       checkData({
@@ -128,16 +135,12 @@ const ReserveSubmit = () => {
         setTargetStaffNameError,
         setVisitorError,
       }) === true
-    )
-      setIsOpen(true);
-    await SendReserve(date, place, purpose, targetStaffName, visitor).catch(
-      (error) => {
-        if (error.response) {
-          const data = { date, place, purpose, targetStaffName, visitor };
-          postError({ ...error.response.data, payload: data });
-        }
-      }
-    );
+    ) {
+      // setIsOpen(true);
+    }
+    await SendReserve(date, place, purpose, targetStaffName, visitor)
+      .then(setIsOpen(true))
+      .catch(postErrorHandler);
   };
 
   return (
