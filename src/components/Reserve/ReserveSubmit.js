@@ -115,12 +115,22 @@ const ReserveSubmit = () => {
 
   const postErrorHandler = (error) => {
     if (error.response) {
-      const data = { date, place, purpose, targetStaffName, visitor };
-      postError({ ...error.response.data, payload: data });
+      const { response, status } = error;
+      const inputData = {
+        date,
+        place,
+        purpose,
+        targetStaffName,
+        visitor,
+        response,
+      };
+      const payload = { response, inputData };
+      const data = { status, payload };
+      postError(data);
     }
   };
 
-  const handleClick = async () => {
+  const attemptPostData = () => {
     if (
       checkData({
         date,
@@ -136,11 +146,29 @@ const ReserveSubmit = () => {
         setVisitorError,
       }) === true
     ) {
-      // setIsOpen(true);
+      setIsOpen(true);
     }
+  };
+
+  const handleClick = async () => {
     await SendReserve(date, place, purpose, targetStaffName, visitor)
-      .then(setIsOpen(true))
-      .catch(postErrorHandler);
+      .then((response) => attemptPostData())
+      .catch(postErrorHandler)
+      .then(() =>
+        checkData({
+          date,
+          place,
+          purpose,
+          targetStaffName,
+          visitor,
+          isChecked,
+          setDateError,
+          setPlaceError,
+          setPurposeError,
+          setTargetStaffNameError,
+          setVisitorError,
+        })
+      );
   };
 
   return (

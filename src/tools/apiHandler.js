@@ -31,8 +31,8 @@ const updateReserve = (data) => {
   return apiHandler("put", "/reserve", data);
 };
 
-const postError = ({ error, message, path, status, timestamp, payload }) => {
-  const data = { error, message, path, status, timestamp, payload };
+const postError = ({ status, payload }) => {
+  const data = { status, payload };
   console.log(data);
   // return apiHandler("post", "/error-message", data);
 };
