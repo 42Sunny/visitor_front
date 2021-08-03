@@ -1,6 +1,6 @@
-const { default: axios } = require('axios');
+const { default: axios } = require("axios");
 
-const url = 'https://api.visitor.dev.42seoul.io';
+const url = "https://api.visitor.dev.42seoul.io";
 
 const apiHandler = async (method, path, data) => {
   return await axios(
@@ -9,26 +9,39 @@ const apiHandler = async (method, path, data) => {
       url: `${url}${path}`,
       data,
     },
-    { withCredentials: true },
+    { withCredentials: true }
   );
 };
 
 const getReserves = (name, phone) => {
   const data = { name, phone };
-  return apiHandler('post', '/reserves', data);
+  return apiHandler("post", "/reserves", data);
 };
 
 const deleteReserve = (name, phone, reserve_id) => {
   const data = { name, phone };
-  return apiHandler('delete', `/reserve?reserve_id=${reserve_id}`, data);
+  return apiHandler("delete", `/reserve?reserve_id=${reserve_id}`, data);
 };
 
 const createReserve = (data) => {
-  return apiHandler('post', '/reserve/create', data);
+  return apiHandler("post", "/reserve/create", data);
 };
 
 const updateReserve = (data) => {
-  return apiHandler('put', '/reserve', data);
+  return apiHandler("put", "/reserve", data);
 };
 
-export { apiHandler, getReserves, deleteReserve, createReserve, updateReserve };
+const postError = ({ error, message, path, status, timestamp, payload }) => {
+  const data = { error, message, path, status, timestamp, payload };
+  console.log(data);
+  // return apiHandler("post", "/error-message", data);
+};
+
+export {
+  apiHandler,
+  getReserves,
+  deleteReserve,
+  createReserve,
+  updateReserve,
+  postError,
+};

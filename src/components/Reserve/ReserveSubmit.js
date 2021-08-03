@@ -1,21 +1,26 @@
-import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext, useState } from 'react';
-import ReactModal from 'react-modal';
-import { useHistory } from 'react-router-dom';
-import styles from 'styles/ReservePage.module.css';
-import { createReserve } from 'tools/apiHandler';
-import dateToJsonTime from 'tools/dateToJsonTime';
+import { ReserveContext } from "contexts/ReserveContext";
+import React, { useContext, useState } from "react";
+import ReactModal from "react-modal";
+import { useHistory } from "react-router-dom";
+import styles from "styles/ReservePage.module.css";
+import { postError } from "tools/apiHandler";
+import { createReserve } from "tools/apiHandler";
+import dateToJsonTime from "tools/dateToJsonTime";
 
 const ResultModal = ({ isOpen }) => {
   const { visitor, place } = useContext(ReserveContext);
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('/');
+    history.push("/");
   };
 
   return (
-    <ReactModal isOpen={isOpen} className={styles.ResultModal}>
+    <ReactModal
+      isOpen={isOpen}
+      className={styles.ResultModal}
+      appElement={document.getElementById("app")}
+    >
       {visitor.length === 0 ? (
         <div className={styles.ResultModalContent}>
           <div className={styles.ResultModalMeesage}>{`에러 발생(미구현)`}</div>
@@ -25,8 +30,12 @@ const ResultModal = ({ isOpen }) => {
         </div>
       ) : (
         <div className={styles.ResultModalContent}>
-          <div className={styles.ResultModalMeesage}>{`${visitor[0].name}님 ${place}클러스터`}</div>
-          <div className={styles.ResultModalMeesage}>{`방문 신청이 완료되었습니다.`}</div>
+          <div
+            className={styles.ResultModalMeesage}
+          >{`${visitor[0].name}님 ${place}클러스터`}</div>
+          <div
+            className={styles.ResultModalMeesage}
+          >{`방문 신청이 완료되었습니다.`}</div>
           <button className={styles.ResultModalButton} onClick={handleClick}>
             확인
           </button>
@@ -56,7 +65,7 @@ const SendReserve = async (date, place, purpose, targetStaffName, visitor) => {
 
 const isFullVisitor = (visitor) => {
   const result = visitor.every(
-    (vis) => vis.name !== '' && vis.phone !== '' && vis.organization !== '',
+    (vis) => vis.name !== "" && vis.phone !== "" && vis.organization !== ""
   );
   return result;
 };
@@ -74,15 +83,15 @@ const checkData = ({
   setTargetStaffNameError,
   setVisitorError,
 }) => {
-  setDateError(date === '');
-  setPlaceError(place === '');
-  setPurposeError(purpose === '');
-  setTargetStaffNameError(targetStaffName === '');
+  setDateError(date === "");
+  setPlaceError(place === "");
+  setPurposeError(purpose === "");
+  setTargetStaffNameError(targetStaffName === "");
   setVisitorError(isFullVisitor(visitor) === false);
-  if (targetStaffName === '') return false;
-  if (purpose === '') return false;
-  if (place === '') return false;
-  if (date === '') return false;
+  if (targetStaffName === "") return false;
+  if (purpose === "") return false;
+  if (place === "") return false;
+  if (date === "") return false;
   if (isFullVisitor(visitor) === false) return false;
   if (isChecked === false) return false;
   return true;
@@ -121,16 +130,24 @@ const ReserveSubmit = () => {
       }) === true
     )
       setIsOpen(true);
-    try {
-      // eslint-disable-next-line no-unused-vars
-      const result = await SendReserve(date, place, purpose, targetStaffName, visitor);
-    } catch {}
+    await SendReserve(date, place, purpose, targetStaffName, visitor).catch(
+      (error) => {
+        if (error.response) {
+          const data = { date, place, purpose, targetStaffName, visitor };
+          postError({ ...error.response.data, payload: data });
+        }
+      }
+    );
   };
 
   return (
     <>
       <div className={styles.ReserveSubmitBox}>
-        <button className={styles.ReserveSubmitButton} disabled={!isChecked} onClick={handleClick}>
+        <button
+          className={styles.ReserveSubmitButton}
+          disabled={!isChecked}
+          onClick={handleClick}
+        >
           신청
         </button>
       </div>
