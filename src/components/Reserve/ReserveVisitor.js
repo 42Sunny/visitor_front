@@ -5,24 +5,25 @@ import { ReserveContext } from 'contexts/ReserveContext';
 import makeVisitor from 'tools/makeVisitor';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
+import { useLocation } from 'react-router-dom';
 
 const ReserveVisitorBox = ({ vis }) => {
   const { visitor, setVisitor } = useContext(ReserveContext);
   const [tmpName, setTmpName] = useState(vis.name);
   const [tmpOrganization, setTmpOrganization] = useState(vis.organization);
   const [tmpPhone, setTmpPhone] = useState(vis.phone);
+  const location = useLocation();
 
   const handleSave = () => {
     if (tmpPhone !== '' && tmpOrganization !== '' && tmpPhone !== '') {
       const newVisitor = [...visitor];
-      newVisitor.every((v) => {
+      newVisitor.forEach((v) => {
         if (v.id === vis.id) {
           v.isEditable = false;
           v.organization = tmpOrganization;
           v.name = tmpName;
           v.phone = tmpPhone;
         }
-        return true;
       });
       setVisitor(newVisitor);
     }
@@ -41,9 +42,14 @@ const ReserveVisitorBox = ({ vis }) => {
     const check = visitor.filter((vis) => vis.isEditable === true);
     if (check.length === 0) {
       const newVisitor = [...visitor];
-      newVisitor.every((v) => {
-        if (v.id === vis.id) vis.isEditable = true;
-        return true;
+      newVisitor.forEach((v) => {
+        if (v.id === vis.id) {
+          vis.isEditable = true;
+          if (location.state) {
+            console.log(v);
+            v.isChanged = true;
+          }
+        }
       });
       setVisitor(newVisitor);
     }
@@ -182,8 +188,7 @@ const ReserveVisitorBoxTitle = ({ visitors }) => {
 };
 
 const ReserveVisitor = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { visitor, setVisitor, visitorError } = useContext(ReserveContext);
+  const { visitor, visitorError } = useContext(ReserveContext);
 
   return (
     <>

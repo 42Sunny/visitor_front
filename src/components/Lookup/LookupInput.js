@@ -18,12 +18,9 @@ const LookupInput = () => {
   };
 
   const hanldeClick = async () => {
-    try {
-      const result = await getReserves(name, phone);
-      setReserve(result.data);
-    } catch {
-      setReserve([]);
-    }
+    await getReserves(name, phone)
+      .then((response) => setReserve(response.data))
+      .catch(() => setReserve([]));
   };
 
   return (

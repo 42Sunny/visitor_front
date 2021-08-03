@@ -3,6 +3,7 @@ import icon_no_result from 'images/icon_no_result.svg';
 import styles from 'styles/LookupPage.module.css';
 import { LookupContext } from 'contexts/LookupContext';
 import { deleteReserve } from 'tools/apiHandler';
+import { useHistory } from 'react-router-dom';
 
 const LookupNoResult = () => {
   return (
@@ -17,13 +18,22 @@ const LookupNoResult = () => {
 
 const LookupCard = ({ place, targetStaffName, purpose, date, reserveId, result }) => {
   const { reserve, setReserve } = useContext(LookupContext);
+  const history = useHistory();
+
   const handleDeleteClick = () => {
     const name = result.visitor[0].name;
     const phone = result.visitor[0].phone;
-    //TODO: 서버에서 자료를 다시 받아올 필요가 있어보인다.
-    deleteReserve(name, phone, reserveId);
-    const newReserve = reserve.filter((res) => res.visitor[0].reserveId !== reserveId);
-    setReserve(newReserve);
+    deleteReserve(name, phone, reserveId).then(() => {
+      const newReserve = reserve.filter((res) => res.visitor[0].reserveId !== reserveId);
+      setReserve(newReserve);
+    });
+  };
+
+  const handleUpdateClick = () => {
+    history.push({
+      pathname: '/reserve',
+      state: { ...result, isUpdate: true },
+    });
   };
 
   return (
@@ -50,26 +60,28 @@ const LookupCard = ({ place, targetStaffName, purpose, date, reserveId, result }
         <button className={styles.LookupCardDeleteButton} onClick={handleDeleteClick}>
           삭제
         </button>
-        {/* <button className={styles.LookupCardUpdateButton}>수정</button> */}
+        <button className={styles.LookupCardUpdateButton} onClick={handleUpdateClick}>
+          수정
+        </button>
       </div>
     </div>
   );
 };
 
-const LookupCards = ({ result }) => {
+const LookupCards = ({ results }) => {
   return (
     <div className={styles.LookupCardsBox}>
-      <div className={styles.LookupCardsHeader}>총 {result.length}건</div>
+      <div className={styles.LookupCardsHeader}>총 {results.length}건</div>
       <div className={styles.LookupCardsContent}>
-        {result.map((res) => (
+        {results.map((result) => (
           <LookupCard
-            key={res.visitor[0].reserveId}
-            result={res}
-            reserveId={res.visitor[0].reserveId}
-            date={res.date}
-            place={res.place}
-            targetStaffName={res.staff.name}
-            purpose={res.purpose}
+            key={result.visitor[0].reserveId}
+            result={result}
+            reserveId={result.visitor[0].reserveId}
+            date={result.date}
+            place={result.place}
+            targetStaffName={result.staff.name}
+            purpose={result.purpose}
           />
         ))}
       </div>
@@ -83,7 +95,7 @@ const LookupResult = () => {
   return (
     <>
       {reserve !== null &&
-        (reserve.length === 0 ? <LookupNoResult /> : <LookupCards result={reserve} />)}
+        (reserve.length === 0 ? <LookupNoResult /> : <LookupCards results={reserve} />)}
     </>
   );
 };

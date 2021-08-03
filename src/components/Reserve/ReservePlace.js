@@ -25,8 +25,8 @@ const ReservePlace = () => {
             type="radio"
             name="reservePlace"
             value="개포"
-            defaultChecked={place === '개포'}
-            onClick={handleClick}
+            checked={place === '개포'}
+            onChange={handleClick}
             className={styles.ReservePlaceInput}
           />
           <label>개포</label>
@@ -36,8 +36,8 @@ const ReservePlace = () => {
             type="radio"
             name="reservePlace"
             value="서초"
-            defaultChecked={place === '서초'}
-            onClick={handleClick}
+            checked={place === '서초'}
+            onChange={handleClick}
             className={styles.ReservePlaceInput}
           />
           <label>서초</label>

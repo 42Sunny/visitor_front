@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from 'styles/ReservePage.module.css';
 import logoImg from 'images/logo_42_small.png';
 // import menuImg from 'images/icon_menu.svg';
 import { useHistory } from 'react-router-dom';
+import { ReserveContext } from 'contexts/ReserveContext';
 
 const ReserveHeader = () => {
   return (
@@ -28,7 +29,10 @@ const ReserveLogo = () => {
   );
 };
 const ReserveHeaderTitle = () => {
-  return <div className={styles.ReserveHeaderTitle}>방문 예약</div>;
+  const { isUpdate } = useContext(ReserveContext);
+
+  if (!isUpdate) return <div className={styles.ReserveHeaderTitle}>방문 예약</div>;
+  else return <div className={styles.ReserveHeaderTitle}>예약 수정</div>;
 };
 const ReserveMenu = () => {
   return (

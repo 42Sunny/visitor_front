@@ -1,3 +1,4 @@
+import { ReserveProvider } from 'contexts/ReserveContext';
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ErrorPage from 'routes/ErrorPage';
@@ -14,7 +15,9 @@ const AppRouter = () => {
           <IndexPage />
         </Route>
         <Route path="/reserve" exact>
-          <ReservePage />
+          <ReserveProvider>
+            <ReservePage />
+          </ReserveProvider>
         </Route>
         <Route path="/lookup" exact>
           <LookupPage />

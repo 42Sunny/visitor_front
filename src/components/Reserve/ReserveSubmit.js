@@ -1,25 +1,26 @@
-import { ReserveContext } from "contexts/ReserveContext";
-import React, { useContext, useState } from "react";
-import ReactModal from "react-modal";
-import { useHistory } from "react-router-dom";
-import styles from "styles/ReservePage.module.css";
-import { postError } from "tools/apiHandler";
-import { createReserve } from "tools/apiHandler";
-import dateToJsonTime from "tools/dateToJsonTime";
+import { ReserveContext } from 'contexts/ReserveContext';
+import React, { useContext, useState } from 'react';
+import ReactModal from 'react-modal';
+import { useHistory, useLocation } from 'react-router-dom';
+import styles from 'styles/ReservePage.module.css';
+import { updateReserve } from 'tools/apiHandler';
+import { postError } from 'tools/apiHandler';
+import { createReserve } from 'tools/apiHandler';
+import dateToJsonTime from 'tools/dateToJsonTime';
 
 const ResultModal = ({ isOpen }) => {
   const { visitor, place } = useContext(ReserveContext);
   const history = useHistory();
 
   const handleClick = () => {
-    history.push("/");
+    history.push('/');
   };
 
   return (
     <ReactModal
       isOpen={isOpen}
       className={styles.ResultModal}
-      appElement={document.getElementById("app")}
+      appElement={document.getElementById('app')}
     >
       {visitor.length === 0 ? (
         <div className={styles.ResultModalContent}>
@@ -30,12 +31,8 @@ const ResultModal = ({ isOpen }) => {
         </div>
       ) : (
         <div className={styles.ResultModalContent}>
-          <div
-            className={styles.ResultModalMeesage}
-          >{`${visitor[0].name}님 ${place}클러스터`}</div>
-          <div
-            className={styles.ResultModalMeesage}
-          >{`방문 신청이 완료되었습니다.`}</div>
+          <div className={styles.ResultModalMeesage}>{`${visitor[0].name}님 ${place}클러스터`}</div>
+          <div className={styles.ResultModalMeesage}>{`방문 신청이 완료되었습니다.`}</div>
           <button className={styles.ResultModalButton} onClick={handleClick}>
             확인
           </button>
@@ -45,7 +42,7 @@ const ResultModal = ({ isOpen }) => {
   );
 };
 
-const SendReserve = async (date, place, purpose, targetStaffName, visitor) => {
+const sendCreateReserve = async (date, place, purpose, targetStaffName, visitor) => {
   const newVistor = visitor.map((vis) => ({
     name: vis.name,
     organization: vis.organization,
@@ -63,9 +60,32 @@ const SendReserve = async (date, place, purpose, targetStaffName, visitor) => {
   return result;
 };
 
+const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor) => {
+  const newVistor = visitor.map((vis) => ({
+    name: vis.name,
+    organization: vis.organization,
+    phone: vis.phone,
+    // reserve_id: visitor[0].reserveId,
+    reserve_id: 0,
+    isChanged: vis.isChanged,
+  }));
+  const data = {
+    date: dateToJsonTime(date),
+    place,
+    purpose,
+    targetStaffName,
+    // reserveId: visitor[0].reserveId,
+    reserveId: 0,
+    visitor: newVistor,
+  };
+  console.log(data);
+  const result = await updateReserve(data);
+  return result;
+};
+
 const isFullVisitor = (visitor) => {
   const result = visitor.every(
-    (vis) => vis.name !== "" && vis.phone !== "" && vis.organization !== ""
+    (vis) => vis.name !== '' && vis.phone !== '' && vis.organization !== '',
   );
   return result;
 };
@@ -83,15 +103,15 @@ const checkData = ({
   setTargetStaffNameError,
   setVisitorError,
 }) => {
-  setDateError(date === "");
-  setPlaceError(place === "");
-  setPurposeError(purpose === "");
-  setTargetStaffNameError(targetStaffName === "");
+  setDateError(date === '');
+  setPlaceError(place === '');
+  setPurposeError(purpose === '');
+  setTargetStaffNameError(targetStaffName === '');
   setVisitorError(isFullVisitor(visitor) === false);
-  if (targetStaffName === "") return false;
-  if (purpose === "") return false;
-  if (place === "") return false;
-  if (date === "") return false;
+  if (targetStaffName === '') return false;
+  if (purpose === '') return false;
+  if (place === '') return false;
+  if (date === '') return false;
   if (isFullVisitor(visitor) === false) return false;
   if (isChecked === false) return false;
   return true;
@@ -112,6 +132,7 @@ const ReserveSubmit = () => {
     setVisitorError,
   } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const postErrorHandler = (error) => {
     if (error.response) {
@@ -154,7 +175,10 @@ const ReserveSubmit = () => {
   };
 
   const handleClick = async () => {
-    await SendReserve(date, place, purpose, targetStaffName, visitor)
+    let callApi = sendCreateReserve;
+
+    if (location.state) callApi = sendUpdateReserve;
+    await callApi(date, place, purpose, targetStaffName, visitor)
       .then((response) => attemptPostData())
       .catch(postErrorHandler)
       .then(() =>
@@ -170,18 +194,14 @@ const ReserveSubmit = () => {
           setPurposeError,
           setTargetStaffNameError,
           setVisitorError,
-        })
+        }),
       );
   };
 
   return (
     <>
       <div className={styles.ReserveSubmitBox}>
-        <button
-          className={styles.ReserveSubmitButton}
-          disabled={!isChecked}
-          onClick={handleClick}
-        >
+        <button className={styles.ReserveSubmitButton} disabled={!isChecked} onClick={handleClick}>
           신청
         </button>
       </div>
