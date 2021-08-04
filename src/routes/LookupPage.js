@@ -21,7 +21,7 @@ const LookupContent = () => {
 };
 
 const Lookup = ({ children }) => {
-  return <div>{children}</div>;
+  return <div className={styles.Lookup}>{children}</div>;
 };
 
 const LookupPage = () => {

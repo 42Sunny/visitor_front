@@ -47,7 +47,6 @@ const sendCreateReserve = async (date, place, purpose, targetStaffName, visitor)
     name: vis.name,
     organization: vis.organization,
     phone: vis.phone,
-    reserve_id: 0,
   }));
   const data = {
     date: dateToJsonTime(date),
@@ -65,8 +64,7 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     name: vis.name,
     organization: vis.organization,
     phone: vis.phone,
-    reserve_id: visitor[0].reserveId,
-    // reserve_id: 0,
+    reserveId: visitor[0].reserveId,
     isChanged: vis.isChanged,
   }));
   const data = {
@@ -75,7 +73,6 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     purpose,
     targetStaffName,
     reserveId: visitor[0].reserveId,
-    // reserveId: 0,
     visitor: newVistor,
   };
   console.log(data);

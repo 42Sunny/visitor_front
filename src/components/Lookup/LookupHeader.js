@@ -28,7 +28,7 @@ const LookupLogo = () => {
   );
 };
 const LookupHeaderTitle = () => {
-  return <div className={styles.LookupHeaderTitle}>방문 예약</div>;
+  return <div className={styles.LookupHeaderTitle}>예약 조회</div>;
 };
 const LookupMenu = () => {
   return (
