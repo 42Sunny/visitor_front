@@ -52,6 +52,12 @@
   width: 100%;
 }
 
+.Reserve {
+  max-width: 768px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
 .ReserveHeaderTitle {
   font-size: 1.1rem;
   font-weight: bold;

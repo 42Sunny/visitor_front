@@ -65,8 +65,8 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     name: vis.name,
     organization: vis.organization,
     phone: vis.phone,
-    // reserve_id: visitor[0].reserveId,
-    reserve_id: 0,
+    reserve_id: visitor[0].reserveId,
+    // reserve_id: 0,
     isChanged: vis.isChanged,
   }));
   const data = {
@@ -74,8 +74,8 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     place,
     purpose,
     targetStaffName,
-    // reserveId: visitor[0].reserveId,
-    reserveId: 0,
+    reserveId: visitor[0].reserveId,
+    // reserveId: 0,
     visitor: newVistor,
   };
   console.log(data);

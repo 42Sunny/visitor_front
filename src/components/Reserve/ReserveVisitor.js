@@ -46,7 +46,6 @@ const ReserveVisitorBox = ({ vis }) => {
         if (v.id === vis.id) {
           vis.isEditable = true;
           if (location.state) {
-            console.log(v);
             v.isChanged = true;
           }
         }
@@ -81,7 +80,10 @@ const ReserveVisitorBox = ({ vis }) => {
       <div>
         <form>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>소속</div>
+            <div className={styles.ReserveVisitorInfoTitle}>
+              {`소속 `}
+              <ReserveStar />
+            </div>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
@@ -97,7 +99,10 @@ const ReserveVisitorBox = ({ vis }) => {
             </div>
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>성함</div>
+            <div className={styles.ReserveVisitorInfoTitle}>
+              {`성함 `}
+              <ReserveStar />
+            </div>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
@@ -113,7 +118,10 @@ const ReserveVisitorBox = ({ vis }) => {
             </div>
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>연락처</div>
+            <div className={styles.ReserveVisitorInfoTitle}>
+              {`연락처 `}
+              <ReserveStar />
+            </div>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
