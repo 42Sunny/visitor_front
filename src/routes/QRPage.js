@@ -1,4 +1,5 @@
 import QR from 'components/QR/QR';
+import { QRHeader } from 'components/QR/QRHeader';
 import React from 'react';
 import { useHistory } from 'react-router';
 import styles from 'styles/QRPage.module.css';
@@ -34,11 +35,12 @@ const QRButton = () => {
 const QRPage = () => {
   return (
     <QRBox>
+      <QRHeader />
       <QRMessage />
       <div className={styles.QRCodeBox}>
         <QR className={styles.QR} />
       </div>
-      <QRButton />
+      {/* <QRButton /> */}
     </QRBox>
   );
 };
