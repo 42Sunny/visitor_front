@@ -157,7 +157,6 @@ const ReserveSubmit = () => {
         purpose,
         targetStaffName,
         visitor,
-        response,
       };
       const payload = { response, inputData };
       const data = { status, payload };
