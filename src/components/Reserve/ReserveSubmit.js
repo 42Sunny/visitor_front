@@ -11,6 +11,7 @@ import dateToJsonTime from 'tools/dateToJsonTime';
 const ResultModal = ({ isOpen }) => {
   const { visitor, place } = useContext(ReserveContext);
   const history = useHistory();
+  const location = useLocation();
 
   const handleClick = () => {
     history.push('/');
@@ -31,8 +32,16 @@ const ResultModal = ({ isOpen }) => {
         </div>
       ) : (
         <div className={styles.ResultModalContent}>
-          <div className={styles.ResultModalMeesage}>{`${visitor[0].name}님 ${place}클러스터`}</div>
-          <div className={styles.ResultModalMeesage}>{`방문 신청이 완료되었습니다.`}</div>
+          {location.state ? (
+            <></>
+          ) : (
+            <>
+              <div
+                className={styles.ResultModalMeesage}
+              >{`${visitor[0].name}님 ${place}클러스터`}</div>
+              <div className={styles.ResultModalMeesage}>{`방문 신청이 완료되었습니다.`}</div>
+            </>
+          )}
           <button className={styles.ResultModalButton} onClick={handleClick}>
             확인
           </button>
@@ -75,7 +84,6 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     reserveId: visitor[0].reserveId,
     visitor: newVistor,
   };
-  console.log(data);
   const result = await updateReserve(data);
   return result;
 };
