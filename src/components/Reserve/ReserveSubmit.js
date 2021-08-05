@@ -33,7 +33,12 @@ const ResultModal = ({ isOpen }) => {
       ) : (
         <div className={styles.ResultModalContent}>
           {location.state ? (
-            <></>
+            <>
+              <div
+                className={styles.ResultModalMeesage}
+              >{`${visitor[0].name}님 ${place}클러스터`}</div>
+              <div className={styles.ResultModalMeesage}>{`방문 수정이 완료되었습니다.`}</div>
+            </>
           ) : (
             <>
               <div
@@ -84,6 +89,7 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     reserveId: visitor[0].reserveId,
     visitor: newVistor,
   };
+  console.log(data);
   const result = await updateReserve(data);
   return result;
 };
