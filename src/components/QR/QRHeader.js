@@ -28,7 +28,7 @@ const QRLogo = () => {
   );
 };
 const QRHeaderTitle = () => {
-  return <div className={styles.QRHeaderTitle}>예약 조회</div>;
+  return <div className={styles.QRHeaderTitle}>QR 체크인</div>;
 };
 const QRMenu = () => {
   return <div className={styles.QRMenu}></div>;

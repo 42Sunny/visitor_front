@@ -22,14 +22,20 @@
 
 .QRMessageBox {
   display: flex;
-  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
-.QRMessageBox {
+.QRMessage {
   font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.QRMessageDetail {
+  font-size: 0.9rem;
+  color: #9b9b9b;
 }
 
 .QRCodeBox {
