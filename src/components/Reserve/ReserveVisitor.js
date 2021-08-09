@@ -65,8 +65,14 @@ const ReserveVisitorBox = ({ vis }) => {
       vis.name = value;
       setTmpName(value);
     } else if (name === 'phone') {
-      vis.phone = value;
-      setTmpPhone(value);
+      const {
+        nativeEvent: { data },
+      } = event;
+      console.log(!isNaN(data));
+      if (isNaN(data) === false) {
+        vis.phone = value;
+        setTmpPhone(value);
+      }
     }
   };
 
@@ -127,7 +133,7 @@ const ReserveVisitorBox = ({ vis }) => {
                 <input
                   className={styles.ReserveVisitorInput}
                   placeholder="연락처를 입력해주세요"
-                  defaultValue={tmpPhone}
+                  value={tmpPhone}
                   onChange={handleChange}
                   name="phone"
                   type="tel"
