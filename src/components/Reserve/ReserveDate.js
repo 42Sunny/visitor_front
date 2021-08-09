@@ -38,7 +38,7 @@ const ReserveDate = () => {
             showTimeSelect
             locale="ko"
             selected={date}
-            dateFormat="P a hh:mm"
+            dateFormat="P p"
             onChange={handleChangeDate}
             onClickOutside={handleClickOutside}
             open={isOpen}
