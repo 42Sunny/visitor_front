@@ -13,8 +13,8 @@ const LookupInput = () => {
     setName(value);
   };
 
-  const handleChangePhone = ({ target: { value } }) => {
-    setPhone(value);
+  const handleChangePhone = ({ nativeEvent: { data }, target: { value } }) => {
+    if (isNaN(data) === false) setPhone(value);
   };
 
   const hanldeClick = async () => {
@@ -35,7 +35,7 @@ const LookupInput = () => {
         <input
           className={styles.LookupInputInput}
           placeholder="예약 시 등록한 연락처를 입력해주세요"
-          defaultValue={phone}
+          value={phone}
           onChange={handleChangePhone}
           type="tel"
         />
