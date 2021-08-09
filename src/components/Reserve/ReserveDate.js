@@ -44,6 +44,7 @@ const ReserveDate = () => {
             open={isOpen}
             readOnly
             disabled
+            className={styles.ReserveDatePicker}
           />
           <img src={icon_calendar} alt="icon-calendar" className={styles.ReserveDatePickerImg} />
         </button>
