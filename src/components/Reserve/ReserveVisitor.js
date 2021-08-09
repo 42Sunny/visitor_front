@@ -68,7 +68,6 @@ const ReserveVisitorBox = ({ vis }) => {
       const {
         nativeEvent: { data },
       } = event;
-      console.log(!isNaN(data));
       if (isNaN(data) === false) {
         vis.phone = value;
         setTmpPhone(value);

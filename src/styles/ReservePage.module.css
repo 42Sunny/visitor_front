@@ -163,6 +163,7 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
+  color: black;
 }
 
 .ReserveStaffInput {
