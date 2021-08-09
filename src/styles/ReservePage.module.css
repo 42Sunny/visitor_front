@@ -180,16 +180,15 @@
 
 .ReservePolicyLink {
   color: #03d5a3;
-  /* color: #919191; */
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: normal;
   cursor: pointer;
+  width: 4rem;
 }
 
 .ReservePolicyLink:visited {
   color: #03d5a3;
-  /* color: #919191; */
 }
 
 .ReserveSubmitBox {
