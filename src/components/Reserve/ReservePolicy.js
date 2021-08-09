@@ -32,24 +32,19 @@ const ReservePolicy = () => {
     setIsPolicyOpen(false);
   };
 
+  const handlePolicyButtonClick = (event) => {
+    setIsPolicyOpen(false);
+    setIsChecked(true);
+  };
+
   return (
     <>
       <ReserveBox>
         <ReserveBoxTitle className={styles.ReservePolicyTitle}>
-          <a
-            className={styles.ReservePolicyLink}
-            href={policyURL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handleURLClick}
-          >
-            {'약관 보기 >'}
-          </a>
           <button onClick={handleButtonClick} className={styles.ReservePolicyCheckButton}>
             <div className={styles.ReservePolicyTitleContent}>
               {`개인정보 수집, 이용 동의 `}
               <ReserveStar />
-              {/* TODO: 모달창으로 변경 */}
             </div>
             <input
               type="checkbox"
@@ -58,9 +53,16 @@ const ReservePolicy = () => {
               className={styles.ReservePolicyCheckBox}
             />
           </button>
+          <a className={styles.ReservePolicyLink} href={policyURL} onClick={handleURLClick}>
+            {'약관 보기'}
+          </a>
         </ReserveBoxTitle>
       </ReserveBox>
-      <ReservePolicyDetail isOpen={isPolicyOpen} onRequestClose={handlePolicyClose} />
+      <ReservePolicyDetail
+        isOpen={isPolicyOpen}
+        onRequestClose={handlePolicyClose}
+        onButtonClick={handlePolicyButtonClick}
+      />
     </>
   );
 };

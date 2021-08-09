@@ -23,7 +23,7 @@ const policy = [
   '알려드립니다.',
 ];
 
-const ReservePolicyDetail = ({ isOpen, onRequestClose }) => {
+const ReservePolicyDetail = ({ isOpen, onRequestClose, onButtonClick }) => {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -41,8 +41,8 @@ const ReservePolicyDetail = ({ isOpen, onRequestClose }) => {
           ))}
         </div>
         <div className={styles.ReservePolicyDetailFooter}>
-          <button onClick={onRequestClose} className={styles.ReservePolicyDetailButton}>
-            확인
+          <button onClick={onButtonClick} className={styles.ReservePolicyDetailButton}>
+            동의하고 확인
           </button>
         </div>
       </div>
