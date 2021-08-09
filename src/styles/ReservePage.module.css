@@ -306,18 +306,37 @@
 
 .ReserveModalBox {
   position: absolute;
-  inset: 50px;
+  max-height: 70vh;
+  min-width: 60vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
   overflow: auto;
   border-radius: 4px;
   outline: none;
-  padding: 20px;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .ResultModal {
+    width: 70vw;
+    height: 30vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .ResultModal {
+    inset: auto;
+  }
 }
 
 .ResultModal {
   position: absolute;
-  inset: 13rem 2rem 13rem 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 1px solid rgb(204, 204, 204);
   border-radius: 0.7rem;
   background: rgb(255, 255, 255);
@@ -346,6 +365,20 @@
   height: 2.3rem;
   border-radius: 0.3rem;
   cursor: pointer;
+}
+
+.ReservePolicyDetailHeader {
+  margin-bottom: 0.7rem;
+}
+
+.ReservePolicyDetailContent {
+  height: 50vh;
+  overflow-y: scroll;
+  border-style: solid;
+  border-color: #c6c6c6;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  padding: 1rem;
 }
 
 .ReservePolicyCheckBox {
