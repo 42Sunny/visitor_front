@@ -128,6 +128,15 @@
   border-radius: 5px;
 }
 
+.ReservePlaceInputButton {
+  background-color: white;
+  border-style: none;
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  font-size: 1rem;
+}
+
 .ReserveDatePickerBox {
   display: flex;
   align-items: center;
@@ -146,6 +155,16 @@
   cursor: pointer;
 }
 
+.ReserveDatePickerButton {
+  appearance: none;
+  border-style: none;
+  background-color: #f6f6f6;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .ReserveStaffInput {
   border-style: none;
   background-color: #f6f6f6;
@@ -155,8 +174,7 @@
 
 .ReservePolicyTitle {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
 .ReservePolicyLink {
@@ -343,10 +361,18 @@
   height: 1.7rem;
 }
 
-.ReservePolicyTitleContent {
+.ReservePolicyCheckButton {
+  appearance: none;
+  border-style: none;
+  background-color: white;
   display: flex;
-  justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0px;
 }
 
 .ReserveInputSelect {

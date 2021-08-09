@@ -6,8 +6,12 @@ const ReserveBox = ({ children, className }) => {
   return <div className={classNames(className, styles.ReserveBox)}>{children}</div>;
 };
 
-const ReserveInputBox = ({ children, className }) => {
-  return <div className={classNames(className, styles.ReserveInputBox)}>{children}</div>;
+const ReserveInputBox = ({ children, className, handleClick }) => {
+  return (
+    <div className={classNames(className, styles.ReserveInputBox)} onClick={handleClick}>
+      {children}
+    </div>
+  );
 };
 
 const ReserveBoxTitle = ({ children, className }) => {

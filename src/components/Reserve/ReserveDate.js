@@ -33,23 +33,20 @@ const ReserveDate = () => {
         날짜 및 시간 <ReserveStar />
       </ReserveBoxTitle>
       <ReserveInputBox className={styles.ReserveDatePickerBox}>
-        <DatePicker
-          showTimeSelect
-          locale="ko"
-          selected={date}
-          dateFormat="P a hh:mm"
-          onChange={handleChangeDate}
-          onClickOutside={handleClickOutside}
-          open={isOpen}
-          readOnly
-          disabled
-        />
-        <img
-          src={icon_calendar}
-          alt="icon-calendar"
-          className={styles.ReserveDatePickerImg}
-          onClick={handleClickOpen}
-        />
+        <button onClick={handleClickOpen} className={styles.ReserveDatePickerButton}>
+          <DatePicker
+            showTimeSelect
+            locale="ko"
+            selected={date}
+            dateFormat="P a hh:mm"
+            onChange={handleChangeDate}
+            onClickOutside={handleClickOutside}
+            open={isOpen}
+            readOnly
+            disabled
+          />
+          <img src={icon_calendar} alt="icon-calendar" className={styles.ReserveDatePickerImg} />
+        </button>
       </ReserveInputBox>
       {dateError && <ReserveError>필수 정보입니다.</ReserveError>}
     </ReserveBox>

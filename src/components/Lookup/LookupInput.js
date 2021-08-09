@@ -37,6 +37,7 @@ const LookupInput = () => {
           placeholder="예약 시 등록한 연락처를 입력해주세요"
           defaultValue={phone}
           onChange={handleChangePhone}
+          type="tel"
         />
       </div>
       <div className={styles.LookupInputButtonBox}>

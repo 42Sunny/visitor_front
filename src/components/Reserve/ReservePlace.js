@@ -9,9 +9,10 @@ const ReservePlace = () => {
 
   const handleClick = (event) => {
     const {
-      target: { value },
+      target: { value, innerText },
     } = event;
-    setPlace(value);
+    if (value) setPlace(value);
+    else setPlace(innerText);
   };
 
   return (
@@ -21,26 +22,30 @@ const ReservePlace = () => {
       </ReserveBoxTitle>
       <div className={styles.ReservePlaceContent}>
         <div className={styles.ReservePlaceInputBox}>
-          <input
-            type="radio"
-            name="reservePlace"
-            value="개포"
-            checked={place === '개포'}
-            onChange={handleClick}
-            className={styles.ReservePlaceInput}
-          />
-          <label>개포</label>
+          <button value="개포" onClick={handleClick} className={styles.ReservePlaceInputButton}>
+            <input
+              type="radio"
+              name="reservePlace"
+              value="개포"
+              checked={place === '개포'}
+              onChange={handleClick}
+              className={styles.ReservePlaceInput}
+            />
+            <label>개포</label>
+          </button>
         </div>
         <div className={styles.ReservePlaceInputBox}>
-          <input
-            type="radio"
-            name="reservePlace"
-            value="서초"
-            checked={place === '서초'}
-            onChange={handleClick}
-            className={styles.ReservePlaceInput}
-          />
-          <label>서초</label>
+          <button value="서초" onClick={handleClick} className={styles.ReservePlaceInputButton}>
+            <input
+              type="radio"
+              name="reservePlace"
+              value="서초"
+              checked={place === '서초'}
+              onChange={handleClick}
+              className={styles.ReservePlaceInput}
+            />
+            <label>서초</label>
+          </button>
         </div>
       </div>
     </ReserveBox>
