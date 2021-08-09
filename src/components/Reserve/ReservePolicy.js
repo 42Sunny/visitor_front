@@ -12,25 +12,40 @@ const ReservePolicy = () => {
   // eslint-disable-next-line no-unused-vars
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
-  const handleChange = (event) => {
+  const handlePolicyChange = (event) => {
     const {
       target: { checked },
     } = event;
     setIsChecked(checked);
   };
 
-  const handleClick = () => {
+  const handleButtonClick = () => {
     setIsChecked(!isChecked);
+  };
+
+  const handleURLClick = (event) => {
+    event.preventDefault();
+    setIsPolicyOpen(true);
+  };
+
+  const handlePolicyClose = (event) => {
+    setIsPolicyOpen(false);
   };
 
   return (
     <>
       <ReserveBox>
         <ReserveBoxTitle className={styles.ReservePolicyTitle}>
-          <a className={styles.ReservePolicyLink} href={policyURL} target="_blank" rel="noreferrer">
+          <a
+            className={styles.ReservePolicyLink}
+            href={policyURL}
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleURLClick}
+          >
             {'약관 보기 >'}
           </a>
-          <button onClick={handleClick} className={styles.ReservePolicyCheckButton}>
+          <button onClick={handleButtonClick} className={styles.ReservePolicyCheckButton}>
             <div className={styles.ReservePolicyTitleContent}>
               {`개인정보 수집, 이용 동의 `}
               <ReserveStar />
@@ -39,13 +54,13 @@ const ReservePolicy = () => {
             <input
               type="checkbox"
               checked={isChecked}
-              onChange={handleChange}
+              onChange={handlePolicyChange}
               className={styles.ReservePolicyCheckBox}
             />
           </button>
         </ReserveBoxTitle>
       </ReserveBox>
-      <ReservePolicyDetail isOpen={isPolicyOpen} />
+      <ReservePolicyDetail isOpen={isPolicyOpen} onRequestClose={handlePolicyClose} />
     </>
   );
 };
