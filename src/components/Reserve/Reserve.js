@@ -18,21 +18,11 @@ const ReserveBoxTitle = ({ children, className }) => {
   return <div className={classNames(styles.ReserveBoxTitle, className)}>{children}</div>;
 };
 
-const ReserveInput = ({ className, placeholder, value, onChange, multiline = false }) => {
-  return multiline ? (
-    <textarea
-      placeholder={placeholder}
-      className={classNames(styles.ReserveStaffInput, className)}
-      value={value}
-      onChange={onChange}
-    />
+const ReserveInput = (props, { className }) => {
+  return props.multiline ? (
+    <textarea className={classNames(styles.ReserveStaffInput, className)} {...props} />
   ) : (
-    <input
-      placeholder={placeholder}
-      className={classNames(styles.ReserveStaffInput, className)}
-      value={value}
-      onChange={onChange}
-    />
+    <input className={classNames(styles.ReserveStaffInput, className)} {...props} />
   );
 };
 

@@ -15,6 +15,7 @@ const ReserveProvider = ({ children }) => {
   const [placeError, setPlaceError] = useState(false);
   const [purposeError, setPurposeError] = useState(false);
   const [targetStaffNameError, setTargetStaffNameError] = useState(false);
+  const [invalidTargetStaffName, setInvalidTargetStaffName] = useState(false);
   const [visitorError, setVisitorError] = useState(false);
 
   return (
@@ -42,6 +43,8 @@ const ReserveProvider = ({ children }) => {
         setVisitorError,
         isChecked,
         setIsChecked,
+        invalidTargetStaffName,
+        setInvalidTargetStaffName,
       }}
     >
       {children}

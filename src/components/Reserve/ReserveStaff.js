@@ -1,11 +1,18 @@
 import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { checkStaff } from 'tools/apiHandler';
 import { ReserveBox, ReserveBoxTitle, ReserveInput, ReserveInputBox } from './Reserve';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 
 const ReserveStaff = () => {
-  const { targetStaffName, setTargetStaffName, targetStaffNameError } = useContext(ReserveContext);
+  const {
+    targetStaffName,
+    setTargetStaffName,
+    targetStaffNameError,
+    setInvalidTargetStaffName,
+    invalidTargetStaffName,
+  } = useContext(ReserveContext);
 
   const handleChange = (event) => {
     const {
@@ -13,6 +20,16 @@ const ReserveStaff = () => {
     } = event;
     setTargetStaffName(value);
   };
+
+  const sendStaffName = () => {
+    if (targetStaffName !== '') {
+      checkStaff(targetStaffName)
+        .then(() => setInvalidTargetStaffName(false))
+        .catch(() => setInvalidTargetStaffName(true));
+    }
+  };
+
+  useEffect(sendStaffName, [setInvalidTargetStaffName, targetStaffName]);
 
   return (
     <ReserveBox>
@@ -27,6 +44,7 @@ const ReserveStaff = () => {
         />
       </ReserveInputBox>
       {targetStaffNameError && <ReserveError>필수 정보입니다.</ReserveError>}
+      {invalidTargetStaffName && <ReserveError>등록되지 않은 직원입니다.</ReserveError>}
     </ReserveBox>
   );
 };

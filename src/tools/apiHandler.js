@@ -31,6 +31,11 @@ const updateReserve = (data) => {
   return apiHandler('put', '/reserve', data);
 };
 
+const checkStaff = (staffName) => {
+  const data = { staffName };
+  return apiHandler('post', '/staff', data);
+};
+
 const postError = ({ status, payload }) => {
   const data = { status, payload };
   console.log(data);
@@ -38,4 +43,12 @@ const postError = ({ status, payload }) => {
   // return apiHandler("post", "/error-message", data);
 };
 
-export { apiHandler, getReserves, deleteReserve, createReserve, updateReserve, postError };
+export {
+  apiHandler,
+  getReserves,
+  deleteReserve,
+  createReserve,
+  updateReserve,
+  postError,
+  checkStaff,
+};

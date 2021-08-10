@@ -113,6 +113,7 @@ const checkData = ({
   setPurposeError,
   setTargetStaffNameError,
   setVisitorError,
+  invalidTargetStaffName,
 }) => {
   setDateError(date === '');
   setPlaceError(place === '');
@@ -125,6 +126,7 @@ const checkData = ({
   if (date === '') return false;
   if (isFullVisitor(visitor) === false) return false;
   if (isChecked === false) return false;
+  if (invalidTargetStaffName) return false;
   return true;
 };
 
