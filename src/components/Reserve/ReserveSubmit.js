@@ -18,11 +18,7 @@ const ResultModal = ({ isOpen }) => {
   };
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      className={styles.ResultModal}
-      appElement={document.getElementById('app')}
-    >
+    <ReactModal isOpen={isOpen} className={styles.ResultModal} ariaHideApp={false}>
       {visitor.length === 0 ? (
         <div className={styles.ResultModalContent}>
           <div className={styles.ResultModalMeesage}>{`에러 발생(미구현)`}</div>
