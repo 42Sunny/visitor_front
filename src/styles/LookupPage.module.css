@@ -233,3 +233,60 @@
   font-size: 1rem;
   color: #03d5a3;
 }
+
+.LookupDeleteModal {
+  position: absolute;
+  max-height: 70vh;
+  min-width: 60vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 1rem;
+}
+
+.LookupDeleteModalBox {
+  padding: 1rem;
+}
+
+.LookupDeleteModalHeader {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.LookupDeleteModalContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LookupDeleteModalDeleteButton {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  border-style: none;
+  margin: 0.2rem;
+  background-color: #de2e2e;
+  border-radius: 0.3rem;
+  color: white;
+  max-width: 6rem;
+}
+
+.LookupDeleteModalCancelButton {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  border-style: none;
+  margin: 0.2rem;
+  background-color: #b3b3b3;
+  border-radius: 0.3rem;
+  color: white;
+  max-width: 6rem;
+}
