@@ -43,7 +43,6 @@ const ReservePage = () => {
       const visitor = location.state.visitor.map((elem) => {
         return { ...elem, key: Math.random(), isChanged: false };
       });
-      console.log(visitor);
       setDate(new Date(location.state.date));
       setPlace(location.state.place);
       setPurpose(location.state.purpose);

@@ -1,6 +1,6 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ReserveBox, ReserveInputBox, ReserveBoxTitle, ReserveInput } from './Reserve';
+import { ReserveBox, ReserveInputBox, ReserveBoxTitle } from './Reserve';
 import styles from 'styles/ReservePage.module.css';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
@@ -11,7 +11,7 @@ const ReservePurpose = () => {
   const [isDirectInput, setIsDirectInput] = useState(false);
   const [selected, setSelected] = useState('');
   const location = useLocation();
-  const purposeInput = useRef(null);
+  const purposeInput = useRef();
 
   const handleChange = (event) => {
     const {
@@ -28,14 +28,16 @@ const ReservePurpose = () => {
       setPurpose('');
       setSelected('directInput');
       setIsDirectInput(true);
-      console.log(purposeInput);
-      console.log(purposeInput.current);
     } else {
       setPurpose(value);
       setSelected(value);
       setIsDirectInput(false);
     }
   };
+
+  useEffect(() => {
+    if (!location.state && isDirectInput) purposeInput.current.focus();
+  }, [isDirectInput, location.state]);
 
   useEffect(() => {
     if (location.state) {
@@ -73,16 +75,16 @@ const ReservePurpose = () => {
           <option value="directInput">직접 입력</option>
         </select>
       </ReserveInputBox>
-      {isDirectInput && (
-        <ReserveInputBox className={styles.ReserveInputPurpose}>
-          <ReserveInput
-            placeholder="방문 목적을 입력해주세요"
-            onChange={handleChange}
-            value={purpose}
-            ref={purposeInput}
-          />
-        </ReserveInputBox>
-      )}
+      <ReserveInputBox className={styles.ReserveInputPurpose} hidden={!isDirectInput}>
+        <input
+          placeholder="방문 목적을 입력해주세요"
+          onChange={handleChange}
+          value={purpose}
+          ref={purposeInput}
+          className={styles.ReserveInput}
+          hidden={!isDirectInput}
+        />
+      </ReserveInputBox>
       {purposeError && <ReserveError>필수 정보입니다.</ReserveError>}
     </ReserveBox>
   );

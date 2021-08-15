@@ -85,7 +85,6 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     reserveId: visitor[0].reserveId,
     visitor: newVistor,
   };
-  console.log(data);
   const result = await updateReserve(data);
   return result;
 };
