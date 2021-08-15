@@ -18,12 +18,9 @@ const ReserveBoxTitle = ({ children, className }) => {
   return <div className={classNames(styles.ReserveBoxTitle, className)}>{children}</div>;
 };
 
-const ReserveInput = (props, { className }) => {
-  return props.multiline ? (
-    <textarea className={classNames(styles.ReserveStaffInput, className)} {...props} />
-  ) : (
-    <input className={classNames(styles.ReserveStaffInput, className)} {...props} />
-  );
+const ReserveInput = (props) => {
+  console.log(props);
+  return <input className={classNames(styles.ReserveStaffInput, props.className)} {...props} />;
 };
 
 export { ReserveBox, ReserveBoxTitle, ReserveInputBox, ReserveInput };

@@ -1,5 +1,5 @@
 import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ReserveBox, ReserveInputBox, ReserveBoxTitle, ReserveInput } from './Reserve';
 import styles from 'styles/ReservePage.module.css';
 import ReserveError from './ReserveError';
@@ -11,6 +11,7 @@ const ReservePurpose = () => {
   const [isDirectInput, setIsDirectInput] = useState(false);
   const [selected, setSelected] = useState('');
   const location = useLocation();
+  const purposeInput = useRef(null);
 
   const handleChange = (event) => {
     const {
@@ -27,6 +28,8 @@ const ReservePurpose = () => {
       setPurpose('');
       setSelected('directInput');
       setIsDirectInput(true);
+      console.log(purposeInput);
+      console.log(purposeInput.current);
     } else {
       setPurpose(value);
       setSelected(value);
@@ -74,9 +77,9 @@ const ReservePurpose = () => {
         <ReserveInputBox className={styles.ReserveInputPurpose}>
           <ReserveInput
             placeholder="방문 목적을 입력해주세요"
-            className={styles.ReserveInput}
             onChange={handleChange}
             value={purpose}
+            ref={purposeInput}
           />
         </ReserveInputBox>
       )}
