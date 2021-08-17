@@ -18,6 +18,11 @@ const getReserves = (name, phone) => {
   return apiHandler('post', '/reserves', data);
 };
 
+const getReserve = (id) => {
+  const data = {};
+  return apiHandler('get', `/reserve/${id}`, data);
+};
+
 const deleteReserve = (name, phone, reserve_id) => {
   const data = { name, phone };
   return apiHandler('delete', `/reserve?reserve_id=${reserve_id}`, data);
@@ -45,6 +50,7 @@ const postError = ({ status, payload }) => {
 
 export {
   apiHandler,
+  getReserve,
   getReserves,
   deleteReserve,
   createReserve,

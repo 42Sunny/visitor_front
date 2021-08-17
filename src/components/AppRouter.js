@@ -5,6 +5,7 @@ import ErrorPage from 'routes/ErrorPage';
 import IndexPage from 'routes/IndexPage';
 import LookupPage from 'routes/LookupPage';
 import QRPage from 'routes/QRPage';
+import ReserveInfoPage from 'routes/ReserveInfoPage';
 import ReservePage from 'routes/ReservePage';
 
 const AppRouter = () => {
@@ -21,6 +22,9 @@ const AppRouter = () => {
         </Route>
         <Route path="/lookup" exact>
           <LookupPage />
+        </Route>
+        <Route path="/reserve-info/:id" exact>
+          <ReserveInfoPage />
         </Route>
         <Route path="/qr/:code" exact>
           <QRPage />
