@@ -7,7 +7,6 @@ const makeVisitor = () => {
     key,
     isEditable: true,
     id: key,
-    reserve_id: 0,
   };
   return newVisitor;
 };

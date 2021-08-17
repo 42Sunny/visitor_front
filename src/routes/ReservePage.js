@@ -38,10 +38,13 @@ const ReservePage = () => {
   useEffect(() => {
     if (location.state) {
       const visitor = location.state.visitor.map((elem) => {
+        const key = Math.random();
         return {
           ...elem,
-          key: Math.random(),
+          key,
           isChanged: false,
+          isEditable: false,
+          id: key,
         };
       });
       setDate(new Date(location.state.date));
