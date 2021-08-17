@@ -38,7 +38,11 @@ const ReservePage = () => {
   useEffect(() => {
     if (location.state) {
       const visitor = location.state.visitor.map((elem) => {
-        return { ...elem, key: Math.random(), isChanged: false };
+        return {
+          ...elem,
+          key: Math.random(),
+          isChanged: false,
+        };
       });
       setDate(new Date(location.state.date));
       setPlace(location.state.place);

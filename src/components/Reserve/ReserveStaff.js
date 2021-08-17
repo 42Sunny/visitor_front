@@ -24,8 +24,13 @@ const ReserveStaff = () => {
   const sendStaffName = () => {
     if (targetStaffName !== '') {
       checkStaff(targetStaffName)
-        .then(() => setInvalidTargetStaffName(false))
-        .catch(() => setInvalidTargetStaffName(true));
+        .then((res) => {
+          const { data } = res;
+          setInvalidTargetStaffName(data !== true);
+        })
+        .catch(() => {
+          //TODO: postError
+        });
     }
   };
 
