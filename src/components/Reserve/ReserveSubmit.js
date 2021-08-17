@@ -186,7 +186,12 @@ const ReserveSubmit = () => {
 
     if (location.state) callApi = sendUpdateReserve;
     await callApi(date, place, purpose, targetStaffName, visitor)
-      .then((response) => attemptPostData())
+      .then((response) => {
+        const {
+          data: { error },
+        } = response;
+        if (!error) attemptPostData();
+      })
       .catch(postErrorHandler)
       .then(() =>
         checkData({

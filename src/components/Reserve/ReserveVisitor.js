@@ -8,7 +8,7 @@ import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';
 
 const ReserveVisitorBox = ({ vis }) => {
-  const { visitor, setVisitor } = useContext(ReserveContext);
+  const { visitor, setVisitor, setDuplicateError } = useContext(ReserveContext);
   const [tmpName, setTmpName] = useState(vis.name);
   const [tmpOrganization, setTmpOrganization] = useState(vis.organization);
   const [tmpPhone, setTmpPhone] = useState(vis.phone);
@@ -76,7 +76,16 @@ const ReserveVisitorBox = ({ vis }) => {
   };
 
   useEffect(() => {
-    if (tmpName !== '' && tmpOrganization !== '' && tmpPhone.length === 11) handleSave();
+    if (tmpName !== '' && tmpOrganization !== '' && tmpPhone.length === 11) {
+      const check = visitor.filter((elem) => elem.phone === tmpPhone);
+      if (check.length === 1) {
+        handleSave();
+        setDuplicateError(false);
+      } else {
+        setTmpPhone('');
+        setDuplicateError(true);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tmpPhone]);
 
@@ -201,7 +210,7 @@ const ReserveVisitorBoxTitle = ({ visitors }) => {
 };
 
 const ReserveVisitor = () => {
-  const { visitor, visitorError } = useContext(ReserveContext);
+  const { visitor, visitorError, duplicateError } = useContext(ReserveContext);
 
   return (
     <>
@@ -210,6 +219,7 @@ const ReserveVisitor = () => {
         {makeReserveVisitorBox(visitor)}
         <ReserveVisitorButton />
         {visitorError && <ReserveError>모든 정보를 입력해야합니다.</ReserveError>}
+        {duplicateError && <ReserveError>연락처는 중복될 수 없습니다.</ReserveError>}
       </ReserveBox>
     </>
   );

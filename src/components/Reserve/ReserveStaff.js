@@ -46,6 +46,7 @@ const ReserveStaff = () => {
           placeholder="방문할 직원의 성함을 입력해주세요"
           value={targetStaffName}
           onChange={handleChange}
+          onBlur={sendStaffName}
         />
       </ReserveInputBox>
       {targetStaffNameError && <ReserveError>필수 정보입니다.</ReserveError>}

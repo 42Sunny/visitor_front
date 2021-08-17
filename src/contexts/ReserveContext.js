@@ -17,6 +17,7 @@ const ReserveProvider = ({ children }) => {
   const [targetStaffNameError, setTargetStaffNameError] = useState(false);
   const [invalidTargetStaffName, setInvalidTargetStaffName] = useState(false);
   const [visitorError, setVisitorError] = useState(false);
+  const [duplicateError, setDuplicateError] = useState(false);
 
   return (
     <ReserveContext.Provider
@@ -45,6 +46,8 @@ const ReserveProvider = ({ children }) => {
         setIsChecked,
         invalidTargetStaffName,
         setInvalidTargetStaffName,
+        duplicateError,
+        setDuplicateError,
       }}
     >
       {children}
