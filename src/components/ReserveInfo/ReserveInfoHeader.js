@@ -27,7 +27,7 @@ const ReserveInfoLogo = () => {
   );
 };
 const ReserveInfoHeaderTitle = () => {
-  return <div className={styles.HeaderTitle}>예약 정보</div>;
+  return <div className={styles.HeaderTitle}>예약 상세</div>;
 };
 
 const ReserveInfoMenu = () => {

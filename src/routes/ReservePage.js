@@ -10,6 +10,7 @@ import ReservePolicy from 'components/Reserve/ReservePolicy';
 import ReserveSubmit from 'components/Reserve/ReserveSubmit';
 import { useLocation } from 'react-router-dom';
 import { ReserveContext } from 'contexts/ReserveContext';
+import Page from 'components/Common/Page';
 
 const ReserveContent = () => {
   return (
@@ -23,10 +24,6 @@ const ReserveContent = () => {
       <ReserveSubmit />
     </div>
   );
-};
-
-const Reserve = ({ children }) => {
-  return <div className={styles.Reserve}>{children}</div>;
 };
 
 const ReserveBackground = () => {
@@ -52,11 +49,11 @@ const ReservePage = () => {
   }, [location.state, setDate, setPlace, setPurpose, setTargetStaffName, setVisitor]);
 
   return (
-    <Reserve>
+    <Page>
       <ReserveHeader />
       <ReserveContent />
       <ReserveBackground />
-    </Reserve>
+    </Page>
   );
 };
 

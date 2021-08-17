@@ -1,0 +1,33 @@
+.Container {
+  padding: 1rem;
+}
+
+.Title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.Content {
+  background-color: #f6f6f6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* CardLine start*/
+.CardLine {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.CardLineTitle {
+  width: 30%;
+  font-weight: bold;
+}
+
+.CardLineContent {
+  width: 70%;
+}
+/* CardLine end*/

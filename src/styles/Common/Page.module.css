@@ -1,0 +1,6 @@
+.Page {
+  max-width: 768px;
+  min-width: 300px;
+  box-sizing: border-box;
+  margin: auto;
+}
