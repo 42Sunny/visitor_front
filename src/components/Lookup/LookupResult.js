@@ -75,7 +75,6 @@ const LookupCard = ({ place, targetStaffName, purpose, date, reserveId, result }
   };
 
   const handleUpdateClick = () => {
-    console.log(result);
     history.push({
       pathname: '/reserve',
       state: { ...result, isUpdate: true },

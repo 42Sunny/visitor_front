@@ -6,6 +6,7 @@ const makeVisitor = () => {
     phone: '',
     key,
     isEditable: true,
+    isChanged: true,
     id: key,
   };
   return newVisitor;

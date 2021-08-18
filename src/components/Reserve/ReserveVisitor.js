@@ -184,10 +184,12 @@ const makeReserveVisitorBox = (visitors) => {
 
 const ReserveVisitorButton = () => {
   const { visitor, setVisitor } = useContext(ReserveContext);
+  const location = useLocation();
 
   const handleClick = () => {
     const newVisitor = makeVisitor();
     const newVisitors = [...visitor, newVisitor];
+    if (location.state) newVisitor.isChanged = true;
     setVisitor(newVisitors);
   };
 
