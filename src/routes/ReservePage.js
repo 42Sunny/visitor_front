@@ -47,7 +47,8 @@ const ReservePage = () => {
           id: key,
         };
       });
-      setDate(new Date(location.state.date));
+      const newDate = new Date(location.state.date.replace(/-/g, '/'));
+      setDate(newDate);
       setPlace(location.state.place);
       setPurpose(location.state.purpose);
       setTargetStaffName(location.state.staff.name);
