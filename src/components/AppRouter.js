@@ -1,3 +1,4 @@
+import AdminPage from 'admin';
 import { ReserveProvider } from 'contexts/ReserveContext';
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
@@ -28,6 +29,9 @@ const AppRouter = () => {
         </Route>
         <Route path="/qr/:code" exact>
           <QRPage />
+        </Route>
+        <Route path="/admin" exact>
+          <AdminPage />
         </Route>
         <Route path="/error" exact>
           <ErrorPage />
