@@ -24,7 +24,6 @@ const styles = {
     marginTop: '0px',
     minHeight: 'auto',
     fontWeight: 'bold',
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: '3px',
     textDecoration: 'none',
   },
