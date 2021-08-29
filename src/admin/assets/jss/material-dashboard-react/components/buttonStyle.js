@@ -13,6 +13,7 @@ import {
 
 const buttonStyle = {
   button: {
+    fontFamily: 'Spoqa Han Sans Neo',
     minHeight: 'auto',
     minWidth: 'auto',
     backgroundColor: grayColor[0],

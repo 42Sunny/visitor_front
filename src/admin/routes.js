@@ -13,7 +13,7 @@ const dashboardRoutes = [
   },
   {
     path: '/user',
-    name: '방문 관리',
+    name: '출입 관리',
     icon: Person,
     component: UserProfile,
     layout: '/admin',

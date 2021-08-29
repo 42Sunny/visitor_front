@@ -33,6 +33,9 @@ const AppRouter = () => {
         <Route path="/admin" exact>
           <AdminPage />
         </Route>
+        <Route path="/admin/*" exact>
+          <AdminPage />
+        </Route>
         <Route path="/error" exact>
           <ErrorPage />
         </Route>

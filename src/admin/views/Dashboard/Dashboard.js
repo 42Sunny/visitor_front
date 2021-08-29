@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import DateRange from '@material-ui/icons/DateRange';
@@ -12,11 +12,84 @@ import CardBody from 'admin/components/Card/CardBody.js';
 import CardFooter from 'admin/components/Card/CardFooter.js';
 
 import styles from 'admin/assets/jss/material-dashboard-react/views/dashboardStyle.js';
+import { getAllReserves } from 'admin/api/apiHandler';
+import moment from 'moment';
 
 const useStyles = makeStyles(styles);
 
+/*
+1. 대시보드에 오늘 상세 조회 내역 띄우기
+  1. 서버에서 데이터 받아오기
+  2. 데이터 가공하기
+  3. 데이터 출력하기
+  -> 비동기는 데이터 관리를 어떻게 해야하는걸까...
+
+2. 대시보드에 현재 들어온 인원 띄우기
+3. 대시보드에 오늘 대기중인 인원 띄우기
+
+4. 방문 관리에 날짜별로 확인할 수 있게 만들기
+5. 방문 관리에서 인원별로 파악할 수 있게 만들기
+*/
+
+const getFomattedNow = () => {
+  return moment().format('YYYY-MM-DD');
+};
+
+const makeTableData = (rawData) => {
+  const result = [];
+  rawData.forEach((elem) => {
+    const { place, staffName, date, purpose, visitors } = elem;
+    visitors.forEach((elem) => {
+      const temp = [
+        elem.visitorId,
+        place,
+        date,
+        staffName,
+        elem.organization,
+        elem.name,
+        elem.phone,
+        purpose,
+        elem.status,
+      ];
+      result.push(temp);
+    });
+  });
+  return result;
+};
+
+const countVisitor = (rawData) => {
+  let checkin = 0;
+  let total = 0;
+  rawData.forEach((elem) => {
+    const { visitors } = elem;
+    visitors.forEach((elem) => {
+      if (elem.status === '입실') checkin++;
+      total++;
+    });
+  });
+  return [total, checkin];
+};
+
 export default function Dashboard() {
   const classes = useStyles();
+  const [rawData, setRawData] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [checkIn, setCheckIn] = useState(0);
+  const [totalVisitor, setTotalVisitor] = useState(0);
+  const now = new moment().format('YYYY. MM. DD');
+
+  useEffect(() => {
+    getAllReserves(getFomattedNow()).then((res) => setRawData(res.data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setTableData(makeTableData(rawData));
+    const [total, checkin] = countVisitor(rawData);
+    setTotalVisitor(total);
+    setCheckIn(checkin);
+  }, [rawData]);
+
   return (
     <div>
       <GridContainer>
@@ -24,15 +97,15 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Icon>login</Icon>
+                <Icon>person_add</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>현재 방문자 수</p>
-              <h3 className={classes.cardTitle}>3명</h3>
+              <p className={classes.cardCategory}>총 예약자 수</p>
+              <h3 className={classes.cardTitle}>{totalVisitor}명</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                {new Date().toLocaleDateString()}
+                {now}
               </div>
             </CardFooter>
           </Card>
@@ -41,185 +114,42 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Icon>person_add</Icon>
+                <Icon>login</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>예정 방문자 수</p>
-              <h3 className={classes.cardTitle}>7명</h3>
+              <p className={classes.cardCategory}>현재 방문자 수</p>
+              <h3 className={classes.cardTitle}>{checkIn}명</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                {new Date().toLocaleDateString()}
+                {now}
               </div>
             </CardFooter>
           </Card>
         </GridItem>
-        {/* <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon>info_outline</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
-              <h3 className={classes.cardTitle}>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem> */}
       </GridContainer>
-      {/* <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="warning">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer> */}
       <GridContainer>
-        {/* <GridItem xs={12} sm={12} md={6}>
-          <CustomTabs
-            title="Tasks:"
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Bugs",
-                tabIcon: BugReport,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0, 3]}
-                    tasksIndexes={[0, 1, 2, 3]}
-                    tasks={bugs}
-                  />
-                ),
-              },
-              {
-                tabName: "Website",
-                tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                ),
-              },
-              {
-                tabName: "Server",
-                tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                ),
-              },
-            ]}
-          />
-        </GridItem> */}
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>방문 정보</h4>
-              <p className={classes.cardCategoryWhite}>{new Date().toLocaleDateString()}</p>
+              <h4 className={classes.cardTitleWhite}>방문 현황</h4>
+              <p className={classes.cardCategoryWhite}>{now}</p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="info"
-                tableHead={['ID', '이름', '번호', '직원', '날짜 및 시간', '목적']}
-                tableData={[
-                  ['1', 'jayi', '01012345678', '오종인', '2021-08-21 10:00', '멘토링'],
-                  ['2', 'yoahn', '01012345678', '오종인', '2021-08-21 11:00', '회의'],
-                  ['3', 'jaehchoi', '01012345678', '오종인', '2021-08-21 12:00', '점심 식사'],
+                tableHead={[
+                  'ID',
+                  '장소',
+                  '날짜 및 시간',
+                  '직원',
+                  '소속',
+                  '이름',
+                  '번호',
+                  '목적',
+                  '상태',
                 ]}
+                tableData={tableData}
               />
             </CardBody>
           </Card>
