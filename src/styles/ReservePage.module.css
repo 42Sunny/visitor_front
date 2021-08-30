@@ -137,6 +137,10 @@
   font-size: 1rem;
 }
 
+.ReserveDatePicker {
+  display: none;
+}
+
 .ReserveDatePickerBox {
   display: flex;
   align-items: center;
@@ -164,6 +168,10 @@
   display: flex;
   justify-content: space-between;
   color: black;
+}
+
+.ReserveDatePickerDate {
+  font-size: 1rem;
 }
 
 .ReserveInput {

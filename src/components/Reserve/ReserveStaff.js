@@ -23,7 +23,6 @@ const ReserveStaff = () => {
   };
 
   const sendStaffName = debounce((event) => {
-    console.log(event.target.value);
     if (targetStaffName !== '') {
       checkStaff(targetStaffName)
         .then((res) => {
