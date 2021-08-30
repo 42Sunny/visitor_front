@@ -30,7 +30,7 @@ export default function AdminNavbarLinks() {
         >
           <Icon>logout</Icon>
           <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
+            <p className={classes.linkText}>Logout</p>
           </Hidden>
         </Button>
       </div>
