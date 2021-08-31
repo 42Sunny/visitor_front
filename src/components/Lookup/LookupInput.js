@@ -23,8 +23,11 @@ const LookupInput = () => {
         const {
           data: { error },
         } = response;
-        if (!error) setReserve(response.data);
-        else setReserve([]);
+        if (!error) {
+          const results = response.data;
+          results.reverse();
+          setReserve(response.data);
+        } else setReserve([]);
       })
       .catch(() => {
         //TODO: postError
