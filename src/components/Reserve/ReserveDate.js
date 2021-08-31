@@ -9,6 +9,7 @@ import { ReserveContext } from 'contexts/ReserveContext';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import moment from 'moment';
+import 'styles/Reserve/DatePicker.css';
 
 registerLocale('ko', ko);
 
@@ -48,6 +49,15 @@ const ReserveDate = () => {
           readOnly
           disabled
           className={styles.ReserveDatePicker}
+          minDate={new Date()}
+          popperModifiers={{
+            preventOverflow: { enabled: true },
+          }}
+          dayClassName={(day) => {
+            if (day.getDay() === 0) return 'datepicker__sun';
+            else if (day.getDay() === 6) return 'datepicker__sat';
+            else return 'datepicker__day';
+          }}
         />
         <button onClick={handleClickOpen} className={styles.ReserveDatePickerButton}>
           <div className={styles.ReserveDatePickerDate}>

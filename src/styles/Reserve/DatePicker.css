@@ -1,0 +1,27 @@
+.react-datepicker__time-list-item--selected {
+  background-color: #03d5a3 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #03d5a3 !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: grey !important;
+}
+
+.datepicker__sun {
+  color: red;
+}
+
+.datepicker__sat {
+  color: blue;
+}
+
+.react-datepicker__day--disabled {
+  color: silver !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  position: absolute;
+}
