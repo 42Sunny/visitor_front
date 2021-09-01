@@ -236,8 +236,11 @@
 
 .LookupDeleteModal {
   position: absolute;
-  max-height: 70vh;
-  min-width: 60vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -247,6 +250,7 @@
   border-radius: 4px;
   outline: none;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 .LookupDeleteModalBox {

@@ -314,8 +314,11 @@
 
 .ReserveModalBox {
   position: absolute;
-  max-height: 70vh;
-  min-width: 60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -344,6 +347,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
   transform: translate(-50%, -50%);
   border: 1px solid rgb(204, 204, 204);
   border-radius: 0.7rem;
@@ -351,7 +361,7 @@
   overflow: auto;
   border-radius: 4px;
   outline: none;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .ResultModalContent {
@@ -368,10 +378,11 @@
   border-style: none;
   background-color: #03d5a3;
   color: white;
-  margin: 1.2rem;
+  margin: 1rem;
   width: 8rem;
   height: 2.3rem;
   border-radius: 0.3rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
