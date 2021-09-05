@@ -91,8 +91,8 @@ const ReserveVisitorBox = ({ vis }) => {
       }
     });
     if (tmpName !== '' && tmpOrganization !== '' && count === 11) {
-      const check = visitor.filter((elem) => elem.phone === subtractDash(tmpPhone));
-      if (check.length === 1) {
+      const check = visitor.filter((elem) => subtractDash(elem.phone) === subtractDash(tmpPhone));
+      if (check.length <= 1) {
         handleSave();
         setDuplicateError(false);
       } else {
