@@ -6,6 +6,7 @@ import makeVisitor from 'tools/makeVisitor';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';
+import { formattedPhone } from 'tools/formattedPhone';
 
 const ReserveVisitorBox = ({ vis }) => {
   const { visitor, setVisitor, setDuplicateError } = useContext(ReserveContext);
@@ -14,15 +15,22 @@ const ReserveVisitorBox = ({ vis }) => {
   const [tmpPhone, setTmpPhone] = useState(vis.phone);
   const location = useLocation();
 
+  const subtractDash = (phone) => {
+    const rawPhone = Array.from(phone);
+    const filteredPhone = rawPhone.filter((elem) => isNaN(elem) === false);
+    return filteredPhone.join('');
+  };
+
   const handleSave = () => {
-    if (tmpPhone !== '' && tmpOrganization !== '' && tmpPhone !== '') {
+    if (tmpName !== '' && tmpOrganization !== '' && tmpPhone !== '') {
       const newVisitor = [...visitor];
       newVisitor.forEach((v) => {
         if (v.id === vis.id) {
           v.isEditable = false;
           v.organization = tmpOrganization;
           v.name = tmpName;
-          v.phone = tmpPhone;
+          v.phone = subtractDash(tmpPhone);
+          setTmpPhone(v.phone);
         }
       });
       setVisitor(newVisitor);
@@ -68,7 +76,7 @@ const ReserveVisitorBox = ({ vis }) => {
       const {
         nativeEvent: { data },
       } = event;
-      if (isNaN(data) === false) {
+      if (isNaN(data) === false || data === '-') {
         vis.phone = value;
         setTmpPhone(value);
       }
@@ -76,8 +84,14 @@ const ReserveVisitorBox = ({ vis }) => {
   };
 
   useEffect(() => {
-    if (tmpName !== '' && tmpOrganization !== '' && tmpPhone.length === 11) {
-      const check = visitor.filter((elem) => elem.phone === tmpPhone);
+    let count = 0;
+    Array.from(tmpPhone).forEach((elem) => {
+      if (isNaN(elem) === false) {
+        count++;
+      }
+    });
+    if (tmpName !== '' && tmpOrganization !== '' && count === 11) {
+      const check = visitor.filter((elem) => elem.phone === subtractDash(tmpPhone));
       if (check.length === 1) {
         handleSave();
         setDuplicateError(false);
@@ -133,21 +147,21 @@ const ReserveVisitorBox = ({ vis }) => {
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
             <div className={styles.ReserveVisitorInfoTitle}>
-              {`연락처 `}
+              {`휴대폰 번호 `}
               <ReserveStar />
             </div>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
                   className={styles.ReserveVisitorInput}
-                  placeholder="연락처를 입력해주세요"
+                  placeholder="휴대폰 번호를 입력해주세요"
                   value={tmpPhone}
                   onChange={handleChange}
                   name="phone"
                   type="tel"
                 />
               ) : (
-                vis.phone
+                formattedPhone(vis.phone)
               )}
             </div>
           </div>

@@ -6,6 +6,7 @@ import { Card } from 'components/Common/Card';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReserve } from 'tools/apiHandler';
+import { formattedPhone } from 'tools/formattedPhone';
 
 const getReserveInfo = async (id) => {
   const {
@@ -53,7 +54,7 @@ const ReserveInfoContent = () => {
           <CardContent key={`${elem.reserveId}-${elem.phone}`}>
             <CardLine title="조직" content={elem.organization} />
             <CardLine title="이름" content={elem.name} />
-            <CardLine title="번호" content={elem.phone} />
+            <CardLine title="번호" content={formattedPhone(elem.phone)} />
           </CardContent>
         ))}
       </CardContainer>
