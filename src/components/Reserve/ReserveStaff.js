@@ -5,6 +5,7 @@ import { ReserveBox, ReserveBoxTitle, ReserveInput, ReserveInputBox } from './Re
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { debounce } from 'lodash';
+import { postError } from 'tools/apiHandler';
 
 const ReserveStaff = () => {
   const {
@@ -27,16 +28,17 @@ const ReserveStaff = () => {
       checkStaff(targetStaffName)
         .then((res) => {
           const { data } = res;
-          setInvalidTargetStaffName(data !== true);
+          const check = data.hasOwnProperty('error');
+          setInvalidTargetStaffName(check);
         })
-        .catch(() => {
-          //TODO: postError
+        .catch((err) => {
+          const {
+            response: { data, status },
+          } = err;
+          postError(status, data);
         });
     }
   }, 500);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // useEffect(sendStaffName, [targetStaffName]);
 
   return (
     <ReserveBox>

@@ -42,10 +42,8 @@ const checkStaff = (staffName) => {
 };
 
 const postError = ({ status, payload }) => {
-  // eslint-disable-next-line no-unused-vars
   const data = { status, payload };
-  // TODO: API 엔드포인트가 완성되면 입력
-  // return apiHandler("post", "/error-message", data);
+  return apiHandler('post', '/front-err', data);
 };
 
 export {
