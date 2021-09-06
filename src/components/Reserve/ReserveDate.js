@@ -42,7 +42,7 @@ const ReserveDate = () => {
           showTimeSelect
           selected={date}
           locale="ko"
-          dateFormat="P p"
+          // dateFormat="P p"
           onChange={handleChangeDate}
           onClickOutside={handleClickOutside}
           open={isOpen}
@@ -61,7 +61,7 @@ const ReserveDate = () => {
         />
         <button onClick={handleClickOpen} className={styles.ReserveDatePickerButton}>
           <div className={styles.ReserveDatePickerDate}>
-            {new moment(date).format('YYYY. MM. DD hh:mm')}
+            {new moment(date).format('YYYY. MM. DD HH:mm')}
           </div>
           <img src={icon_calendar} alt="icon-calendar" className={styles.ReserveDatePickerImg} />
         </button>
