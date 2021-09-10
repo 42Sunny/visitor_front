@@ -107,7 +107,7 @@
   appearance: none;
   width: 1.3rem;
   height: 1.3rem;
-  background-image: url('../images/radio_button_unchecked.svg');
+  background-image: url('../images/radio_button_unchecked.png');
   background-size: 100%;
 }
 
@@ -115,7 +115,7 @@
   margin: 0.3rem;
   width: 1.3rem;
   height: 1.3rem;
-  background-image: url('../images/radio_button_checked.svg');
+  background-image: url('../images/radio_button_checked.png');
   background-size: 100%;
 }
 
@@ -274,7 +274,7 @@
 }
 
 .ReserveVistiorDeleteButton {
-  background-color: #f3f3f3;
+  background-color: #f6f6f6;
   border-style: none;
   font-size: 1.05rem;
   color: #b5b5b5;
@@ -282,7 +282,7 @@
 }
 
 .ReserveVistiorUpdateButton {
-  background-color: #f3f3f3;
+  background-color: #f6f6f6;
   border-style: none;
   font-size: 1.05rem;
   color: #03d5a3;
@@ -290,7 +290,7 @@
 }
 
 .ReserveVistiorInsertButton {
-  background-color: #f3f3f3;
+  background-color: #f6f6f6;
   border-style: none;
   font-size: 1.05rem;
   color: #03d5a3;
@@ -402,7 +402,7 @@
 
 .ReservePolicyCheckBox {
   appearance: none;
-  background-image: url('../images/checkbox_unchecked.svg');
+  background-image: url('../images/checkbox_unchecked.png');
   background-size: 100%;
   width: 1.7rem;
   height: 1.7rem;
@@ -410,7 +410,7 @@
 
 .ReservePolicyCheckBox:checked {
   appearance: none;
-  background-image: url('../images/checkbox_checked.svg');
+  background-image: url('../images/checkbox_checked.png');
   background-size: 100%;
   width: 1.7rem;
   height: 1.7rem;

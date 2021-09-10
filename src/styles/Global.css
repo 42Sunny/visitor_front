@@ -43,3 +43,19 @@ button {
 input:focus {
   outline: none;
 }
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  background: none;
+  border-width: 0;
+}
+
+input:checked {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  background: none;
+  border-width: 0;
+}
