@@ -12,9 +12,6 @@ const AppRouter = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <IndexPage />
-        </Route>
         <Route path="/reserve" exact>
           <ReserveProvider>
             <ReservePage />
@@ -32,7 +29,11 @@ const AppRouter = () => {
         <Route path="/error" exact>
           <ErrorPage />
         </Route>
+        <Redirect from="/" to="/reserve" />
         <Redirect from="*" to="/error" />
+        <Route path="/" exact>
+          <IndexPage />
+        </Route>
       </Switch>
     </Router>
   );

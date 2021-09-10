@@ -1,11 +1,13 @@
 import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { checkStaff } from 'tools/apiHandler';
 import { ReserveBox, ReserveBoxTitle, ReserveInput, ReserveInputBox } from './Reserve';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { debounce } from 'lodash';
 import { postError } from 'tools/apiHandler';
+
+const IDLE_TIME_TARGET_STAFF = 200;
 
 const ReserveStaff = () => {
   const {
@@ -23,9 +25,10 @@ const ReserveStaff = () => {
     setTargetStaffName(value);
   };
 
-  const sendStaffName = debounce((event) => {
-    if (targetStaffName !== '') {
-      checkStaff(targetStaffName)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sendTargetStaffName = useCallback(
+    debounce((name) => {
+      checkStaff(name)
         .then((res) => {
           const { data } = res;
           const check = data.hasOwnProperty('error');
@@ -37,8 +40,15 @@ const ReserveStaff = () => {
           } = err;
           postError(status, data);
         });
+    }, IDLE_TIME_TARGET_STAFF),
+    [],
+  );
+
+  useEffect(() => {
+    if (targetStaffName !== '') {
+      sendTargetStaffName(targetStaffName);
     }
-  }, 500);
+  }, [sendTargetStaffName, targetStaffName]);
 
   return (
     <ReserveBox>
@@ -50,8 +60,6 @@ const ReserveStaff = () => {
           placeholder="방문할 직원의 성함을 입력해주세요"
           value={targetStaffName}
           onChange={handleChange}
-          onKeyUp={sendStaffName}
-          onBlur={sendStaffName}
         />
       </ReserveInputBox>
       {targetStaffNameError && <ReserveError>필수 정보입니다.</ReserveError>}
