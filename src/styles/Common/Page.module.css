@@ -2,5 +2,7 @@
   max-width: 768px;
   min-width: 300px;
   box-sizing: border-box;
+  padding: 10px;
   margin: auto;
+  background-color: #f6f6f6;
 }

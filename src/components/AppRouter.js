@@ -13,8 +13,8 @@ import Page from 'components/Common/Page';
 const AppRouter = () => {
   return (
     <Router>
+      <Header />
       <Page>
-        <Header />
         <Switch>
           <Route path="/reserve" exact>
             <ReserveProvider>

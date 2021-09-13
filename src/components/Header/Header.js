@@ -2,6 +2,7 @@ import React from 'react';
 import styles, { selected } from './Header.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+// import logo from 'images/bi_img02.png';
 
 const RESERVE_PATH = '/reserve';
 const LOOKUP_PATH = '/lookup';
@@ -14,6 +15,9 @@ const Header = () => {
   if (pathname === RESERVE_PATH || pathname === LOOKUP_PATH) {
     return (
       <div className={styles.Header}>
+        {/* <div className={styles.LogoText}>
+          <img src={logo} alt="logo" className={styles.Logo} />
+        </div> */}
         <div className={styles.TitleBox}>
           <div
             className={classNames(styles.Title, { [selected]: pathname === RESERVE_PATH })}
@@ -32,7 +36,6 @@ const Header = () => {
             예약 조회
           </div>
         </div>
-        <div className={styles.LogoText}>이노베이션 아카데미</div>
       </div>
     );
   } else {

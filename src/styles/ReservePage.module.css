@@ -1,6 +1,6 @@
 @media (max-width: 768px) {
   .ReserveBackground {
-    background-color: white;
+    /* background-color: white; */
     position: fixed;
     width: 100%;
     height: 100%;
@@ -11,53 +11,13 @@
 
 @media (min-width: 768px) {
   .ReserveBackground {
-    background-color: white;
+    /* background-color: white; */
     position: fixed;
     width: 100%;
     height: 100%;
     z-index: -1;
     top: 0px;
   }
-}
-
-.ReserveHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  height: 50px;
-  width: 100%;
-  position: sticky;
-  top: 0px;
-  z-index: 2147483647;
-}
-
-.ReserveLogo {
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.ReserveLogoImg {
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-.ReserveMenu {
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.ReserveMenuImg {
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
 }
 
 .ReserveContent {
@@ -80,7 +40,9 @@
 .ReserveBox {
   box-sizing: border-box;
   padding: 15px;
-  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0px 5px 0.3px rgb(213, 213, 213);
   background-color: white;
 }
 
@@ -203,12 +165,12 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  padding: 10px;
   box-sizing: border-box;
+  margin-top: 15px;
 }
 
 .ReserveSubmitButton {
-  margin: 0 20px;
+  margin: 0px;
   width: 100%;
   height: 40px;
   background-color: #03d5a3;
@@ -217,6 +179,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.1rem;
+  box-sizing: border-box;
+  box-shadow: 0 0px 11px 0.3px rgb(225, 225, 225);
 }
 
 .ReserveSubmitButton:disabled {
@@ -257,11 +221,12 @@
 
 .ReserveVisitorInfoTitle {
   font-weight: bold;
-  width: 30%;
+  font-size: 0.9rem;
+  width: 35%;
 }
 
 .ReserveVisitorInfoValue {
-  width: 70%;
+  width: 65%;
 }
 
 .ReserveVistiorNumber {
@@ -317,7 +282,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 70vh;
+  max-height: 800px;
   width: 300px;
   top: 50%;
   left: 50%;
