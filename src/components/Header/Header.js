@@ -14,6 +14,7 @@ const Header = () => {
   if (pathname === RESERVE_PATH || pathname === LOOKUP_PATH) {
     return (
       <div className={styles.Header}>
+        <div className={styles.LogoText}>Innovation Academy</div>
         <div className={styles.TitleBox}>
           <div
             className={classNames(styles.Title, { [selected]: pathname === RESERVE_PATH })}
