@@ -11,33 +11,29 @@ const Header = () => {
   const { pathname } = location;
   const history = useHistory();
 
-  if (pathname === RESERVE_PATH || pathname === LOOKUP_PATH) {
-    return (
-      <div className={styles.Header}>
-        <div className={styles.LogoText}>Innovation Academy</div>
-        <div className={styles.TitleBox}>
-          <div
-            className={classNames(styles.Title, { [selected]: pathname === RESERVE_PATH })}
-            onClick={() => {
-              history.push(RESERVE_PATH);
-            }}
-          >
-            {!location.state ? '방문 예약' : '예약 수정'}
-          </div>
-          <div
-            className={classNames(styles.Title, { [selected]: pathname === LOOKUP_PATH })}
-            onClick={() => {
-              history.push(LOOKUP_PATH);
-            }}
-          >
-            예약 조회
-          </div>
+  return (
+    <div className={styles.Header}>
+      <div className={styles.LogoText}>Innovation Academy</div>
+      <div className={styles.TitleBox}>
+        <div
+          className={classNames(styles.Title, { [selected]: pathname === RESERVE_PATH })}
+          onClick={() => {
+            history.push(RESERVE_PATH);
+          }}
+        >
+          {!location.state ? '방문 예약' : '예약 수정'}
+        </div>
+        <div
+          className={classNames(styles.Title, { [selected]: pathname === LOOKUP_PATH })}
+          onClick={() => {
+            history.push(LOOKUP_PATH);
+          }}
+        >
+          예약 조회
         </div>
       </div>
-    );
-  } else {
-    return null;
-  }
+    </div>
+  );
 };
 
 export { Header };

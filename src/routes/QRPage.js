@@ -1,5 +1,5 @@
+import { Card } from 'components/Common/Card';
 import QR from 'components/QR/QR';
-import { QRHeader } from 'components/QR/QRHeader';
 import React from 'react';
 import styles from 'styles/QRPage.module.css';
 
@@ -20,11 +20,11 @@ const QRMessage = () => {
 const QRPage = () => {
   return (
     <QRBox>
-      <QRHeader />
-      <div className={styles.QRCodeBox}>
-        <QR className={styles.QR} />
-      </div>
-      {/* <QRButton /> */}
+      <Card>
+        <div className={styles.QRCodeBox}>
+          <QR className={styles.QR} />
+        </div>
+      </Card>
       <QRMessage />
     </QRBox>
   );

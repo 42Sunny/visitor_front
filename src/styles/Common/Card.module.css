@@ -10,10 +10,11 @@
 }
 
 .Content {
-  background-color: #f6f6f6;
-  border-radius: 0.5rem;
-  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
   margin-bottom: 0.5rem;
+  box-shadow: 0 0px 5px 0.3px rgb(213, 213, 213);
 }
 
 /* CardLine start*/
