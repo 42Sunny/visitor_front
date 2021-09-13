@@ -1,5 +1,4 @@
 import ReserveDate from 'components/Reserve/ReserveDate';
-import { ReserveHeader } from 'components/Reserve/ReserveHeader';
 import ReservePlace from 'components/Reserve/ReservePlace';
 import ReserveStaff from 'components/Reserve/ReserveStaff';
 import ReservePurpose from 'components/Reserve/ReservePurpose';
@@ -10,7 +9,6 @@ import ReservePolicy from 'components/Reserve/ReservePolicy';
 import ReserveSubmit from 'components/Reserve/ReserveSubmit';
 import { useLocation } from 'react-router-dom';
 import { ReserveContext } from 'contexts/ReserveContext';
-import Page from 'components/Common/Page';
 
 const ReserveContent = () => {
   return (
@@ -57,11 +55,10 @@ const ReservePage = () => {
   }, [location.state, setDate, setPlace, setPurpose, setTargetStaffName, setVisitor]);
 
   return (
-    <Page>
-      <ReserveHeader />
+    <>
       <ReserveContent />
       <ReserveBackground />
-    </Page>
+    </>
   );
 };
 

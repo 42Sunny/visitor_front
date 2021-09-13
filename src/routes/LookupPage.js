@@ -1,4 +1,3 @@
-import { LookupHeader } from 'components/Lookup/LookupHeader';
 import React from 'react';
 import styles from 'styles/LookupPage.module.css';
 import LookupInput from 'components/Lookup/LookupInput';
@@ -27,7 +26,6 @@ const Lookup = ({ children }) => {
 const LookupPage = () => {
   return (
     <Lookup>
-      <LookupHeader />
       <LookupContent />
       <LookupBackground />
     </Lookup>

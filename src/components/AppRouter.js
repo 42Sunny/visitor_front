@@ -7,34 +7,39 @@ import LookupPage from 'routes/LookupPage';
 import QRPage from 'routes/QRPage';
 import ReserveInfoPage from 'routes/ReserveInfoPage';
 import ReservePage from 'routes/ReservePage';
+import { Header } from './Header/Header';
+import Page from 'components/Common/Page';
 
 const AppRouter = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/reserve" exact>
-          <ReserveProvider>
-            <ReservePage />
-          </ReserveProvider>
-        </Route>
-        <Route path="/lookup" exact>
-          <LookupPage />
-        </Route>
-        <Route path="/reserve-info/:id" exact>
-          <ReserveInfoPage />
-        </Route>
-        <Route path="/qr/:code" exact>
-          <QRPage />
-        </Route>
-        <Route path="/error" exact>
-          <ErrorPage />
-        </Route>
-        <Redirect from="/" to="/reserve" />
-        <Redirect from="*" to="/error" />
-        <Route path="/" exact>
-          <IndexPage />
-        </Route>
-      </Switch>
+      <Page>
+        <Header />
+        <Switch>
+          <Route path="/reserve" exact>
+            <ReserveProvider>
+              <ReservePage />
+            </ReserveProvider>
+          </Route>
+          <Route path="/lookup" exact>
+            <LookupPage />
+          </Route>
+          <Route path="/reserve-info/:id" exact>
+            <ReserveInfoPage />
+          </Route>
+          <Route path="/qr/:code" exact>
+            <QRPage />
+          </Route>
+          <Route path="/error" exact>
+            <ErrorPage />
+          </Route>
+          <Redirect from="/" to="/reserve" />
+          <Redirect from="*" to="/error" />
+          <Route path="/" exact>
+            <IndexPage />
+          </Route>
+        </Switch>
+      </Page>
     </Router>
   );
 };

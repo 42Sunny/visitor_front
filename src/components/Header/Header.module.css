@@ -1,0 +1,57 @@
+.Header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  height: 50px;
+  width: 100%;
+  position: sticky;
+  top: 0px;
+  z-index: 2147483647;
+  padding: 15px;
+  box-sizing: border-box;
+  justify-content: space-between;
+
+  /* 드래그를 막는 옵션 */
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.Logo {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.LogoImg {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.LogoText {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.TitleBox {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.Title {
+  margin-right: 1rem;
+  box-sizing: border-box;
+  color: #a9a9a9;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.selected {
+  color: black;
+}
