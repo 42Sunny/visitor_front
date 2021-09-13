@@ -38,16 +38,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: white; */
-  /* border-radius: 10px;
-  box-shadow: 0 0px 5px 0.3px rgb(213, 213, 213); */
 }
 
 .LookupInputs {
   box-sizing: border-box;
-  /* padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 0.5rem; */
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -56,14 +50,12 @@
 .LookupInputInput {
   border-style: none;
   margin-bottom: 0.6rem;
-  /* background-color: #f5f5f5; */
   background-color: white;
   height: 2.5rem;
   border-radius: 5px;
   padding: 0.8rem;
   box-sizing: border-box;
   font-family: 'Spoqa Han Sans Neo';
-  /* box-shadow: 0 0px 5px 0.3px rgb(213, 213, 213); */
 }
 
 .LookupInputButtonBox {
