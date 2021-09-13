@@ -41,13 +41,13 @@ const LookupInput = () => {
       <div className={styles.LookupInputs}>
         <input
           className={styles.LookupInputInput}
-          placeholder="예약 시 등록한 성함을 입력해주세요"
+          placeholder="성함을 입력해주세요"
           defaultValue={name}
           onChange={handleChangeName}
         />
         <input
           className={styles.LookupInputInput}
-          placeholder="예약 시 등록한 연락처를 입력해주세요"
+          placeholder="휴대폰 번호를 입력해주세요"
           value={phone}
           onChange={handleChangePhone}
           type="tel"
