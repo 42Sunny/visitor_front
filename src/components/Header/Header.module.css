@@ -30,6 +30,7 @@
 .LogoBox {
   height: 30px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .LogoImg {

@@ -24,22 +24,26 @@ const Header = () => {
     <div className={styles.Header}>
       <div className={styles.Content}>
         <div className={styles.TitleBox}>
-          <div
-            className={classNames(styles.Title, { [selected]: basePath === RESERVE_PATH })}
-            onClick={() => {
-              history.push(RESERVE_PATH);
-            }}
-          >
-            {!location.state ? '방문 예약' : '예약 수정'}
-          </div>
-          <div
-            className={classNames(styles.Title, { [selected]: basePath === LOOKUP_PATH })}
-            onClick={() => {
-              history.push(LOOKUP_PATH);
-            }}
-          >
-            예약 조회
-          </div>
+          {(basePath === RESERVE_PATH || basePath === LOOKUP_PATH) && (
+            <>
+              <div
+                className={classNames(styles.Title, { [selected]: basePath === RESERVE_PATH })}
+                onClick={() => {
+                  history.push(RESERVE_PATH);
+                }}
+              >
+                {!location.state ? '방문 예약' : '예약 수정'}
+              </div>
+              <div
+                className={classNames(styles.Title, { [selected]: basePath === LOOKUP_PATH })}
+                onClick={() => {
+                  history.push(LOOKUP_PATH);
+                }}
+              >
+                예약 조회
+              </div>
+            </>
+          )}
           {basePath === RESERVE_INFO_PATH && (
             <div
               className={classNames(styles.Title, { [selected]: basePath === RESERVE_INFO_PATH })}
@@ -54,7 +58,14 @@ const Header = () => {
           )}
         </div>
         <div className={styles.LogoBox}>
-          <img className={styles.LogoImg} src={logo} alt="logo" />
+          <img
+            className={styles.LogoImg}
+            src={logo}
+            alt="logo"
+            onClick={() => {
+              history.push('/');
+            }}
+          />
         </div>
       </div>
     </div>
