@@ -1,11 +1,6 @@
-import { Card } from 'components/Common/Card';
 import QR from 'components/QR/QR';
 import React from 'react';
 import styles from 'styles/QRPage.module.css';
-
-const QRBox = ({ children }) => {
-  return <div className={styles.QRBox}>{children}</div>;
-};
 
 const QRMessage = () => {
   return (
@@ -19,14 +14,12 @@ const QRMessage = () => {
 
 const QRPage = () => {
   return (
-    <QRBox>
-      <Card>
-        <div className={styles.QRCodeBox}>
-          <QR className={styles.QR} />
-        </div>
-      </Card>
-      <QRMessage />
-    </QRBox>
+    <div className={styles.QRContainer}>
+      <div className={styles.QRBox}>
+        <QR className={styles.QR} />
+        <QRMessage />
+      </div>
+    </div>
   );
 };
 
