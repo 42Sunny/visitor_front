@@ -58,9 +58,7 @@ const LookupCard = ({ place, targetStaffName, purpose, date, reserveId, result }
   };
 
   const handleDelete = () => {
-    const name = result.visitor[0].name;
-    const phone = result.visitor[0].phone;
-    deleteReserve(name, phone, reserveId).then(() => {
+    deleteReserve(reserveId).then(() => {
       const newReserve = reserve.filter((res) => res.visitor[0].reserveId !== reserveId);
       setReserve(newReserve);
     });

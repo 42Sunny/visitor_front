@@ -62,19 +62,21 @@ const ReserveInfoContent = () => {
   const history = useHistory();
 
   useEffect(() => {
-    getReserveInfo(id)
-      .then((res) => {
-        const { date, place, purpose, visitor } = res;
-        setDate(date);
-        setPlace(place);
-        setPurpose(purpose);
-        setVisitor(visitor);
-        setIsLoading(true);
-        setResult(res);
-      })
-      .catch((error) => {
-        //TODO: error 서버에 보내기
-      });
+    if (!isNaN(id)) {
+      getReserveInfo(id)
+        .then((res) => {
+          const { date, place, purpose, visitor } = res;
+          setDate(date);
+          setPlace(place);
+          setPurpose(purpose);
+          setVisitor(visitor);
+          setIsLoading(true);
+          setResult(res);
+        })
+        .catch((error) => {
+          //TODO: error 서버에 보내기
+        });
+    }
   }, [id]);
 
   const handleModalClose = () => {
@@ -82,8 +84,7 @@ const ReserveInfoContent = () => {
   };
 
   const handleDelete = () => {
-    const { name, phone } = visitor[0];
-    deleteReserve(name, phone, id).then((res) => {
+    deleteReserve(id).then((res) => {
       history.push({
         pathname: '/',
       });

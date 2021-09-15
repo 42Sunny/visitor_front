@@ -28,9 +28,8 @@ const getReserve = (id) => {
   return apiHandler('get', `/reserve/${id}`, data);
 };
 
-const deleteReserve = (name, phone, reserve_id) => {
-  const data = { name, phone };
-  return apiHandler('delete', `/reserve?reserve_id=${reserve_id}`, data);
+const deleteReserve = (reserve_id) => {
+  return apiHandler('delete', `/reserve/${reserve_id}`);
 };
 
 const createReserve = (data) => {
