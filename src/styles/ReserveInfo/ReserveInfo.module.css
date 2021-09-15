@@ -1,0 +1,88 @@
+.ButtonBox {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-end;
+}
+
+.Button {
+  appearance: none;
+  width: 70px;
+  margin-left: 3px;
+  border-style: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  cursor: pointer;
+  color: white;
+}
+
+.DeleteButton {
+  background-color: #de2e2e;
+}
+
+.UpdateButton {
+  background-color: #03d5a3;
+}
+
+.DeleteModal {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.DeleteModalBox {
+  padding: 1rem;
+}
+
+.DeleteModalHeader {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.DeleteModalContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DeleteModalDeleteButton {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  border-style: none;
+  margin: 0.2rem;
+  background-color: #de2e2e;
+  border-radius: 0.3rem;
+  color: white;
+  max-width: 6rem;
+}
+
+.DeleteModalCancelButton {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  border-style: none;
+  margin: 0.2rem;
+  background-color: #b3b3b3;
+  border-radius: 0.3rem;
+  color: white;
+  max-width: 6rem;
+}

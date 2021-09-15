@@ -8,20 +8,29 @@ import { postError } from 'tools/apiHandler';
 import { createReserve } from 'tools/apiHandler';
 import dateToJsonTime from 'tools/dateToJsonTime';
 
-const ResultModal = ({ isOpen }) => {
+const ResultModal = ({ isOpen, reserveId }) => {
   const { visitor, place } = useContext(ReserveContext);
   const history = useHistory();
   const location = useLocation();
 
   const handleClick = () => {
-    history.push('/');
+    if (reserveId !== undefined) history.push(`/reserve-info/${reserveId}`);
+    else {
+      if (location.state) {
+        const {
+          state: { visitor },
+        } = location;
+        const reserveId = visitor[0].reserveId;
+        history.push(`/reserve-info/${reserveId}`);
+      } else history.push('/');
+    }
   };
 
   return (
     <ReactModal isOpen={isOpen} className={styles.ResultModal} ariaHideApp={false}>
       {visitor.length === 0 ? (
         <div className={styles.ResultModalContent}>
-          <div className={styles.ResultModalMeesage}>{`에러 발생(미구현)`}</div>
+          <div className={styles.ResultModalMeesage}>{`에러 발생`}</div>
           <button className={styles.ResultModalButton} onClick={handleClick}>
             돌아가기
           </button>
@@ -140,6 +149,7 @@ const ReserveSubmit = () => {
     setVisitorError,
   } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [reserveId, setReserveId] = useState(-1);
   const location = useLocation();
 
   const postErrorHandler = (error) => {
@@ -161,7 +171,10 @@ const ReserveSubmit = () => {
     }
   };
 
-  const attemptPostData = () => {
+  const checkPostData = (data) => {
+    const {
+      data: { reserveId },
+    } = data;
     if (
       checkData({
         date,
@@ -178,6 +191,7 @@ const ReserveSubmit = () => {
       }) === true
     ) {
       setIsOpen(true);
+      setReserveId(reserveId);
     }
   };
 
@@ -190,7 +204,9 @@ const ReserveSubmit = () => {
         const {
           data: { error },
         } = response;
-        if (!error) attemptPostData();
+        if (!error) {
+          checkPostData(response);
+        }
       })
       .catch(postErrorHandler)
       .then(() =>
@@ -217,7 +233,7 @@ const ReserveSubmit = () => {
           신청
         </button>
       </div>
-      <ResultModal isOpen={isOpen} />
+      <ResultModal isOpen={isOpen} reserveId={reserveId} />
     </>
   );
 };

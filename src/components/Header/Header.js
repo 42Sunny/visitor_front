@@ -34,14 +34,16 @@ const Header = () => {
               >
                 {!location.state ? '방문 예약' : '예약 수정'}
               </div>
-              <div
-                className={classNames(styles.Title, { [selected]: basePath === LOOKUP_PATH })}
-                onClick={() => {
-                  history.push(LOOKUP_PATH);
-                }}
-              >
-                예약 조회
-              </div>
+              {!location.state && (
+                <div
+                  className={classNames(styles.Title, { [selected]: basePath === LOOKUP_PATH })}
+                  onClick={() => {
+                    history.push(LOOKUP_PATH);
+                  }}
+                >
+                  예약 조회
+                </div>
+              )}
             </>
           )}
           {basePath === RESERVE_INFO_PATH && (

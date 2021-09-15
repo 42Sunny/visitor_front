@@ -7,6 +7,37 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReserve } from 'tools/apiHandler';
 import { formattedPhone } from 'tools/formattedPhone';
+import { useHistory } from 'react-router-dom';
+import { deleteReserve } from 'tools/apiHandler';
+import styles from 'styles/ReserveInfo/ReserveInfo.module.css';
+import classNames from 'classnames';
+import ReactModal from 'react-modal';
+
+const DeleteModal = ({ isOpen, onRequestClose, onDeleteButtonClick, onCancelButtonClick }) => {
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      className={styles.DeleteModal}
+      ariaHideApp={false}
+    >
+      <div className={styles.DeleteModalBox}>
+        <div className={styles.DeleteModalHeader}>
+          <div>예약을</div>
+          <div>삭제하시겠습니까?</div>
+        </div>
+        <div className={styles.DeleteModalContent}>
+          <button onClick={onDeleteButtonClick} className={styles.DeleteModalDeleteButton}>
+            삭제
+          </button>
+          <button onClick={onCancelButtonClick} className={styles.DeleteModalCancelButton}>
+            취소
+          </button>
+        </div>
+      </div>
+    </ReactModal>
+  );
+};
 
 const getReserveInfo = async (id) => {
   const {
@@ -25,21 +56,39 @@ const ReserveInfoContent = () => {
   const [place, setPlace] = useState(null);
   const [purpose, setPurpose] = useState(null);
   const [visitor, setVisitor] = useState(null);
+  const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     getReserveInfo(id)
-      .then(({ date, place, purpose, staff, visitor }) => {
+      .then((res) => {
+        const { date, place, purpose, visitor } = res;
         setDate(date);
         setPlace(place);
         setPurpose(purpose);
         setVisitor(visitor);
         setIsLoading(true);
+        setResult(res);
       })
       .catch((error) => {
         //TODO: error 서버에 보내기
       });
   }, [id]);
+
+  const handleModalClose = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDelete = () => {
+    const { name, phone } = visitor[0];
+    deleteReserve(name, phone, id).then((res) => {
+      history.push({
+        pathname: '/',
+      });
+    });
+  };
 
   return isLoading ? (
     <>
@@ -58,9 +107,36 @@ const ReserveInfoContent = () => {
           </CardContent>
         ))}
       </CardContainer>
+      <div className={styles.ButtonBox}>
+        <button
+          className={classNames(styles.Button, styles.UpdateButton)}
+          onClick={() => {
+            history.push({
+              pathname: '/reserve',
+              state: { ...result, isUpdate: true },
+            });
+          }}
+        >
+          수정
+        </button>
+        <button
+          className={classNames(styles.Button, styles.DeleteButton)}
+          onClick={() => {
+            setIsDeleteModalOpen(true);
+          }}
+        >
+          삭제
+        </button>
+      </div>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={handleModalClose}
+        onCancelButtonClick={handleModalClose}
+        onDeleteButtonClick={handleDelete}
+      />
     </>
   ) : (
-    <div>Loading</div>
+    <div>유효하지 않은 접근입니다.</div>
   );
 };
 
