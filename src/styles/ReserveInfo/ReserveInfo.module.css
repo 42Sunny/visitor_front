@@ -8,22 +8,25 @@
 .Button {
   appearance: none;
   width: 70px;
-  margin-left: 3px;
+  margin-left: 5px;
   border-style: none;
+  border-width: 0.5px;
   border-radius: 5px;
+  border-color: #dcdcdc;
   box-sizing: border-box;
   font-size: 1.1rem;
   padding: 0.3rem 1rem 0.3rem 1rem;
   cursor: pointer;
   color: white;
+  background-color: white;
 }
 
 .DeleteButton {
-  background-color: #de2e2e;
+  color: #de2e2e;
 }
 
 .UpdateButton {
-  background-color: #03d5a3;
+  color: #03d5a3;
 }
 
 .DeleteModal {

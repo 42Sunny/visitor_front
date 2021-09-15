@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReserve } from 'tools/apiHandler';
 import { formattedPhone } from 'tools/formattedPhone';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { deleteReserve } from 'tools/apiHandler';
 import styles from 'styles/ReserveInfo/ReserveInfo.module.css';
 import classNames from 'classnames';
@@ -60,6 +60,7 @@ const ReserveInfoContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (!isNaN(id)) {
@@ -108,33 +109,35 @@ const ReserveInfoContent = () => {
           </CardContent>
         ))}
       </CardContainer>
-      <div className={styles.ButtonBox}>
-        <button
-          className={classNames(styles.Button, styles.UpdateButton)}
-          onClick={() => {
-            history.push({
-              pathname: '/reserve',
-              state: { ...result, isUpdate: true },
-            });
-          }}
-        >
-          수정
-        </button>
-        <button
-          className={classNames(styles.Button, styles.DeleteButton)}
-          onClick={() => {
-            setIsDeleteModalOpen(true);
-          }}
-        >
-          삭제
-        </button>
-      </div>
       <DeleteModal
         isOpen={isDeleteModalOpen}
         onRequestClose={handleModalClose}
         onCancelButtonClick={handleModalClose}
         onDeleteButtonClick={handleDelete}
       />
+      {location.state && (
+        <div className={styles.ButtonBox}>
+          <button
+            className={classNames(styles.Button, styles.DeleteButton)}
+            onClick={() => {
+              setIsDeleteModalOpen(true);
+            }}
+          >
+            삭제
+          </button>
+          <button
+            className={classNames(styles.Button, styles.UpdateButton)}
+            onClick={() => {
+              history.push({
+                pathname: '/reserve',
+                state: { ...result, isUpdate: true },
+              });
+            }}
+          >
+            수정
+          </button>
+        </div>
+      )}
     </>
   ) : (
     <div>유효하지 않은 접근입니다.</div>

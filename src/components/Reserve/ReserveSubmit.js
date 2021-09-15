@@ -14,14 +14,15 @@ const ResultModal = ({ isOpen, reserveId }) => {
   const location = useLocation();
 
   const handleClick = () => {
-    if (reserveId !== undefined) history.push(`/reserve-info/${reserveId}`);
+    if (reserveId !== undefined)
+      history.push({ pathname: `/reserve-info/${reserveId}`, state: { isSubmit: true } });
     else {
       if (location.state) {
         const {
           state: { visitor },
         } = location;
         const reserveId = visitor[0].reserveId;
-        history.push(`/reserve-info/${reserveId}`);
+        history.push({ pathname: `/reserve-info/${reserveId}`, state: { isSubmit: true } });
       } else history.push('/');
     }
   };
