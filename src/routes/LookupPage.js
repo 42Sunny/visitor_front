@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from 'styles/LookupPage.module.css';
 import LookupInput from 'components/Lookup/LookupInput';
 import LookupResult from 'components/Lookup/LookupResult';
@@ -24,6 +24,11 @@ const Lookup = ({ children }) => {
 };
 
 const LookupPage = () => {
+  useEffect(() => {
+    const htmlTitle = document.querySelector('title');
+    htmlTitle.innerHTML = '예약 조회 - IA Visitor';
+  }, []);
+
   return (
     <Lookup>
       <LookupContent />

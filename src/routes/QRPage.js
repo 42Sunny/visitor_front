@@ -1,5 +1,5 @@
 import QR from 'components/QR/QR';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from 'styles/QRPage.module.css';
 
 const QRMessage = () => {
@@ -13,6 +13,11 @@ const QRMessage = () => {
 };
 
 const QRPage = () => {
+  useEffect(() => {
+    const htmlTitle = document.querySelector('title');
+    htmlTitle.innerHTML = 'QR 체크인 - IA Visitor';
+  }, []);
+
   return (
     <div className={styles.QRContainer}>
       <div className={styles.QRBox}>

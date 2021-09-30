@@ -34,6 +34,13 @@ const ReservePage = () => {
     useContext(ReserveContext);
 
   useEffect(() => {
+    const htmlTitle = document.querySelector('title');
+    if (!location.state) htmlTitle.innerHTML = '방문 예약 - IA Visitor';
+    else htmlTitle.innerHTML = '예약 수정- IA Visitor';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (location.state) {
       const visitor = location.state.visitor.map((elem) => {
         const key = Math.random();
