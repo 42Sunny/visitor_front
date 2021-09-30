@@ -128,14 +128,14 @@ const ReserveVisitorBox = ({ vis }) => {
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
             <div className={styles.ReserveVisitorInfoTitle}>
-              {`성함 `}
+              {`이름 `}
               <ReserveStar />
             </div>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
                   className={styles.ReserveVisitorInput}
-                  placeholder="성함을 입력해주세요"
+                  placeholder="이름을 입력해주세요"
                   defaultValue={tmpName}
                   onChange={handleChange}
                   name="name"

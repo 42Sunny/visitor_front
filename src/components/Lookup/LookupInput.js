@@ -41,7 +41,7 @@ const LookupInput = () => {
       <div className={styles.LookupInputs}>
         <input
           className={styles.LookupInputInput}
-          placeholder="성함을 입력해주세요"
+          placeholder="이름을 입력해주세요"
           defaultValue={name}
           onChange={handleChangeName}
         />

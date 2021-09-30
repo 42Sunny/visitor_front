@@ -57,7 +57,7 @@ const ReserveStaff = () => {
       </ReserveBoxTitle>
       <ReserveInputBox>
         <ReserveInput
-          placeholder="방문할 직원의 성함을 입력해주세요"
+          placeholder="방문할 직원의 이름을 입력해주세요"
           value={targetStaffName}
           onChange={handleChange}
         />
