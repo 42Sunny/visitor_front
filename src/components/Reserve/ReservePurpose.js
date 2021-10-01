@@ -1,10 +1,12 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ReserveBox, ReserveInputBox, ReserveBoxTitle } from './Reserve';
 import styles from 'styles/ReservePage.module.css';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';
+import WhiteBox from 'components/Common/WhiteBox';
+import BigTitle from 'components/Common/BigTitle';
+import GreyBox from 'components/Common/GreyBox';
 
 const ReservePurpose = () => {
   const { purpose, setPurpose, purposeError } = useContext(ReserveContext);
@@ -58,11 +60,11 @@ const ReservePurpose = () => {
   }, []);
 
   return (
-    <ReserveBox>
-      <ReserveBoxTitle>
+    <WhiteBox isGrid>
+      <BigTitle>
         목적 <ReserveStar />
-      </ReserveBoxTitle>
-      <ReserveInputBox>
+      </BigTitle>
+      <GreyBox>
         <select
           name="purpose"
           onChange={handleSelect}
@@ -74,8 +76,8 @@ const ReservePurpose = () => {
           <option value="회의">회의</option>
           <option value="directInput">직접 입력</option>
         </select>
-      </ReserveInputBox>
-      <ReserveInputBox className={styles.ReserveInputPurpose} hidden={!isDirectInput}>
+      </GreyBox>
+      <GreyBox className={styles.ReserveInputPurpose} hidden={!isDirectInput}>
         <input
           placeholder="방문 목적을 입력해주세요"
           onChange={handleChange}
@@ -84,9 +86,9 @@ const ReservePurpose = () => {
           className={styles.ReserveInput}
           hidden={!isDirectInput}
         />
-      </ReserveInputBox>
+      </GreyBox>
       {purposeError && <ReserveError>필수 정보입니다.</ReserveError>}
-    </ReserveBox>
+    </WhiteBox>
   );
 };
 

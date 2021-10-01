@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ReserveBox, ReserveBoxTitle, ReserveInputBox } from './Reserve';
 import styles from 'styles/ReservePage.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import makeVisitor from 'tools/makeVisitor';
@@ -7,6 +6,10 @@ import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';
 import { formattedPhone } from 'tools/formattedPhone';
+import WhiteBox from 'components/Common/WhiteBox';
+import BigTitle from 'components/Common/BigTitle';
+import GreyBox from 'components/Common/GreyBox';
+import SmallTitle from 'components/Common/SmallTitle';
 
 const ReserveVisitorBox = ({ vis }) => {
   const { visitor, setVisitor, setDuplicateError } = useContext(ReserveContext);
@@ -104,14 +107,14 @@ const ReserveVisitorBox = ({ vis }) => {
   }, [tmpPhone]);
 
   return (
-    <ReserveInputBox className={styles.ReserveVisitorBox}>
+    <GreyBox>
       <div>
         <form>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>
+            <SmallTitle>
               {`소속 `}
               <ReserveStar />
-            </div>
+            </SmallTitle>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
@@ -127,10 +130,10 @@ const ReserveVisitorBox = ({ vis }) => {
             </div>
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>
+            <SmallTitle>
               {`이름 `}
               <ReserveStar />
-            </div>
+            </SmallTitle>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
@@ -146,10 +149,10 @@ const ReserveVisitorBox = ({ vis }) => {
             </div>
           </div>
           <div className={styles.ReserveVisitorInfoBox}>
-            <div className={styles.ReserveVisitorInfoTitle}>
+            <SmallTitle>
               {`휴대폰 번호 `}
               <ReserveStar />
-            </div>
+            </SmallTitle>
             <div className={styles.ReserveVisitorInfoValue}>
               {vis.isEditable === true ? (
                 <input
@@ -188,7 +191,7 @@ const ReserveVisitorBox = ({ vis }) => {
           </>
         )}
       </div>
-    </ReserveInputBox>
+    </GreyBox>
   );
 };
 
@@ -216,12 +219,12 @@ const ReserveVisitorButton = () => {
 
 const ReserveVisitorBoxTitle = ({ visitors }) => {
   return (
-    <ReserveBoxTitle className={styles.ReserveVisitorBoxTitle}>
+    <BigTitle className={styles.ReserveVisitorBoxTitle}>
       <div>
         방문자 정보 <ReserveStar />
       </div>
       <div className={styles.ReserveVistiorNumber}>총 {visitors.length}명</div>
-    </ReserveBoxTitle>
+    </BigTitle>
   );
 };
 
@@ -229,15 +232,13 @@ const ReserveVisitor = () => {
   const { visitor, visitorError, duplicateError } = useContext(ReserveContext);
 
   return (
-    <>
-      <ReserveBox>
-        <ReserveVisitorBoxTitle visitors={visitor} />
-        {makeReserveVisitorBox(visitor)}
-        <ReserveVisitorButton />
-        {visitorError && <ReserveError>모든 정보를 입력해야합니다.</ReserveError>}
-        {duplicateError && <ReserveError>연락처는 중복될 수 없습니다.</ReserveError>}
-      </ReserveBox>
-    </>
+    <WhiteBox isGrid>
+      <ReserveVisitorBoxTitle visitors={visitor} />
+      {makeReserveVisitorBox(visitor)}
+      <ReserveVisitorButton />
+      {visitorError && <ReserveError>모든 정보를 입력해야합니다.</ReserveError>}
+      {duplicateError && <ReserveError>연락처는 중복될 수 없습니다.</ReserveError>}
+    </WhiteBox>
   );
 };
 

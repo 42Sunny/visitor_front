@@ -1,0 +1,6 @@
+.box {
+  background-color: #f6f6f6;
+  box-sizing: border-box;
+  padding: 0.7rem;
+  border-radius: 0.3rem;
+}

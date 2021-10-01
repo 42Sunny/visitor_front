@@ -1,7 +1,8 @@
+import BigTitle from 'components/Common/BigTitle';
+import WhiteBox from 'components/Common/WhiteBox';
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext } from 'react';
-import styles from 'styles/ReservePage.module.css';
-import { ReserveBox, ReserveBoxTitle } from './Reserve';
+import classes from 'styles/Reserve/ReservePlace.module.css';
 import ReserveStar from './ReserveStar';
 
 const ReservePlace = () => {
@@ -16,39 +17,39 @@ const ReservePlace = () => {
   };
 
   return (
-    <ReserveBox className={styles.ReservePlace}>
-      <ReserveBoxTitle>
+    <WhiteBox isGrid>
+      <BigTitle>
         장소 <ReserveStar />
-      </ReserveBoxTitle>
-      <div className={styles.ReservePlaceContent}>
-        <div className={styles.ReservePlaceInputBox}>
-          <button value="개포" onClick={handleClick} className={styles.ReservePlaceInputButton}>
+      </BigTitle>
+      <div className={classes.InputContent}>
+        <div className={classes.InputBox}>
+          <button value="개포" onClick={handleClick} className={classes.InputButton}>
             <input
               type="radio"
               name="reservePlace"
               value="개포"
-              checked={place === '개포'}
               onChange={handleClick}
-              className={styles.ReservePlaceInput}
+              checked={place === '개포'}
+              className={classes.Input}
             />
-            <label>개포</label>
+            <label className={classes.Label}>개포</label>
           </button>
         </div>
-        <div className={styles.ReservePlaceInputBox}>
-          <button value="서초" onClick={handleClick} className={styles.ReservePlaceInputButton}>
+        <div className={classes.InputBox}>
+          <button value="서초" onClick={handleClick} className={classes.InputButton}>
             <input
               type="radio"
               name="reservePlace"
               value="서초"
-              checked={place === '서초'}
               onChange={handleClick}
-              className={styles.ReservePlaceInput}
+              checked={place === '서초'}
+              className={classes.Input}
             />
-            <label>서초</label>
+            <label className={classes.Label}>서초</label>
           </button>
         </div>
       </div>
-    </ReserveBox>
+    </WhiteBox>
   );
 };
 

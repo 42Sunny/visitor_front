@@ -229,11 +229,9 @@ const ReserveSubmit = () => {
 
   return (
     <>
-      <div className={styles.ReserveSubmitBox}>
-        <button className={styles.ReserveSubmitButton} disabled={!isChecked} onClick={handleClick}>
-          신청
-        </button>
-      </div>
+      <button className={styles.ReserveSubmitButton} disabled={!isChecked} onClick={handleClick}>
+        신청
+      </button>
       <ResultModal isOpen={isOpen} reserveId={reserveId} />
     </>
   );
