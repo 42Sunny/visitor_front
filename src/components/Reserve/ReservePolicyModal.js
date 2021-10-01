@@ -1,6 +1,7 @@
+import BigTitle from 'components/Common/BigTitle';
 import React from 'react';
 import ReactModal from 'react-modal';
-import styles from 'styles/ReservePage.module.css';
+import classes from 'styles/Reserve/ReservePolicyModal.module.css';
 
 const policy = [
   'Ⅰ. 개인정보의 수집 및 이용 동의서',
@@ -23,31 +24,32 @@ const policy = [
   '알려드립니다.',
 ];
 
-const ReservePolicyDetail = ({ isOpen, onRequestClose, onButtonClick }) => {
+const ReservePolicyModal = ({ isOpen, onRequestClose, onButtonClick }) => {
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={styles.ReserveModalBox}
+      className={classes.ModalBox}
       ariaHideApp={false}
     >
-      <div className={styles.ReservePolicyDetailBox}>
-        <div className={styles.ReservePolicyDetailHeader}>이용 약관</div>
-        <div className={styles.ReservePolicyDetailContent}>
+      <div className={classes.Box}>
+        <BigTitle>이용 약관</BigTitle>
+        <div className={classes.Content}>
           {policy.map((content, idx) => (
-            <div key={idx} className={styles.ReservePolicyDetailDiv}>
+            <div key={idx} className={classes.Line}>
               {content}
             </div>
           ))}
         </div>
-        <div className={styles.ReservePolicyDetailFooter}>
-          <button onClick={onButtonClick} className={styles.ReservePolicyDetailButton}>
-            동의하고 확인
-          </button>
-        </div>
+        <button onClick={onButtonClick} className={classes.CheckButton}>
+          동의하고 확인
+        </button>
       </div>
+      <button className={classes.CancelButton} onClick={onRequestClose}>
+        취소
+      </button>
     </ReactModal>
   );
 };
 
-export default ReservePolicyDetail;
+export default ReservePolicyModal;

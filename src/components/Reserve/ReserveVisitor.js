@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styles from 'styles/ReservePage.module.css';
+import classes from 'styles/Reserve/ReserveVisitor.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import makeVisitor from 'tools/makeVisitor';
 import ReserveError from './ReserveError';
@@ -10,6 +10,7 @@ import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';
 import GreyBox from 'components/Common/GreyBox';
 import SmallTitle from 'components/Common/SmallTitle';
+import classNames from 'classnames';
 
 const ReserveVisitorBox = ({ vis }) => {
   const { visitor, setVisitor, setDuplicateError } = useContext(ReserveContext);
@@ -107,88 +108,84 @@ const ReserveVisitorBox = ({ vis }) => {
   }, [tmpPhone]);
 
   return (
-    <GreyBox>
-      <div>
-        <form>
-          <div className={styles.ReserveVisitorInfoBox}>
-            <SmallTitle>
-              {`소속 `}
-              <ReserveStar />
-            </SmallTitle>
-            <div className={styles.ReserveVisitorInfoValue}>
-              {vis.isEditable === true ? (
-                <input
-                  className={styles.ReserveVisitorInput}
-                  placeholder="소속을 입력해주세요"
-                  defaultValue={tmpOrganization}
-                  onChange={handleChange}
-                  name="organization"
-                />
-              ) : (
-                vis.organization
-              )}
-            </div>
-          </div>
-          <div className={styles.ReserveVisitorInfoBox}>
-            <SmallTitle>
-              {`이름 `}
-              <ReserveStar />
-            </SmallTitle>
-            <div className={styles.ReserveVisitorInfoValue}>
-              {vis.isEditable === true ? (
-                <input
-                  className={styles.ReserveVisitorInput}
-                  placeholder="이름을 입력해주세요"
-                  defaultValue={tmpName}
-                  onChange={handleChange}
-                  name="name"
-                />
-              ) : (
-                vis.name
-              )}
-            </div>
-          </div>
-          <div className={styles.ReserveVisitorInfoBox}>
-            <SmallTitle>
-              {`휴대폰 번호 `}
-              <ReserveStar />
-            </SmallTitle>
-            <div className={styles.ReserveVisitorInfoValue}>
-              {vis.isEditable === true ? (
-                <input
-                  className={styles.ReserveVisitorInput}
-                  placeholder="휴대폰 번호를 입력해주세요"
-                  value={tmpPhone}
-                  onChange={handleChange}
-                  name="phone"
-                  type="tel"
-                />
-              ) : (
-                formattedPhone(vis.phone)
-              )}
-            </div>
-          </div>
-        </form>
+    <GreyBox isGrid>
+      <div className={classes.InputBox}>
+        <SmallTitle>
+          {`소속 `}
+          <ReserveStar />
+        </SmallTitle>
+        <div className={classes.ValueBox}>
+          {vis.isEditable === true ? (
+            <input
+              className={classes.Input}
+              placeholder="소속을 입력해주세요"
+              defaultValue={tmpOrganization}
+              onChange={handleChange}
+              name="organization"
+            />
+          ) : (
+            vis.organization
+          )}
+        </div>
       </div>
-      <div className={styles.ReserveVisitorInputButtons}>
+      <div className={classes.InputBox}>
+        <SmallTitle>
+          {`이름 `}
+          <ReserveStar />
+        </SmallTitle>
+        <div className={classes.ValueBox}>
+          {vis.isEditable === true ? (
+            <input
+              className={classes.Input}
+              placeholder="이름을 입력해주세요"
+              defaultValue={tmpName}
+              onChange={handleChange}
+              name="name"
+            />
+          ) : (
+            vis.name
+          )}
+        </div>
+      </div>
+      <div className={classes.InputBox}>
+        <SmallTitle>
+          {`휴대폰 번호 `}
+          <ReserveStar />
+        </SmallTitle>
+        <div className={classes.ValueBox}>
+          {vis.isEditable === true ? (
+            <input
+              className={classes.Input}
+              placeholder="휴대폰 번호를 입력해주세요"
+              value={tmpPhone}
+              onChange={handleChange}
+              name="phone"
+              type="tel"
+            />
+          ) : (
+            formattedPhone(vis.phone)
+          )}
+        </div>
+      </div>
+
+      <div className={classes.InputButtonBox}>
+        <button
+          className={classNames(classes.Button, classes.DeleteButton)}
+          onClick={handleDeleteClick}
+        >
+          삭제
+        </button>
         {vis.isEditable === true ? (
-          <>
-            <button className={styles.ReserveVistiorDeleteButton} onClick={handleDeleteClick}>
-              삭제
-            </button>
-            <button className={styles.ReserveVistiorInsertButton} onClick={handleSave}>
-              저장
-            </button>
-          </>
+          <button className={classNames(classes.Button, classes.InsertButton)} onClick={handleSave}>
+            저장
+          </button>
         ) : (
-          <>
-            <button className={styles.ReserveVistiorDeleteButton} onClick={handleDeleteClick}>
-              삭제
-            </button>
-            <button className={styles.ReserveVistiorUpdateButton} onClick={handleUpdateClick}>
-              수정
-            </button>
-          </>
+          <button
+            className={classNames(classes.Button, classes.UpdateButton)}
+            onClick={handleUpdateClick}
+          >
+            수정
+          </button>
         )}
       </div>
     </GreyBox>
@@ -199,7 +196,7 @@ const makeReserveVisitorBox = (visitors) => {
   return visitors.map((visitor) => <ReserveVisitorBox key={visitor.key} vis={visitor} />);
 };
 
-const ReserveVisitorButton = () => {
+const AddVisitorButton = () => {
   const { visitor, setVisitor } = useContext(ReserveContext);
   const location = useLocation();
 
@@ -211,20 +208,9 @@ const ReserveVisitorButton = () => {
   };
 
   return (
-    <button className={styles.ReserveVisitorButton} onClick={handleClick}>
+    <button className={classes.AddVisitorButton} onClick={handleClick}>
       + 방문자 추가
     </button>
-  );
-};
-
-const ReserveVisitorBoxTitle = ({ visitors }) => {
-  return (
-    <BigTitle className={styles.ReserveVisitorBoxTitle}>
-      <div>
-        방문자 정보 <ReserveStar />
-      </div>
-      <div className={styles.ReserveVistiorNumber}>총 {visitors.length}명</div>
-    </BigTitle>
   );
 };
 
@@ -233,9 +219,14 @@ const ReserveVisitor = () => {
 
   return (
     <WhiteBox isGrid>
-      <ReserveVisitorBoxTitle visitors={visitor} />
+      <div className={classes.Header}>
+        <BigTitle>
+          방문자 정보 <ReserveStar />
+        </BigTitle>
+        <div>총 {visitor.filter((elem) => elem.isEditable === false).length}명</div>
+      </div>
       {makeReserveVisitorBox(visitor)}
-      <ReserveVisitorButton />
+      <AddVisitorButton />
       {visitorError && <ReserveError>모든 정보를 입력해야합니다.</ReserveError>}
       {duplicateError && <ReserveError>연락처는 중복될 수 없습니다.</ReserveError>}
     </WhiteBox>

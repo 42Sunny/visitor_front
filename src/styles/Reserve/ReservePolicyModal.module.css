@@ -1,0 +1,58 @@
+.ModalBox {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  gap: 0.7rem;
+  min-width: 300px;
+  max-width: 768px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Box {
+  display: grid;
+  gap: 1rem;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  outline: none;
+  padding: 1rem;
+}
+
+.Content {
+  min-height: 30vh;
+  max-height: 50vh;
+  overflow-y: scroll;
+  border-style: solid;
+  border-color: #c6c6c6;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  padding: 1rem;
+}
+
+.Line {
+  min-height: 1rem;
+}
+
+.CheckButton {
+  appearance: none;
+  border-style: none;
+  background-color: #03d5a3;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 0.3rem;
+  width: 100%;
+  padding: 0.4rem;
+}
+
+.CancelButton {
+  appearance: none;
+  border-style: none;
+  font-size: 0.7rem;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0);
+  color: grey;
+  text-decoration: underline;
+}

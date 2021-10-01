@@ -1,0 +1,8 @@
+.Selector {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  font-size: 0.9rem;
+  border-style: none;
+  background-color: rgba(0, 0, 0, 0);
+}

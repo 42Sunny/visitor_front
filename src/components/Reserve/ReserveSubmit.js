@@ -1,66 +1,13 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useState } from 'react';
-import ReactModal from 'react-modal';
-import { useHistory, useLocation } from 'react-router-dom';
-import styles from 'styles/ReservePage.module.css';
+
+import { useLocation } from 'react-router-dom';
+import classes from 'styles/Reserve/ReserveSubmit.module.css';
 import { updateReserve } from 'tools/apiHandler';
 import { postError } from 'tools/apiHandler';
 import { createReserve } from 'tools/apiHandler';
 import dateToJsonTime from 'tools/dateToJsonTime';
-
-const ResultModal = ({ isOpen, reserveId }) => {
-  const { visitor, place } = useContext(ReserveContext);
-  const history = useHistory();
-  const location = useLocation();
-
-  const handleClick = () => {
-    if (reserveId !== undefined)
-      history.push({ pathname: `/reserve-info/${reserveId}`, state: { isSubmit: true } });
-    else {
-      if (location.state) {
-        const {
-          state: { visitor },
-        } = location;
-        const reserveId = visitor[0].reserveId;
-        history.push({ pathname: `/reserve-info/${reserveId}`, state: { isSubmit: true } });
-      } else history.push('/');
-    }
-  };
-
-  return (
-    <ReactModal isOpen={isOpen} className={styles.ResultModal} ariaHideApp={false}>
-      {visitor.length === 0 ? (
-        <div className={styles.ResultModalContent}>
-          <div className={styles.ResultModalMeesage}>{`에러 발생`}</div>
-          <button className={styles.ResultModalButton} onClick={handleClick}>
-            돌아가기
-          </button>
-        </div>
-      ) : (
-        <div className={styles.ResultModalContent}>
-          {location.state ? (
-            <>
-              <div
-                className={styles.ResultModalMeesage}
-              >{`${visitor[0].name}님 ${place}클러스터`}</div>
-              <div className={styles.ResultModalMeesage}>{`방문 수정이 완료되었습니다.`}</div>
-            </>
-          ) : (
-            <>
-              <div
-                className={styles.ResultModalMeesage}
-              >{`${visitor[0].name}님 ${place}클러스터`}</div>
-              <div className={styles.ResultModalMeesage}>{`방문 신청이 완료되었습니다.`}</div>
-            </>
-          )}
-          <button className={styles.ResultModalButton} onClick={handleClick}>
-            확인
-          </button>
-        </div>
-      )}
-    </ReactModal>
-  );
-};
+import ReserveResult from './ReserveResult';
 
 const sendCreateReserve = async (date, place, purpose, targetStaffName, visitor) => {
   const newVistor = visitor.map((vis) => ({
@@ -229,10 +176,10 @@ const ReserveSubmit = () => {
 
   return (
     <>
-      <button className={styles.ReserveSubmitButton} disabled={!isChecked} onClick={handleClick}>
+      <button className={classes.SubmitButton} disabled={!isChecked} onClick={handleClick}>
         신청
       </button>
-      <ResultModal isOpen={isOpen} reserveId={reserveId} />
+      <ReserveResult isOpen={isOpen} reserveId={reserveId} />
     </>
   );
 };

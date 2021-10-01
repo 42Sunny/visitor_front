@@ -89,3 +89,21 @@
   color: white;
   max-width: 6rem;
 }
+
+.Line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Value {
+  width: 65%;
+}
+
+.Container {
+  display: grid;
+  gap: 1rem;
+}
+
+.Title {
+  margin-bottom: 0.5rem;
+}

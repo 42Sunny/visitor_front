@@ -1,36 +1,34 @@
-import { CardContent } from 'components/Common/Card';
-import { CardLine } from 'components/Common/Card';
-import { CardTitle } from 'components/Common/Card';
-import { CardContainer } from 'components/Common/Card';
-import { Card } from 'components/Common/Card';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReserve } from 'tools/apiHandler';
 import { formattedPhone } from 'tools/formattedPhone';
 import { useHistory, useLocation } from 'react-router-dom';
 import { deleteReserve } from 'tools/apiHandler';
-import styles from 'styles/ReserveInfo/ReserveInfo.module.css';
+import classes from 'styles/ReserveInfo/ReserveInfo.module.css';
 import classNames from 'classnames';
 import ReactModal from 'react-modal';
+import WhiteBox from 'components/Common/WhiteBox';
+import BigTitle from 'components/Common/BigTitle';
+import SmallTitle from 'components/Common/SmallTitle';
 
 const DeleteModal = ({ isOpen, onRequestClose, onDeleteButtonClick, onCancelButtonClick }) => {
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={styles.DeleteModal}
+      className={classes.DeleteModal}
       ariaHideApp={false}
     >
-      <div className={styles.DeleteModalBox}>
-        <div className={styles.DeleteModalHeader}>
+      <div className={classes.DeleteModalBox}>
+        <div className={classes.DeleteModalHeader}>
           <div>예약을</div>
           <div>삭제하시겠습니까?</div>
         </div>
-        <div className={styles.DeleteModalContent}>
-          <button onClick={onDeleteButtonClick} className={styles.DeleteModalDeleteButton}>
+        <div className={classes.DeleteModalContent}>
+          <button onClick={onDeleteButtonClick} className={classes.DeleteModalDeleteButton}>
             삭제
           </button>
-          <button onClick={onCancelButtonClick} className={styles.DeleteModalCancelButton}>
+          <button onClick={onCancelButtonClick} className={classes.DeleteModalCancelButton}>
             취소
           </button>
         </div>
@@ -94,50 +92,75 @@ const ReserveInfoContent = () => {
 
   return isLoading ? (
     <>
-      <Card title="방문 정보">
-        <CardLine title="날짜" content={date} />
-        <CardLine title="장소" content={place} />
-        <CardLine title="목적" content={purpose} />
-      </Card>
-      <CardContainer>
-        <CardTitle>{`방문자 정보 (${visitor.length}명)`}</CardTitle>
-        {visitor.map((elem) => (
-          <CardContent key={`${elem.reserveId}-${elem.phone}`}>
-            <CardLine title="조직" content={elem.organization} />
-            <CardLine title="이름" content={elem.name} />
-            <CardLine title="번호" content={formattedPhone(elem.phone)} />
-          </CardContent>
-        ))}
-      </CardContainer>
+      <div className={classes.Container}>
+        <div>
+          <BigTitle className={classes.Title}>방문 정보</BigTitle>
+          <WhiteBox isGrid>
+            <div className={classes.Line}>
+              <SmallTitle>날짜</SmallTitle>
+              <div className={classes.Value}>{date}</div>
+            </div>
+            <div className={classes.Line}>
+              <SmallTitle>장소</SmallTitle>
+              <div className={classes.Value}>{place}</div>
+            </div>
+            <div className={classes.Line}>
+              <SmallTitle>목적</SmallTitle>
+              <div className={classes.Value}>{purpose}</div>
+            </div>
+          </WhiteBox>
+        </div>
+        <div>
+          <BigTitle className={classes.Title}>{`방문자 정보 (${visitor.length}명)`}</BigTitle>
+          <WhiteBox isGrid>
+            {visitor.map((elem) => (
+              <React.Fragment key={`${elem.reserveId}-${elem.phone}`}>
+                <div className={classes.Line}>
+                  <SmallTitle>조직</SmallTitle>
+                  <div className={classes.Value}>{elem.organization}</div>
+                </div>
+                <div className={classes.Line}>
+                  <SmallTitle>이름</SmallTitle>
+                  <div className={classes.Value}>{elem.name}</div>
+                </div>
+                <div className={classes.Line}>
+                  <SmallTitle>번호</SmallTitle>
+                  <div className={classes.Value}>{formattedPhone(elem.phone)}</div>
+                </div>
+              </React.Fragment>
+            ))}
+          </WhiteBox>
+        </div>
+        {location.state && (
+          <div className={classes.ButtonBox}>
+            <button
+              className={classNames(classes.Button, classes.DeleteButton)}
+              onClick={() => {
+                setIsDeleteModalOpen(true);
+              }}
+            >
+              삭제
+            </button>
+            <button
+              className={classNames(classes.Button, classes.UpdateButton)}
+              onClick={() => {
+                history.push({
+                  pathname: '/reserve',
+                  state: { ...result, isUpdate: true },
+                });
+              }}
+            >
+              수정
+            </button>
+          </div>
+        )}
+      </div>
       <DeleteModal
         isOpen={isDeleteModalOpen}
         onRequestClose={handleModalClose}
         onCancelButtonClick={handleModalClose}
         onDeleteButtonClick={handleDelete}
       />
-      {location.state && (
-        <div className={styles.ButtonBox}>
-          <button
-            className={classNames(styles.Button, styles.DeleteButton)}
-            onClick={() => {
-              setIsDeleteModalOpen(true);
-            }}
-          >
-            삭제
-          </button>
-          <button
-            className={classNames(styles.Button, styles.UpdateButton)}
-            onClick={() => {
-              history.push({
-                pathname: '/reserve',
-                state: { ...result, isUpdate: true },
-              });
-            }}
-          >
-            수정
-          </button>
-        </div>
-      )}
     </>
   ) : (
     <div>유효하지 않은 접근입니다.</div>

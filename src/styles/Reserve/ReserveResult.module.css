@@ -1,0 +1,55 @@
+@media (max-width: 768px) {
+  .ModalBox {
+    width: 70vw;
+    height: 30vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .ModalBox {
+    inset: auto;
+  }
+}
+
+.ModalBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 0.7rem;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 1rem;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.CheckButton {
+  border-style: none;
+  background-color: #03d5a3;
+  color: white;
+  margin: 1rem;
+  width: 8rem;
+  height: 2.3rem;
+  border-radius: 0.3rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

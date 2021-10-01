@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import classes from 'styles/ReservePage.module.css';
+import classes from 'styles/Reserve/ReservePolicy.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
-import ReservePolicyDetail from './ReservePolicyDetail';
+import ReservePolicyModal from './ReservePolicyModal';
 import ReserveStar from './ReserveStar';
 import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';
@@ -41,7 +41,7 @@ const ReservePolicy = () => {
   return (
     <>
       <WhiteBox>
-        <button onClick={handleButtonClick} className={classes.ReservePolicyCheckButton}>
+        <button onClick={handleButtonClick} className={classes.CheckButton}>
           <BigTitle>
             {`개인정보 수집, 이용 동의 `}
             <ReserveStar />
@@ -50,14 +50,14 @@ const ReservePolicy = () => {
             type="checkbox"
             checked={isChecked}
             onChange={handlePolicyChange}
-            className={classes.ReservePolicyCheckBox}
+            className={classes.CheckBox}
           />
         </button>
-        <a className={classes.ReservePolicyLink} href={policyURL} onClick={handleURLClick}>
+        <a className={classes.Link} href={policyURL} onClick={handleURLClick}>
           {'약관 보기'}
         </a>
       </WhiteBox>
-      <ReservePolicyDetail
+      <ReservePolicyModal
         isOpen={isPolicyOpen}
         onRequestClose={handlePolicyClose}
         onButtonClick={handlePolicyButtonClick}

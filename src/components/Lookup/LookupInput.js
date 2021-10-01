@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react';
 import icon_search from 'images/icon_search.svg';
-import styles from 'styles/LookupPage.module.css';
+import classes from 'styles/LookupPage.module.css';
 import { getReserves } from 'tools/apiHandler';
 import { LookupContext } from 'contexts/LookupContext';
+import WhiteBox from 'components/Common/WhiteBox';
+import BigTitle from 'components/Common/BigTitle';
+import GreyBox from 'components/Common/GreyBox';
 
 const LookupInput = () => {
   const [name, setName] = useState('');
@@ -36,30 +39,30 @@ const LookupInput = () => {
   };
 
   return (
-    <div className={styles.LookupInputBox}>
-      <div className={styles.LookupInputTitle}>예약자 정보</div>
-      <div className={styles.LookupInputs}>
+    <WhiteBox isGrid>
+      <BigTitle>예약자 정보</BigTitle>
+      <GreyBox>
         <input
-          className={styles.LookupInputInput}
           placeholder="이름을 입력해주세요"
           defaultValue={name}
           onChange={handleChangeName}
+          className={classes.Input}
         />
+      </GreyBox>
+      <GreyBox>
         <input
-          className={styles.LookupInputInput}
           placeholder="휴대폰 번호를 입력해주세요"
           value={phone}
           onChange={handleChangePhone}
           type="tel"
+          className={classes.Input}
         />
-      </div>
-      <div className={styles.LookupInputButtonBox}>
-        <button className={styles.LookupInputSearchButton} onClick={hanldeClick}>
-          <img src={icon_search} alt="search" className={styles.LookupInputSearchImg} />
-          조회
-        </button>
-      </div>
-    </div>
+      </GreyBox>
+      <button className={classes.LookupInputSearchButton} onClick={hanldeClick}>
+        <img src={icon_search} alt="search" className={classes.LookupInputSearchImg} />
+        조회
+      </button>
+    </WhiteBox>
   );
 };
 

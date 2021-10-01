@@ -74,8 +74,7 @@
   justify-content: center;
   align-items: center;
   color: #03d5a3;
-  font-size: 1.15rem;
-  padding: 5px;
+  font-size: 1.1rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -252,4 +251,8 @@
   font-size: 1.1rem;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+.Input {
+  width: 100%;
 }

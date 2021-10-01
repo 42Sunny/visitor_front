@@ -1,6 +1,6 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import styles from 'styles/ReservePage.module.css';
+import classes from 'styles/Reserve/ReservePurpose.module.css';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';
@@ -68,7 +68,7 @@ const ReservePurpose = () => {
         <select
           name="purpose"
           onChange={handleSelect}
-          className={styles.ReserveInputSelect}
+          className={classes.Selector}
           value={selected}
         >
           <option value="">방문 목적을 선택해주세요</option>
@@ -77,13 +77,12 @@ const ReservePurpose = () => {
           <option value="directInput">직접 입력</option>
         </select>
       </GreyBox>
-      <GreyBox className={styles.ReserveInputPurpose} hidden={!isDirectInput}>
+      <GreyBox hidden={!isDirectInput}>
         <input
           placeholder="방문 목적을 입력해주세요"
           onChange={handleChange}
           value={purpose}
           ref={purposeInput}
-          className={styles.ReserveInput}
           hidden={!isDirectInput}
         />
       </GreyBox>
