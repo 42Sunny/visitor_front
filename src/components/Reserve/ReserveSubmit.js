@@ -95,6 +95,7 @@ const ReserveSubmit = () => {
     setPurposeError,
     setTargetStaffNameError,
     setVisitorError,
+    setIsChecked,
   } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
   const [reserveId, setReserveId] = useState(-1);
@@ -146,6 +147,7 @@ const ReserveSubmit = () => {
   const handleClick = async () => {
     let callApi = sendCreateReserve;
 
+    setIsChecked(false);
     if (location.state) callApi = sendUpdateReserve;
     await callApi(date, place, purpose, targetStaffName, visitor)
       .then((response) => {
@@ -157,7 +159,7 @@ const ReserveSubmit = () => {
         }
       })
       .catch(postErrorHandler)
-      .then(() =>
+      .then(() => {
         checkData({
           date,
           place,
@@ -170,8 +172,9 @@ const ReserveSubmit = () => {
           setPurposeError,
           setTargetStaffNameError,
           setVisitorError,
-        }),
-      );
+        });
+        setIsChecked(true);
+      });
   };
 
   return (
