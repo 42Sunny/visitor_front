@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 const ReserveInfoPage = () => {
   useEffect(() => {
     const htmlTitle = document.querySelector('title');
-    htmlTitle.innerHTML = '상세 정보 - IA Visitor';
+    htmlTitle.innerHTML = '상세 내역 - IA Visitor';
   }, []);
 
   return <ReserveInfoContent />;
