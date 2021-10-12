@@ -88,4 +88,9 @@ input:checked {
 
 body {
   background-color: #f6f6f6;
+  overflow: overlay;
+}
+
+.BlockScroll {
+  overflow-y: hidden;
 }

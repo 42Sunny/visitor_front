@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classes from 'styles/Reserve/ReservePolicy.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import ReservePolicyModal from './ReservePolicyModal';
@@ -37,6 +37,19 @@ const ReservePolicy = () => {
     setIsPolicyOpen(false);
     setIsChecked(true);
   };
+
+  const handleHiddenScroll = (open) => {
+    const body = window.document.querySelector('body');
+    if (open === true) {
+      body.classList.add('BlockScroll');
+    } else {
+      body.classList.remove('BlockScroll');
+    }
+  };
+
+  useEffect(() => {
+    handleHiddenScroll(isPolicyOpen);
+  }, [isPolicyOpen]);
 
   return (
     <>
