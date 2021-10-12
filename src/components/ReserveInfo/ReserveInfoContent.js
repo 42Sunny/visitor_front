@@ -112,9 +112,9 @@ const ReserveInfoContent = () => {
         </div>
         <div>
           <BigTitle className={classes.Title}>{`방문자 정보 (${visitor.length}명)`}</BigTitle>
-          <WhiteBox isGrid>
+          <div className={classes.VisitorBox}>
             {visitor.map((elem) => (
-              <React.Fragment key={`${elem.reserveId}-${elem.phone}`}>
+              <WhiteBox isGrid key={`${elem.reserveId}-${elem.phone}`}>
                 <div className={classes.Line}>
                   <SmallTitle>조직</SmallTitle>
                   <div className={classes.Value}>{elem.organization}</div>
@@ -127,9 +127,9 @@ const ReserveInfoContent = () => {
                   <SmallTitle>번호</SmallTitle>
                   <div className={classes.Value}>{formattedPhone(elem.phone)}</div>
                 </div>
-              </React.Fragment>
+              </WhiteBox>
             ))}
-          </WhiteBox>
+          </div>
         </div>
         {location.state && (
           <div className={classes.ButtonBox}>

@@ -107,3 +107,8 @@
 .Title {
   margin-bottom: 0.5rem;
 }
+
+.VisitorBox {
+  display: grid;
+  gap: 0.5rem;
+}
