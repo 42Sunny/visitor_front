@@ -40,8 +40,16 @@ button {
   cursor: pointer;
 }
 
-input:focus {
+input:focus,
+div:focus,
+label:focus,
+select:focus {
   outline: none;
+}
+
+button,
+select {
+  color: black;
 }
 
 input {
@@ -50,6 +58,18 @@ input {
   border-radius: 0;
   background: none;
   border-width: 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 input:checked {

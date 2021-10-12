@@ -54,7 +54,7 @@ const LookupInput = () => {
           placeholder="휴대폰 번호를 입력해주세요"
           value={phone}
           onChange={handleChangePhone}
-          type="tel"
+          type="number"
           className={classes.Input}
         />
       </GreyBox>
