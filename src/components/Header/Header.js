@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles, { selected } from './Header.module.css';
+import classes, { selected } from 'styles/Header/Header.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import logo from 'images/bi_img02.png';
@@ -21,24 +21,24 @@ const Header = () => {
   }, [pathname]);
 
   return (
-    <div className={styles.Header}>
-      <div className={styles.Content}>
-        <div className={styles.TitleBox}>
+    <div className={classes.Header}>
+      <div className={classes.Content}>
+        <div className={classes.TitleBox}>
           {(basePath === RESERVE_PATH || basePath === LOOKUP_PATH) && (
             <>
               <div
-                className={classNames(styles.Title, { [selected]: basePath === RESERVE_PATH })}
+                className={classNames(classes.Title, { [selected]: basePath === RESERVE_PATH })}
                 onClick={() => {
-                  history.push(RESERVE_PATH);
+                  if (basePath !== RESERVE_PATH) history.push(RESERVE_PATH);
                 }}
               >
                 {!location.state ? '방문 예약' : '예약 수정'}
               </div>
               {!location.state && (
                 <div
-                  className={classNames(styles.Title, { [selected]: basePath === LOOKUP_PATH })}
+                  className={classNames(classes.Title, { [selected]: basePath === LOOKUP_PATH })}
                   onClick={() => {
-                    history.push(LOOKUP_PATH);
+                    if (basePath !== LOOKUP_PATH) history.push(LOOKUP_PATH);
                   }}
                 >
                   예약 조회
@@ -48,20 +48,20 @@ const Header = () => {
           )}
           {basePath === RESERVE_INFO_PATH && (
             <div
-              className={classNames(styles.Title, { [selected]: basePath === RESERVE_INFO_PATH })}
+              className={classNames(classes.Title, { [selected]: basePath === RESERVE_INFO_PATH })}
             >
               상세 내역
             </div>
           )}
           {basePath === QR_PATH && (
-            <div className={classNames(styles.Title, { [selected]: basePath === QR_PATH })}>
+            <div className={classNames(classes.Title, { [selected]: basePath === QR_PATH })}>
               QR 체크인
             </div>
           )}
         </div>
-        <div className={styles.LogoBox}>
+        <div className={classes.LogoBox}>
           <img
-            className={styles.LogoImg}
+            className={classes.LogoImg}
             src={logo}
             alt="logo"
             onClick={() => {
