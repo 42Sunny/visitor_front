@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import React from 'react';
 import styles from 'styles/ReservePage.module.css';
-import classNames from 'tools/classNames';
 
 const ReserveBox = ({ children, className }) => {
   return <div className={classNames(className, styles.ReserveBox)}>{children}</div>;

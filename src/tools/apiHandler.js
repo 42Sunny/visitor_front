@@ -1,6 +1,6 @@
 const { default: axios } = require('axios');
 
-const url = 'https://api.visitor.dev.42seoul.io';
+const url = process.env.REACT_APP_API_URL;
 
 const apiHandler = async (method, path, data) => {
   return await axios(
@@ -10,7 +10,6 @@ const apiHandler = async (method, path, data) => {
       data,
       headers: {
         'X-42Cadet-Auth-Key': process.env.REACT_APP_AUTH_KEY,
-        //   // 'Access-Control-Request-Headers': 'Content-Type,X-42Cadet-Auth-Key',
       },
     },
     {

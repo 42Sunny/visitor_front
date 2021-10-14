@@ -1,5 +1,5 @@
+import classNames from 'classnames';
 import React from 'react';
-import classNames from 'tools/classNames';
 import classes from 'styles/Common/SmallTitle.module.css';
 
 const SmallTitle = ({ children, className }) => {

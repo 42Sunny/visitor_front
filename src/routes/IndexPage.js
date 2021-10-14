@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import styles from 'styles/IndexPage.module.css';
-import classNames from 'tools/classNames';
 import logo_inno from 'images/bi_img02.png';
+import classNames from 'classnames';
 
 const Index = ({ children }) => {
   return <div className={styles.Index}>{children}</div>;
