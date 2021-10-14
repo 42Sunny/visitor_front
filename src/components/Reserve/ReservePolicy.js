@@ -40,10 +40,13 @@ const ReservePolicy = () => {
 
   const handleHiddenScroll = (open) => {
     const body = window.document.querySelector('body');
+    const html = window.document.querySelector('html');
     if (open === true) {
       body.classList.add('BlockScroll');
+      html.classList.add('BlockScroll');
     } else {
       body.classList.remove('BlockScroll');
+      html.classList.remove('BlockScroll');
     }
   };
 
