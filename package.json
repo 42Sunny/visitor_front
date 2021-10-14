@@ -26,8 +26,8 @@
   },
   "scripts": {
     "start": "dotenv -e .env.local react-scripts start",
-    "build": "dotenv -e .env.production react-scripts build",
-    "dev_build": "dotenv -e .env.development react-scripts build",
+    "build_prod": "BUILD_PATH='./build/build_prod' dotenv -e .env.production react-scripts build",
+    "build_dev": "BUILD_PATH='./build/build_dev' dotenv -e .env.development react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
