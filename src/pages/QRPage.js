@@ -1,6 +1,6 @@
 import QR from 'components/QR/QR';
 import React, { useEffect } from 'react';
-import styles from 'styles/QRPage.module.css';
+import styles from 'assets/styles/QRPage.module.css';
 
 const QRMessage = () => {
   return (

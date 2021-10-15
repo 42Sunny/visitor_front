@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import classes from 'styles/Common/WhiteBox.module.css';
+import classes from 'assets/styles/Common/WhiteBox.module.css';
 
 const WhiteBox = ({ children, className, hidden, isGrid = false }) => {
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from 'styles/LookupPage.module.css';
+import styles from 'assets/styles/LookupPage.module.css';
 import LookupInput from 'components/Lookup/LookupInput';
 import LookupResult from 'components/Lookup/LookupResult';
 import { LookupProvider } from 'contexts/LookupContext';

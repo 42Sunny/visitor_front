@@ -1,6 +1,6 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import classes from 'styles/Reserve/ReservePurpose.module.css';
+import classes from 'assets/styles/Reserve/ReservePurpose.module.css';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
 import { useLocation } from 'react-router-dom';

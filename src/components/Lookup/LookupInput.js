@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import icon_search from 'images/icon_search.svg';
-import classes from 'styles/LookupPage.module.css';
+import icon_search from 'assets/images/icon_search.svg';
+import classes from 'assets/styles/LookupPage.module.css';
 import { getReserves } from 'tools/apiHandler';
 import { LookupContext } from 'contexts/LookupContext';
 import WhiteBox from 'components/Common/WhiteBox';

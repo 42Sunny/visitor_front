@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import classes from 'styles/Common/GreyBox.module.css';
+import classes from 'assets/styles/Common/GreyBox.module.css';
 
 const GreyBox = ({ className, children, hidden, isGrid }) => {
   return (

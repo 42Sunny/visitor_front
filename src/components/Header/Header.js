@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import classes, { selected } from 'styles/Header/Header.module.css';
+import classes, { selected } from 'assets/styles/Header/Header.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
-import logo from 'images/bi_img02.png';
+import logo from 'assets/images/bi_img02.png';
 
 const RESERVE_PATH = '/reserve';
 const LOOKUP_PATH = '/lookup';

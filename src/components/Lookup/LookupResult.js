@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import icon_no_result from 'images/icon_no_result.svg';
-import styles from 'styles/LookupPage.module.css';
+import icon_no_result from 'assets/images/icon_no_result.svg';
+import styles from 'assets/styles/LookupPage.module.css';
 import { LookupContext } from 'contexts/LookupContext';
 import { deleteReserve } from 'tools/apiHandler';
 import { useHistory } from 'react-router-dom';

@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from 'styles/QRPage.module.css';
-import logoImg from 'images/logo_42_small.png';
-// import menuImg from 'images/icon_menu.svg';
+import styles from 'assets/styles/QRPage.module.css';
+import logoImg from 'assets/images/logo_42_small.png';
 import { useHistory } from 'react-router-dom';
 
 const QRHeader = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'styles/Common/Card.module.css';
+import styles from 'assets/styles/Common/Card.module.css';
 
 const CardLine = ({ title, content }) => {
   return (

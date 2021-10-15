@@ -1,12 +1,12 @@
 import { ReserveProvider } from 'contexts/ReserveContext';
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import ErrorPage from 'routes/ErrorPage';
-import IndexPage from 'routes/IndexPage';
-import LookupPage from 'routes/LookupPage';
-import QRPage from 'routes/QRPage';
-import ReserveInfoPage from 'routes/ReserveInfoPage';
-import ReservePage from 'routes/ReservePage';
+import ErrorPage from 'pages/ErrorPage';
+import IndexPage from 'pages/IndexPage';
+import LookupPage from 'pages/LookupPage';
+import QRPage from 'pages/QRPage';
+import ReserveInfoPage from 'pages/ReserveInfoPage';
+import ReservePage from 'pages/ReservePage';
 import { Header } from './Header/Header';
 import Page from 'components/Common/Page';
 

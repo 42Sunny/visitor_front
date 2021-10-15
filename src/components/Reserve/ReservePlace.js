@@ -2,7 +2,7 @@ import BigTitle from 'components/Common/BigTitle';
 import WhiteBox from 'components/Common/WhiteBox';
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext } from 'react';
-import classes from 'styles/Reserve/ReservePlace.module.css';
+import classes from 'assets/styles/Reserve/ReservePlace.module.css';
 import ReserveStar from './ReserveStar';
 
 const ReservePlace = () => {

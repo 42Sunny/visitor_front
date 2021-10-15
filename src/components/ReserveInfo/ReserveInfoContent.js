@@ -4,7 +4,7 @@ import { getReserve } from 'tools/apiHandler';
 import { formattedPhone } from 'tools/formattedPhone';
 import { useHistory, useLocation } from 'react-router-dom';
 import { deleteReserve } from 'tools/apiHandler';
-import classes from 'styles/ReserveInfo/ReserveInfo.module.css';
+import classes from 'assets/styles/ReserveInfo/ReserveInfo.module.css';
 import classNames from 'classnames';
 import ReactModal from 'react-modal';
 import WhiteBox from 'components/Common/WhiteBox';

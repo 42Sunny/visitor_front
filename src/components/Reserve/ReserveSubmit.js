@@ -2,7 +2,7 @@ import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import classes from 'styles/Reserve/ReserveSubmit.module.css';
+import classes from 'assets/styles/Reserve/ReserveSubmit.module.css';
 import { updateReserve } from 'tools/apiHandler';
 import { postError } from 'tools/apiHandler';
 import { createReserve } from 'tools/apiHandler';

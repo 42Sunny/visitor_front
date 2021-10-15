@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from 'styles/ReservePage.module.css';
-import logoImg from 'images/logo_42_small.png';
+import styles from 'assets/styles/ReservePage.module.css';
+import logoImg from 'assets/images/logo_42_small.png';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const ReserveHeader = () => {

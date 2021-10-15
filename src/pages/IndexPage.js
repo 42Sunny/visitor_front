@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
-import styles from 'styles/IndexPage.module.css';
-import logo_inno from 'images/bi_img02.png';
+import styles from 'assets/styles/IndexPage.module.css';
+import logo_inno from 'assets/images/bi_img02.png';
 import classNames from 'classnames';
 
 const Index = ({ children }) => {

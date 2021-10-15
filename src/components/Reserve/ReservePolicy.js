@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import classes from 'styles/Reserve/ReservePolicy.module.css';
+import classes from 'assets/styles/Reserve/ReservePolicy.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import ReservePolicyModal from './ReservePolicyModal';
 import ReserveStar from './ReserveStar';

@@ -1,7 +1,7 @@
 import BigTitle from 'components/Common/BigTitle';
 import React from 'react';
 import ReactModal from 'react-modal';
-import classes from 'styles/Reserve/ReservePolicyModal.module.css';
+import classes from 'assets/styles/Reserve/ReservePolicyModal.module.css';
 
 const policy = [
   'Ⅰ. 개인정보의 수집 및 이용 동의서',

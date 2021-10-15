@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import classes from 'styles/Reserve/ReserveVisitor.module.css';
+import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import makeVisitor from 'tools/makeVisitor';
 import ReserveError from './ReserveError';

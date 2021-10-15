@@ -2,7 +2,7 @@ import { ReserveContext } from 'contexts/ReserveContext';
 import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { useHistory, useLocation } from 'react-router';
-import classes from 'styles/Reserve/ReserveResult.module.css';
+import classes from 'assets/styles/Reserve/ReserveResult.module.css';
 
 const ReserveResult = ({ isOpen, reserveId }) => {
   const { visitor, place } = useContext(ReserveContext);
