@@ -6,10 +6,8 @@ import ReserveStar from './ReserveStar';
 import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';
 
-const policyURL = 'https://www.privacy.go.kr/gud/pis/perRule.do';
-
 const ReservePolicy = () => {
-  const { isChecked, setIsChecked } = useContext(ReserveContext);
+  const { isPolicyChecked, setIsPolicyChecked } = useContext(ReserveContext);
   // eslint-disable-next-line no-unused-vars
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
@@ -17,25 +15,24 @@ const ReservePolicy = () => {
     const {
       target: { checked },
     } = event;
-    setIsChecked(checked);
+    setIsPolicyChecked(checked);
   };
 
   const handleButtonClick = () => {
-    setIsChecked(!isChecked);
+    setIsPolicyChecked(!isPolicyChecked);
   };
 
-  const handleURLClick = (event) => {
-    event.preventDefault();
+  const handlePolicyDetailClick = () => {
     setIsPolicyOpen(true);
   };
 
-  const handlePolicyClose = (event) => {
+  const handlePolicyClose = () => {
     setIsPolicyOpen(false);
   };
 
-  const handlePolicyButtonClick = (event) => {
+  const handlePolicyButtonClick = () => {
     setIsPolicyOpen(false);
-    setIsChecked(true);
+    setIsPolicyChecked(true);
   };
 
   const handleHiddenScroll = (open) => {
@@ -64,14 +61,14 @@ const ReservePolicy = () => {
           </BigTitle>
           <input
             type="checkbox"
-            checked={isChecked}
+            checked={isPolicyChecked}
             onChange={handlePolicyChange}
             className={classes.CheckBox}
           />
         </button>
-        <a className={classes.Link} href={policyURL} onClick={handleURLClick}>
+        <div className={classes.Link} onClick={handlePolicyDetailClick}>
           {'약관 보기'}
-        </a>
+        </div>
       </WhiteBox>
       <ReservePolicyModal
         isOpen={isPolicyOpen}
