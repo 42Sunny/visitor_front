@@ -1,32 +1,58 @@
-# This is a sample build configuration for JavaScript.
-# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-# Editable Version
+#  Template NodeJS build
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
+#  Template NodeJS build
+#  This template allows you to validate your NodeJS code.
+#  The workflow allows running tests and code linting on the default branch.
 image: node:10.15.3
-
 pipelines:
-  branches:
-    develop:
+  custom: # Pipelines that can only be triggered manually
+    staging:
       - step:
+          name: Installing & Running Tests
           caches:
             - node
           script:
-            # install Amazon CLI
-            - apt-get update && apt-get install -y python3.7
-            - curl -O https://bootstrap.pypa.io/get-pip.py
-            - python3 get-pip.py
-            - pip3 install awscli
-            # install Yarn (for project dependencies)
-            - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.18.1
-            - export PATH=$HOME/.yarn/bin:$PATH
-            # get project dependencies
+            - rm -rf package-lock.json
+            - rm -rf node_modules
             - npm install
-            # build project - adjust to whatever build script you run. This is optional but recommended if you have test cases in your project and you want extra layer of security
-            - npm test
-            # You can include a prodBuild script in package.json which points to your dev environment
-            - CI='false' npm run build
-            # sync files in “build” folder with Amazon S3 bucket "your-s3-bucket-name" (allow files to be publicly accessible and delete old files)
-            - aws s3 cp --recursive --acl public-read ./build s3://visitor.dev.42seoul.io/
-            - aws cloudfront create-invalidation --distribution-id E1L4G60KO39N9F --paths "/*"
+            - npm run test
+      - step:
+          name: Build
+          script:
+            - npm install
+            - REACT_APP_ENVIRONMENT=staging npm run build_dev
+          artifacts:
+            - build/build_dev/**
+      - step:
+          name: Deploy to S3
+          deployment: staging
+          script:
+            - pipe: atlassian/aws-s3-deploy:0.2.4
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: ap-northeast-2
+                S3_BUCKET: visitor.dev.42seoul.io
+                ACL: “public-read”
+                LOCAL_PATH: “build”
+      - step:
+          name: Invalidate Cloudfront Cache
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: ap-northeast-2
+                DISTRIBUTION_ID: E1L4G60KO39N9F
+  branches:
+    develop:
+      - step:
+          name: Installing & Running Tests
+          caches:
+            - node
+          script:
+            - rm -rf package-lock.json
+            - rm -rf node_modules
+            - npm install
+            - npm run test
