@@ -14,7 +14,7 @@ pipelines:
             - node
           script:
             # install Amazon CLI
-            - apt-get update && apt-get install -y python3-dev
+            - apt-get update && apt-get install -y python3.6-dev
             - curl -O https://bootstrap.pypa.io/get-pip.py
             - python3 get-pip.py
             - pip3 install awscli
