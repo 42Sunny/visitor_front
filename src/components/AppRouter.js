@@ -11,7 +11,7 @@ import { Header } from './Header/Header';
 import Page from 'components/Common/Page';
 
 const AppRouter = () => {
-  console.log(process.env.REACT_APP_TEST);
+  console.log(process.env);
   return (
     <Router>
       <Header />

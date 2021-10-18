@@ -7,7 +7,7 @@
 image: node:10.15.3
 pipelines:
   # custom: # Pipelines that can only be triggered manually
-  #   staging:
+  #   production:
   #     - step:
   #         # name: Installing & Running Tests
   #         name: Installing
@@ -22,12 +22,12 @@ pipelines:
   #         name: Build
   #         script:
   #           # - npm install
-  #           - REACT_APP_ENVIRONMENT=staging npm run build_dev
+  #           - REACT_APP_ENVIRONMENT=production npm run build_dev
   #         artifacts:
   #           - build/build_dev/**
   #     - step:
   #         name: Deploy to S3
-  #         deployment: staging
+  #         deployment: production
   #         script:
   #           - pipe: atlassian/aws-s3-deploy:1.1.0
   #             variables:
@@ -48,25 +48,25 @@ pipelines:
   #               DISTRIBUTION_ID: E1L4G60KO39N9F
   branches:
     develop:
-      - step:
-          name: Installing & Running Tests
-          caches:
-            - node
-          script:
-            - rm -rf package-lock.json
-            - rm -rf node_modules
-            - npm install
-            # - npm run test
+      # - step:
+      #     name: Installing & Running Tests
+      #     caches:
+      #       - node
+      #     script:
+      #       - rm -rf package-lock.json
+      #       - rm -rf node_modules
+      #       - npm install
+      #       - npm run test
       - step:
           name: Build
           script:
-            # - npm install
-            - REACT_APP_ENVIRONMENT=staging npm run build_dev
+            - npm install
+            - REACT_APP_ENVIRONMENT=production npm run build_dev
           artifacts:
             - build/build_dev/**
       - step:
           name: Deploy to S3
-          deployment: staging
+          deployment: production
           script:
             - pipe: atlassian/aws-s3-deploy:1.1.0
               variables:
