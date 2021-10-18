@@ -3,18 +3,9 @@ pipelines:
   branches:
     develop:
       - step:
-          name: Installing & Running Tests
-          caches:
-            - node
+          name: Installing & Build
           script:
-            - rm -rf package-lock.json
-            - rm -rf node_modules
             - npm install
-            # - npm run test
-      - step:
-          name: Build
-          script:
-            # - npm install
             - REACT_APP_ENVIRONMENT=production npm run build_dev
           artifacts:
             - build/build_dev/**
