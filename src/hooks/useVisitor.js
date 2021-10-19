@@ -1,5 +1,5 @@
 import { debounce } from 'loadsh';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 const IDLE_TIME = 500;
