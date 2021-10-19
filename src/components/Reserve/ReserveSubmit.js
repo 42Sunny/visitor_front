@@ -59,7 +59,7 @@ const checkData = ({
   purpose,
   targetStaffName,
   visitor,
-  isChecked,
+  isPolicyChecked,
   setDateError,
   setPlaceError,
   setPurposeError,
@@ -77,7 +77,7 @@ const checkData = ({
   if (place === '') return false;
   if (date === '') return false;
   if (isFullVisitor(visitor) === false) return false;
-  if (isChecked === false) return false;
+  if (isPolicyChecked === false) return false;
   if (invalidTargetStaffName) return false;
   return true;
 };
@@ -89,13 +89,13 @@ const ReserveSubmit = () => {
     purpose,
     targetStaffName,
     visitor,
-    isChecked,
+    isPolicyChecked,
     setDateError,
     setPlaceError,
     setPurposeError,
     setTargetStaffNameError,
     setVisitorError,
-    setIsChecked,
+    setIsPolicyChecked,
   } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
   const [reserveId, setReserveId] = useState(-1);
@@ -131,7 +131,7 @@ const ReserveSubmit = () => {
         purpose,
         targetStaffName,
         visitor,
-        isChecked,
+        isPolicyChecked,
         setDateError,
         setPlaceError,
         setPurposeError,
@@ -147,7 +147,7 @@ const ReserveSubmit = () => {
   const handleClick = async () => {
     let callApi = sendCreateReserve;
 
-    setIsChecked(false);
+    setIsPolicyChecked(false);
     if (location.state) callApi = sendUpdateReserve;
     await callApi(date, place, purpose, targetStaffName, visitor)
       .then((response) => {
@@ -166,20 +166,20 @@ const ReserveSubmit = () => {
           purpose,
           targetStaffName,
           visitor,
-          isChecked,
+          isPolicyChecked,
           setDateError,
           setPlaceError,
           setPurposeError,
           setTargetStaffNameError,
           setVisitorError,
         });
-        setIsChecked(true);
+        setIsPolicyChecked(true);
       });
   };
 
   return (
     <>
-      <button className={classes.SubmitButton} disabled={!isChecked} onClick={handleClick}>
+      <button className={classes.SubmitButton} disabled={!isPolicyChecked} onClick={handleClick}>
         신청
       </button>
       <ReserveResult isOpen={isOpen} reserveId={reserveId} />

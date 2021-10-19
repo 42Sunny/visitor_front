@@ -1,25 +1,15 @@
 import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useCallback, useContext, useEffect } from 'react';
-import { checkStaff } from 'tools/apiHandler';
+import React, { useContext } from 'react';
 import ReserveError from './ReserveError';
 import ReserveStar from './ReserveStar';
-import { debounce } from 'lodash';
-import { postError } from 'tools/apiHandler';
 import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';
 import GreyBox from 'components/Common/GreyBox';
 import TransparentInput from 'components/Common/TransparentInput';
 
-const IDLE_TIME_TARGET_STAFF = 200;
-
 const ReserveStaff = () => {
-  const {
-    targetStaffName,
-    setTargetStaffName,
-    targetStaffNameError,
-    setInvalidTargetStaffName,
-    invalidTargetStaffName,
-  } = useContext(ReserveContext);
+  const { targetStaffName, setTargetStaffName, errorTargetStaffNameMessage } =
+    useContext(ReserveContext);
 
   const handleChange = (event) => {
     const {
@@ -27,31 +17,6 @@ const ReserveStaff = () => {
     } = event;
     setTargetStaffName(value);
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sendTargetStaffName = useCallback(
-    debounce((name) => {
-      checkStaff(name)
-        .then((res) => {
-          const { data } = res;
-          const check = data.hasOwnProperty('error');
-          setInvalidTargetStaffName(check);
-        })
-        .catch((err) => {
-          const {
-            response: { data, status },
-          } = err;
-          postError(status, data);
-        });
-    }, IDLE_TIME_TARGET_STAFF),
-    [],
-  );
-
-  useEffect(() => {
-    if (targetStaffName !== '') {
-      sendTargetStaffName(targetStaffName);
-    }
-  }, [sendTargetStaffName, targetStaffName]);
 
   return (
     <WhiteBox isGrid>
@@ -65,8 +30,7 @@ const ReserveStaff = () => {
           onChange={handleChange}
         />
       </GreyBox>
-      {targetStaffNameError && <ReserveError>필수 정보입니다.</ReserveError>}
-      {invalidTargetStaffName && <ReserveError>등록되지 않은 직원입니다.</ReserveError>}
+      <ReserveError>{errorTargetStaffNameMessage}</ReserveError>
     </WhiteBox>
   );
 };

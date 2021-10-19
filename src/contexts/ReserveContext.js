@@ -1,53 +1,58 @@
+import useDate from 'hooks/useDate';
+import usePlace from 'hooks/usePlace';
+import usePurpose from 'hooks/usePurpose';
+import useTargetStaffName from 'hooks/useTargetStaffName';
+import useVisitor from 'hooks/useVisitor';
 import { createContext, useState } from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
 const ReserveContext = createContext({});
 
 const ReserveProvider = ({ children }) => {
-  const [date, setDate] = useState(new Date());
-  const [place, setPlace] = useState('개포');
-  const [purpose, setPurpose] = useState('');
-  const [targetStaffName, setTargetStaffName] = useState('');
-  const [visitor, setVisitor] = useState([makeVisitor()]);
-  const [isChecked, setIsChecked] = useState(false);
-
-  const [dateError, setDateError] = useState(false);
-  const [placeError, setPlaceError] = useState(false);
-  const [purposeError, setPurposeError] = useState(false);
-  const [targetStaffNameError, setTargetStaffNameError] = useState(false);
-  const [invalidTargetStaffName, setInvalidTargetStaffName] = useState(false);
-  const [visitorError, setVisitorError] = useState(false);
-  const [duplicateError, setDuplicateError] = useState(false);
+  const [date, setDate, errorDateMessage, setErrorDateMessage] = useDate(new Date());
+  const [place, setPlace, errorPlaceMessage, setErrorPlaceMessage] = usePlace('개포');
+  const [purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage] = usePurpose('');
+  const [
+    targetStaffName,
+    setTargetStaffName,
+    errorTargetStaffNameMessage,
+    setErrorTargetStaffNameMessage,
+  ] = useTargetStaffName('');
+  const [visitor, setVisitor, errorVisitorMessage, setErrorVisitorMessage] = useVisitor([
+    makeVisitor(),
+  ]);
+  const [isPolicyChecked, setIsPolicyChecked] = useState(false);
 
   return (
     <ReserveContext.Provider
       value={{
         date,
         setDate,
+        errorDateMessage,
+        setErrorDateMessage,
+
         place,
         setPlace,
+        errorPlaceMessage,
+        setErrorPlaceMessage,
+
         purpose,
         setPurpose,
+        errorPurposeMessage,
+        setErrorPurposeMessage,
+
         targetStaffName,
         setTargetStaffName,
+        errorTargetStaffNameMessage,
+        setErrorTargetStaffNameMessage,
+
         visitor,
         setVisitor,
-        dateError,
-        setDateError,
-        placeError,
-        setPlaceError,
-        purposeError,
-        setPurposeError,
-        targetStaffNameError,
-        setTargetStaffNameError,
-        visitorError,
-        setVisitorError,
-        isChecked,
-        setIsChecked,
-        invalidTargetStaffName,
-        setInvalidTargetStaffName,
-        duplicateError,
-        setDuplicateError,
+        errorVisitorMessage,
+        setErrorVisitorMessage,
+
+        isPolicyChecked,
+        setIsPolicyChecked,
       }}
     >
       {children}
