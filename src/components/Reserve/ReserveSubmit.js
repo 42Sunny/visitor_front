@@ -1,19 +1,17 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useState } from 'react';
-
 import { useLocation } from 'react-router-dom';
 import classes from 'assets/styles/Reserve/ReserveSubmit.module.css';
 import { updateReserve } from 'tools/apiHandler';
-import { postError } from 'tools/apiHandler';
 import { createReserve } from 'tools/apiHandler';
 import dateToJsonTime from 'tools/dateToJsonTime';
 import ReserveResult from './ReserveResult';
 
-const sendCreateReserve = async (date, place, purpose, targetStaffName, visitor) => {
-  const newVistor = visitor.map((vis) => ({
-    name: vis.name,
-    organization: vis.organization,
-    phone: vis.phone,
+const sendCreateReserve = (date, place, purpose, targetStaffName, visitor) => {
+  const newVistor = visitor.map((elem) => ({
+    name: elem.name,
+    organization: elem.organization,
+    phone: elem.phone,
   }));
   const data = {
     date: dateToJsonTime(date),
@@ -22,17 +20,16 @@ const sendCreateReserve = async (date, place, purpose, targetStaffName, visitor)
     targetStaffName,
     visitor: newVistor,
   };
-  const result = await createReserve(data);
-  return result;
+  return createReserve(data);
 };
 
-const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor) => {
-  const newVistor = visitor.map((vis) => ({
-    name: vis.name,
-    organization: vis.organization,
-    phone: vis.phone,
+const sendUpdateReserve = (date, place, purpose, targetStaffName, visitor) => {
+  const newVistor = visitor.map((elem) => ({
+    name: elem.name,
+    organization: elem.organization,
+    phone: elem.phone,
     reserveId: visitor[0].reserveId,
-    isChanged: vis.isChanged,
+    isChanged: elem.isChanged,
   }));
   const data = {
     date: dateToJsonTime(date),
@@ -42,86 +39,50 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
     reserveId: visitor[0].reserveId,
     visitor: newVistor,
   };
-  const result = await updateReserve(data);
-  return result;
+  return updateReserve(data);
 };
 
 const ReserveSubmit = () => {
-  const { date, place, purpose, targetStaffName, visitor, isPolicyChecked, setIsPolicyChecked } =
-    useContext(ReserveContext);
+  const {
+    date,
+    place,
+    purpose,
+    targetStaffName,
+    visitor,
+    isSubmitButtonAcitve,
+    setIsSubmitButtonAcitve,
+  } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
   const [reserveId, setReserveId] = useState(-1);
   const location = useLocation();
 
-  const postErrorHandler = (error) => {
-    if (error.response) {
-      const {
-        response,
-        response: { status },
-      } = error;
-      const inputData = {
-        date,
-        place,
-        purpose,
-        targetStaffName,
-        visitor,
-      };
-      const payload = { response, inputData };
-      const data = { status, payload };
-      postError(data);
-    }
-  };
-
-  const checkPostData = (data) => {
-    const {
-      data: { reserveId },
-    } = data;
-    if (
-      checkData({
-        date,
-        place,
-        purpose,
-        targetStaffName,
-        visitor,
-        isPolicyChecked,
-      }) === true
-    ) {
-      setIsOpen(true);
-      setReserveId(reserveId);
-    }
-  };
-
   const handleClick = async () => {
-    let callApi = sendCreateReserve;
+    let callApi = location.state ? sendUpdateReserve : sendCreateReserve;
 
-    setIsPolicyChecked(false);
-    if (location.state) callApi = sendUpdateReserve;
-    await callApi(date, place, purpose, targetStaffName, visitor)
-      .then((response) => {
-        const {
-          data: { error },
-        } = response;
-        if (!error) {
-          checkPostData(response);
-        }
-      })
-      .catch(postErrorHandler)
-      .then(() => {
-        checkData({
-          date,
-          place,
-          purpose,
-          targetStaffName,
-          visitor,
-          isPolicyChecked,
-        });
-        setIsPolicyChecked(true);
-      });
+    setIsSubmitButtonAcitve(false);
+    const { data } = await callApi(date, place, purpose, targetStaffName, visitor);
+    if (data.error) {
+      let errorMessage = 'empty error message';
+      if (Array.isArray(data.error.message)) {
+        errorMessage = data.error.map(({ message }) => message).join('\n');
+      } else {
+        errorMessage = data.error.message;
+      }
+      window.alert(errorMessage);
+    } else {
+      const { reserveId } = data;
+      setReserveId(reserveId);
+      setIsOpen(true);
+    }
   };
 
   return (
     <>
-      <button className={classes.SubmitButton} disabled={!isPolicyChecked} onClick={handleClick}>
+      <button
+        className={classes.SubmitButton}
+        disabled={!isSubmitButtonAcitve}
+        onClick={handleClick}
+      >
         신청
       </button>
       <ReserveResult isOpen={isOpen} reserveId={reserveId} />

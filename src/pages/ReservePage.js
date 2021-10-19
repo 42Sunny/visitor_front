@@ -42,7 +42,7 @@ const ReservePage = () => {
 
   const fillContents = useCallback(() => {
     const visitor = location.state.visitor.map((elem) =>
-      makeVisitor(elem.name, elem.organization, elem.phone, false, false),
+      makeVisitor(elem.name, elem.organization, elem.phone, false, false, false, elem.reserveId),
     );
     /*
       Safari 브라우저에서는 YYYY-MM-DD HH:dd 포맷의 날짜를 new Date의 인자로 사용할 수 없다.

@@ -3,7 +3,7 @@ import usePlace from 'hooks/usePlace';
 import usePurpose from 'hooks/usePurpose';
 import useTargetStaffName from 'hooks/useTargetStaffName';
 import useVisitor from 'hooks/useVisitor';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
 const ReserveContext = createContext({});
@@ -22,6 +22,25 @@ const ReserveProvider = ({ children }) => {
     makeVisitor(),
   ]);
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
+  const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
+
+  useEffect(() => {
+    setIsSubmitButtonAcitve(
+      isPolicyChecked === true &&
+        errorDateMessage === '' &&
+        errorPlaceMessage === '' &&
+        errorPurposeMessage === '' &&
+        errorTargetStaffNameMessage === '' &&
+        errorVisitorMessage === '',
+    );
+  }, [
+    isPolicyChecked,
+    errorDateMessage,
+    errorPlaceMessage,
+    errorPurposeMessage,
+    errorTargetStaffNameMessage,
+    errorVisitorMessage,
+  ]);
 
   return (
     <ReserveContext.Provider
@@ -53,6 +72,9 @@ const ReserveProvider = ({ children }) => {
 
         isPolicyChecked,
         setIsPolicyChecked,
+
+        isSubmitButtonAcitve,
+        setIsSubmitButtonAcitve,
       }}
     >
       {children}
