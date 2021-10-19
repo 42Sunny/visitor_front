@@ -40,7 +40,6 @@ const AppRouter = () => {
           </Route>
         </Switch>
       </Page>
-      <div>@ Copyright. Jayi</div>
     </Router>
   );
 };

@@ -6,6 +6,8 @@ pipelines:
           name: Installing & Build
           script:
             - npm install
+            - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
+            - export REACT_APP_API_URL=$REACT_APP_API_URL
             - REACT_APP_ENVIRONMENT=production npm run build_dev
           artifacts:
             - build/build_dev/**
