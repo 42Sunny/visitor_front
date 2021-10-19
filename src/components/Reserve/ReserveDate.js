@@ -49,8 +49,8 @@ const ReserveDate = () => {
           open={isOpen}
           readOnly
           disabled
-          className={classes.DatePicker}
           minDate={new Date()}
+          className={classes.DatePicker}
           dayClassName={(day) => {
             if (day.getDay() === 0) return 'datepicker__sun';
             else if (day.getDay() === 6) return 'datepicker__sat';

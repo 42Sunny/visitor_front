@@ -47,3 +47,7 @@
 .react-datepicker__navigation-icon::before {
   border-style: none !important;
 }
+
+.react-datepicker-wrapper {
+  width: 0%;
+}
