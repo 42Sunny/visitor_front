@@ -28,6 +28,8 @@
 .ValueBox {
   width: 65%;
   height: 2rem;
+  display: flex;
+  align-items: center;
 }
 
 .Input {

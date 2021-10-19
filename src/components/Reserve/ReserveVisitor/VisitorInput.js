@@ -7,7 +7,7 @@ const VisitorInput = ({ isEditable, handleChange, title, placeholder, name, valu
   return (
     <div className={classes.InputBox}>
       <SmallTitle>
-        {title}
+        {`${title} `}
         <ReserveStar />
       </SmallTitle>
       <div className={classes.ValueBox}>

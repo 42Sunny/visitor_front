@@ -29,22 +29,14 @@ const VisitorForm = ({ vis }) => {
 
   const handleDeleteClick = () => {
     if (visitor.length !== 1) {
-      const newVisitor = visitor.filter((v) => v.id !== vis.id);
-      setVisitor(newVisitor);
+      const notDeleted = visitor.filter((v) => v.id !== vis.id);
+      setVisitor(notDeleted);
     }
   };
 
   const handleUpdateClick = () => {
-    const check = visitor.filter((vis) => vis.isEditable === true);
-    if (check.length === 0) {
-      const newVisitor = [...visitor];
-      newVisitor.forEach((v) => {
-        if (v.id === vis.id) {
-          vis.isEditable = true;
-        }
-      });
-      setVisitor(newVisitor);
-    }
+    vis.isEditable = true;
+    setVisitor([...visitor]);
   };
 
   const handleChange = (event) => {
