@@ -4,6 +4,7 @@ const makeVisitor = (
   phone = '',
   isEditable = true,
   isChanged = true,
+  autoSave = true,
 ) => {
   const key = `${new Date().getMilliseconds()} ${new Date().getSeconds()} ${Math.random()}`;
   const newVisitor = {
@@ -13,6 +14,7 @@ const makeVisitor = (
     key,
     isEditable,
     isChanged,
+    autoSave,
     id: key,
   };
   return newVisitor;

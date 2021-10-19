@@ -4,7 +4,7 @@ import ReserveStaff from 'components/Reserve/ReserveStaff';
 import ReservePurpose from 'components/Reserve/ReservePurpose';
 import React, { useCallback, useContext, useEffect } from 'react';
 import styles from 'assets/styles/ReservePage.module.css';
-import ReserveVisitor from 'components/Reserve/ReserveVisitor';
+import ReserveVisitor from 'components/Reserve/ReserveVisitor/ReserveVisitor';
 import ReservePolicy from 'components/Reserve/ReservePolicy';
 import ReserveSubmit from 'components/Reserve/ReserveSubmit';
 import { useLocation } from 'react-router-dom';
