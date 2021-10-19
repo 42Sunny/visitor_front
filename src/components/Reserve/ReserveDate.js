@@ -16,7 +16,7 @@ import GreyBox from 'components/Common/GreyBox';
 registerLocale('ko', ko);
 
 const ReserveDate = () => {
-  const { date, setDate, dateError } = useContext(ReserveContext);
+  const { date, setDate, errorDateMessage } = useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChangeDate = (value) => {
@@ -66,7 +66,7 @@ const ReserveDate = () => {
           </div>
         </button>
       </GreyBox>
-      {dateError && <ReserveError>필수 정보입니다.</ReserveError>}
+      <ReserveError>{errorDateMessage}</ReserveError>
     </WhiteBox>
   );
 };
