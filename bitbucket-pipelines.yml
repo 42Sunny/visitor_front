@@ -3,14 +3,11 @@ pipelines:
   branches:
     develop:
       - step:
-          name: Installing
+          name: Installing & Build
           caches:
             - node
           script:
             - npm install
-      - step:
-          name: Build
-          script:
             - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
             - export REACT_APP_API_URL=$REACT_APP_API_URL
             - REACT_APP_ENVIRONMENT=production npm run build_dev
