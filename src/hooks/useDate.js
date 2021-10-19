@@ -24,7 +24,7 @@ const useDate = (initialDate) => {
     [checkDate],
   );
 
-  useDidMountEffect(() => lazyCheckDate(date), [lazyCheckDate, date]);
+  useDidMountEffect(() => lazyCheckDate(date), [date]);
 
   return [date, setDate, errorMessage, setErrorMessage];
 };

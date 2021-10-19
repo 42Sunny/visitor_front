@@ -37,7 +37,7 @@ const useTargetStaffName = (initialTargetStaffName) => {
 
   useDidMountEffect(() => {
     lazyCheckTargetStaffName(targetStaffName);
-  }, [lazyCheckTargetStaffName, targetStaffName]);
+  }, [targetStaffName]);
 
   return [targetStaffName, setTargetStaffName, errorMessage, setErrorMessage];
 };
