@@ -10,12 +10,12 @@ pipelines:
             - npm install
             - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
             - export REACT_APP_API_URL=$REACT_APP_API_URL
-            - REACT_APP_ENVIRONMENT=production npm run build_dev
+            - REACT_APP_ENVIRONMENT=develop npm run build_dev
           artifacts:
             - build/build_dev/**
       - step:
           name: Deploy to S3
-          deployment: production
+          deployment: develop
           script:
             - pipe: atlassian/aws-s3-deploy:1.1.0
               variables:
