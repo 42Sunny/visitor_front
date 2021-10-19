@@ -24,6 +24,7 @@ const VisitorForm = ({ vis }) => {
 
   const handleSave = () => {
     vis.isEditable = false;
+    vis.isChanged = true;
     setVisitor([...visitor]);
   };
 

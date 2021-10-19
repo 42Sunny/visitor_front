@@ -53,6 +53,7 @@ const useVisitor = (initialVisitor) => {
         elem.phone.length >= 11
       ) {
         elem.isEditable = false;
+        elem.isChanged = true;
         elem.autoSave = false;
         setVisitor([...visitor]);
       }

@@ -46,57 +46,9 @@ const sendUpdateReserve = async (date, place, purpose, targetStaffName, visitor)
   return result;
 };
 
-const isFullVisitor = (visitor) => {
-  const result = visitor.every(
-    (vis) => vis.name !== '' && vis.phone !== '' && vis.organization !== '',
-  );
-  return result;
-};
-
-const checkData = ({
-  date,
-  place,
-  purpose,
-  targetStaffName,
-  visitor,
-  isPolicyChecked,
-  setDateError,
-  setPlaceError,
-  setPurposeError,
-  setTargetStaffNameError,
-  setVisitorError,
-  invalidTargetStaffName,
-}) => {
-  setDateError(date === '');
-  setPlaceError(place === '');
-  setPurposeError(purpose === '');
-  setTargetStaffNameError(targetStaffName === '');
-  setVisitorError(isFullVisitor(visitor) === false);
-  if (targetStaffName === '') return false;
-  if (purpose === '') return false;
-  if (place === '') return false;
-  if (date === '') return false;
-  if (isFullVisitor(visitor) === false) return false;
-  if (isPolicyChecked === false) return false;
-  if (invalidTargetStaffName) return false;
-  return true;
-};
-
 const ReserveSubmit = () => {
-  const {
-    date,
-    place,
-    purpose,
-    targetStaffName,
-    visitor,
-    isPolicyChecked,
-    setDateError,
-    setPlaceError,
-    setPurposeError,
-    setTargetStaffNameError,
-    setVisitorError,
-    setIsPolicyChecked,
-  } = useContext(ReserveContext);
+  const { date, place, purpose, targetStaffName, visitor, isPolicyChecked, setIsPolicyChecked } =
+    useContext(ReserveContext);
   const [isOpen, setIsOpen] = useState(false);
   const [reserveId, setReserveId] = useState(-1);
   const location = useLocation();
@@ -132,11 +84,6 @@ const ReserveSubmit = () => {
         targetStaffName,
         visitor,
         isPolicyChecked,
-        setDateError,
-        setPlaceError,
-        setPurposeError,
-        setTargetStaffNameError,
-        setVisitorError,
       }) === true
     ) {
       setIsOpen(true);
@@ -167,11 +114,6 @@ const ReserveSubmit = () => {
           targetStaffName,
           visitor,
           isPolicyChecked,
-          setDateError,
-          setPlaceError,
-          setPurposeError,
-          setTargetStaffNameError,
-          setVisitorError,
         });
         setIsPolicyChecked(true);
       });
