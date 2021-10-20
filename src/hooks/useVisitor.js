@@ -19,7 +19,7 @@ const isDuplicatePhone = (visitor) => {
     }
   });
 };
-
+// for x in *.js; do mv “$x” “${x%.js}.tsx”; done
 const isFullVisitor = (visitor) => {
   return visitor.every(
     (elem) =>
