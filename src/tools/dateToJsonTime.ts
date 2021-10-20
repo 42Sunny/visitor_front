@@ -1,4 +1,4 @@
-const dateToJsonTime = (date) => {
+const dateToJsonTime = (date: Date) => {
   const hour = date.getHours().toString();
   const minutes = date.getMinutes().toString();
   const month = (date.getMonth() + 1).toString();

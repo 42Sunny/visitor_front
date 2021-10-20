@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const usePlace = (initialPlace) => {
+const usePlace = (initialPlace: string) => {
   const [place, setPlace] = useState(initialPlace);
   const [errorMessage, setErrorMessage] = useState('');
 
