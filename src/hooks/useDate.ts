@@ -7,20 +7,20 @@ const ERROR_BLANK_DATE = '시간을 선택해주세요.';
 const ERROR_INVALID_DATE = '현재 시간보다 빠른 시간으로는 예약이 불가능합니다.';
 const ERROR_NONE = '';
 
-const useDate = (initialDate) => {
+const useDate = (initialDate: string) => {
   const [date, setDate] = useState(initialDate);
   const [errorMessage, setErrorMessage] = useState('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkDate = (date) => {
-    if (date === '') setErrorMessage(ERROR_BLANK_DATE);
+  const checkDate = (date: Date) => {
+    if (date === null) setErrorMessage(ERROR_BLANK_DATE);
     else if (date < new Date()) setErrorMessage(ERROR_INVALID_DATE);
     else setErrorMessage(ERROR_NONE);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyCheckDate = useCallback(
-    debounce((date) => checkDate(date), IDLE_TIME),
+    debounce((date: Date) => checkDate(date), IDLE_TIME),
     [checkDate],
   );
 
