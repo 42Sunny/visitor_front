@@ -8,9 +8,25 @@ const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
 const ERROR_NONE = '';
 
-const isDuplicatePhone = (visitor) => {
-  const checker = {};
-  return visitor.some((elem) => {
+interface visitor {
+  name: string;
+  organization: string;
+  phone: string;
+  key: string;
+  isEditable: boolean;
+  isChanged: boolean;
+  autoSave: boolean;
+  reserveId: number;
+  id: string;
+}
+
+interface checker {
+  [index: string]: boolean;
+}
+
+const isDuplicatePhone = (visitors: visitor[]) => {
+  const checker: checker = {};
+  return visitors.some((elem) => {
     if (checker[elem.phone] === true) {
       return true;
     } else {
@@ -19,33 +35,33 @@ const isDuplicatePhone = (visitor) => {
     }
   });
 };
-// for x in *.js; do mv “$x” “${x%.js}.tsx”; done
-const isFullVisitor = (visitor) => {
-  return visitor.every(
+
+const isFullVisitor = (visitors: visitor[]) => {
+  return visitors.every(
     (elem) =>
       elem.isEditable === true ||
       (elem.name !== '' && elem.phone !== '' && elem.organization !== ''),
   );
 };
 
-const useVisitor = (initialVisitor) => {
-  const [visitor, setVisitor] = useState(initialVisitor);
+const useVisitor = (initialVisitor: visitor) => {
+  const [visitors, setVisitor] = useState([initialVisitor]);
   const [errorMessage, setErrorMessage] = useState('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkError = (visitor) => {
-    if (!visitor || visitor.length === 0) setErrorMessage(ERROR_BLANK_VISITOR);
-    else if (isDuplicatePhone(visitor) === true) {
+  const checkError = (visitors: visitor[]) => {
+    if (!visitors || visitors.length === 0) setErrorMessage(ERROR_BLANK_VISITOR);
+    else if (isDuplicatePhone(visitors) === true) {
       setErrorMessage(ERROR_DUPLICATE_PHONE_NUM);
-    } else if (isFullVisitor(visitor) !== true) setErrorMessage(ERROR_NOT_FULL_VISITOR);
+    } else if (isFullVisitor(visitors) !== true) setErrorMessage(ERROR_NOT_FULL_VISITOR);
     else {
-      autoSave(visitor);
+      autoSave(visitors);
       setErrorMessage(ERROR_NONE);
     }
   };
 
-  const autoSave = (visitor) => {
-    visitor.forEach((elem) => {
+  const autoSave = (visitors: visitor[]) => {
+    visitors.forEach((elem) => {
       if (
         elem.autoSave &&
         elem.name !== '' &&
@@ -55,22 +71,22 @@ const useVisitor = (initialVisitor) => {
         elem.isEditable = false;
         elem.isChanged = true;
         elem.autoSave = false;
-        setVisitor([...visitor]);
+        setVisitor([...visitors]);
       }
     });
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyCheckError = useCallback(
-    debounce((visitor) => {
-      checkError(visitor);
+    debounce((visitors: visitor[]) => {
+      checkError(visitors);
     }, IDLE_TIME),
     [checkError],
   );
 
-  useDidMountEffect(() => lazyCheckError(visitor), [visitor]);
+  useDidMountEffect(() => lazyCheckError(visitors), [visitors]);
 
-  return [visitor, setVisitor, errorMessage, setErrorMessage];
+  return [visitors, setVisitor, errorMessage, setErrorMessage];
 };
 
 export default useVisitor;

@@ -8,6 +8,21 @@ import makeVisitor from 'tools/makeVisitor';
 
 const ReserveContext = createContext({});
 
+const isAvailableSubmit = (
+  isPolicyChecked,
+  errorDateMessage,
+  errorPlaceMessage,
+  errorPurposeMessage,
+  errorTargetStaffNameMessage,
+  errorVisitorMessage,
+) =>
+  isPolicyChecked === true &&
+  errorDateMessage === '' &&
+  errorPlaceMessage === '' &&
+  errorPurposeMessage === '' &&
+  errorTargetStaffNameMessage === '' &&
+  errorVisitorMessage === '';
+
 const ReserveProvider = ({ children }) => {
   const [date, setDate, errorDateMessage, setErrorDateMessage] = useDate(new Date());
   const [place, setPlace, errorPlaceMessage, setErrorPlaceMessage] = usePlace('개포');
@@ -26,12 +41,14 @@ const ReserveProvider = ({ children }) => {
 
   useEffect(() => {
     setIsSubmitButtonAcitve(
-      isPolicyChecked === true &&
-        errorDateMessage === '' &&
-        errorPlaceMessage === '' &&
-        errorPurposeMessage === '' &&
-        errorTargetStaffNameMessage === '' &&
-        errorVisitorMessage === '',
+      isAvailableSubmit(
+        isPolicyChecked,
+        errorDateMessage,
+        errorPlaceMessage,
+        errorPurposeMessage,
+        errorTargetStaffNameMessage,
+        errorVisitorMessage,
+      ),
     );
   }, [
     isPolicyChecked,

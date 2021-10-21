@@ -8,12 +8,12 @@ const ERROR_BLANK_TARGET_STAFF_NAME = '이름을 입력해주세요.';
 const ERROR_INVALID_TARGET_STAFF_NAME = '등록되지 않은 직원입니다.';
 const ERROR_NONE = '';
 
-const useTargetStaffName = (initialTargetStaffName) => {
+const useTargetStaffName = (initialTargetStaffName: string) => {
   const [targetStaffName, setTargetStaffName] = useState(initialTargetStaffName);
   const [errorMessage, setErrorMessage] = useState('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkTargetStaffName = (targetStaffName) => {
+  const checkTargetStaffName = (targetStaffName: string) => {
     if (targetStaffName === '') setErrorMessage(ERROR_BLANK_TARGET_STAFF_NAME);
     else {
       checkStaff(targetStaffName).then((res) => {
@@ -29,7 +29,7 @@ const useTargetStaffName = (initialTargetStaffName) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyCheckTargetStaffName = useCallback(
-    debounce((targetStaffName) => {
+    debounce((targetStaffName: string) => {
       checkTargetStaffName(targetStaffName);
     }, IDLE_TIME),
     [],
