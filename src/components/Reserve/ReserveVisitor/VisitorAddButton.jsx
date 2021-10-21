@@ -3,12 +3,12 @@ import React, { useContext } from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
 const VisitorAddButton = (props) => {
-  const { visitor, setVisitor } = useContext(ReserveContext);
+  const { visitors, setVisitors } = useContext(ReserveContext);
 
   const handleClick = () => {
     const newVisitor = makeVisitor();
-    const newVisitors = [...visitor, newVisitor];
-    setVisitor(newVisitors);
+    const newVisitors = [...visitors, newVisitor];
+    setVisitors(newVisitors);
   };
 
   return (

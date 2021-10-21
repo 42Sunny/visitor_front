@@ -2,19 +2,23 @@ import useDate from 'hooks/useDate';
 import usePlace from 'hooks/usePlace';
 import usePurpose from 'hooks/usePurpose';
 import useTargetStaffName from 'hooks/useTargetStaffName';
-import useVisitor from 'hooks/useVisitor';
-import { createContext, useEffect, useState } from 'react';
+import useVisitors from 'hooks/useVisitors';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import makeVisitor from 'tools/makeVisitor';
+
+interface PropsType {
+  children: ReactNode;
+}
 
 const ReserveContext = createContext({});
 
 const isAvailableSubmit = (
-  isPolicyChecked,
-  errorDateMessage,
-  errorPlaceMessage,
-  errorPurposeMessage,
-  errorTargetStaffNameMessage,
-  errorVisitorMessage,
+  isPolicyChecked: boolean,
+  errorDateMessage: string,
+  errorPlaceMessage: string,
+  errorPurposeMessage: string,
+  errorTargetStaffNameMessage: string,
+  errorVisitorMessage: string,
 ) =>
   isPolicyChecked === true &&
   errorDateMessage === '' &&
@@ -23,7 +27,7 @@ const isAvailableSubmit = (
   errorTargetStaffNameMessage === '' &&
   errorVisitorMessage === '';
 
-const ReserveProvider = ({ children }) => {
+const ReserveProvider = ({ children }: PropsType) => {
   const [date, setDate, errorDateMessage, setErrorDateMessage] = useDate(new Date());
   const [place, setPlace, errorPlaceMessage, setErrorPlaceMessage] = usePlace('개포');
   const [purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage] = usePurpose('');
@@ -33,9 +37,9 @@ const ReserveProvider = ({ children }) => {
     errorTargetStaffNameMessage,
     setErrorTargetStaffNameMessage,
   ] = useTargetStaffName('');
-  const [visitor, setVisitor, errorVisitorMessage, setErrorVisitorMessage] = useVisitor([
+  const [visitors, setVisitors, errorVisitorMessage, setErrorVisitorMessage] = useVisitors(
     makeVisitor(),
-  ]);
+  );
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
   const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
 
@@ -43,11 +47,11 @@ const ReserveProvider = ({ children }) => {
     setIsSubmitButtonAcitve(
       isAvailableSubmit(
         isPolicyChecked,
-        errorDateMessage,
-        errorPlaceMessage,
-        errorPurposeMessage,
-        errorTargetStaffNameMessage,
-        errorVisitorMessage,
+        errorDateMessage as string,
+        errorPlaceMessage as string,
+        errorPurposeMessage as string,
+        errorTargetStaffNameMessage as string,
+        errorVisitorMessage as string,
       ),
     );
   }, [
@@ -82,8 +86,8 @@ const ReserveProvider = ({ children }) => {
         errorTargetStaffNameMessage,
         setErrorTargetStaffNameMessage,
 
-        visitor,
-        setVisitor,
+        visitors,
+        setVisitors,
         errorVisitorMessage,
         setErrorVisitorMessage,
 

@@ -1,4 +1,4 @@
-const makeVisitor = (
+const makeVisitor: () => visitor = (
   name = '',
   organization = '',
   phone = '',
@@ -8,7 +8,7 @@ const makeVisitor = (
   reserveId = 0,
 ) => {
   const key = `${new Date().getMilliseconds()} ${new Date().getSeconds()} ${Math.random()}`;
-  const newVisitor = {
+  const newVisitor: visitor = {
     name,
     organization,
     phone,

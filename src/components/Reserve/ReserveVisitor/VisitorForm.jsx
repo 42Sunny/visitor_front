@@ -20,24 +20,24 @@ const PH_PHONE = '휴대폰 번호을 입력해주세요';
 const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
 
 const VisitorForm = ({ vis }) => {
-  const { visitor, setVisitor } = useContext(ReserveContext);
+  const { visitors, setVisitors } = useContext(ReserveContext);
 
   const handleSave = () => {
     vis.isEditable = false;
     vis.isChanged = true;
-    setVisitor([...visitor]);
+    setVisitors([...visitors]);
   };
 
   const handleDeleteClick = () => {
-    if (visitor.length !== 1) {
-      const notDeleted = visitor.filter((v) => v.id !== vis.id);
-      setVisitor(notDeleted);
+    if (visitors.length !== 1) {
+      const notDeleted = visitors.filter((v) => v.id !== vis.id);
+      setVisitors(notDeleted);
     }
   };
 
   const handleUpdateClick = () => {
     vis.isEditable = true;
-    setVisitor([...visitor]);
+    setVisitors([...visitors]);
   };
 
   const handleChange = (event) => {
@@ -52,7 +52,7 @@ const VisitorForm = ({ vis }) => {
     } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
       vis.phone = value;
     }
-    setVisitor([...visitor]);
+    setVisitors([...visitors]);
   };
 
   return (

@@ -1,8 +1,12 @@
-import { createContext, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
+
+interface PropsType {
+  children: ReactNode;
+}
 
 const LookupContext = createContext({});
 
-const LookupProvider = ({ children }) => {
+const LookupProvider = ({ children }: PropsType) => {
   const [reserve, setReserve] = useState(null);
 
   return (
