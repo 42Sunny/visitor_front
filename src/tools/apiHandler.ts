@@ -10,6 +10,10 @@ enum httpMethod {
   PUT = 'put',
 }
 
+const VERSION_PATH = '/v1';
+
+const makeApiPath = (path: string) => `${VERSION_PATH}/${path}`;
+
 const apiHandler = async (method: httpMethod, path: string, data: Object) => {
   return await axios(
     {
@@ -28,34 +32,34 @@ const apiHandler = async (method: httpMethod, path: string, data: Object) => {
 
 const getReserves = (name: string, phone: string) => {
   const data = { name, phone };
-  return apiHandler(httpMethod.POST, '/reserves', data);
+  return apiHandler(httpMethod.POST, makeApiPath('reserves'), data);
 };
 
 const getReserve = (id: string) => {
   const data = {};
-  return apiHandler(httpMethod.GET, `/reserve/${id}`, data);
+  return apiHandler(httpMethod.GET, makeApiPath(`reserve/${id}`), data);
 };
 
 const deleteReserve = (reserve_id: string) => {
-  return apiHandler(httpMethod.DELETE, `/reserve/${reserve_id}`, {});
+  return apiHandler(httpMethod.DELETE, makeApiPath(`reserve/${reserve_id}`), {});
 };
 
 const createReserve = (data: string) => {
-  return apiHandler(httpMethod.POST, '/reserve/create', data);
+  return apiHandler(httpMethod.POST, makeApiPath('reserve/create'), data);
 };
 
 const updateReserve = (data: string) => {
-  return apiHandler(httpMethod.PUT, '/reserve', data);
+  return apiHandler(httpMethod.PUT, makeApiPath('reserve'), data);
 };
 
 const checkStaff = (staffName: string) => {
   const data = { staffName };
-  return apiHandler(httpMethod.POST, '/staff', data);
+  return apiHandler(httpMethod.POST, makeApiPath('staff'), data);
 };
 
 const postError = (status: Object, payload: Object) => {
   const data = { status, payload };
-  return apiHandler(httpMethod.POST, '/front-err', data);
+  return apiHandler(httpMethod.POST, makeApiPath('front-err'), data);
 };
 
 export {
