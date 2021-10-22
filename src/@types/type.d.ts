@@ -1,4 +1,4 @@
-declare module 'loadsh';
+module 'loadsh';
 
 interface visitor {
   name: string;
