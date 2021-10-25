@@ -7,8 +7,8 @@ import { createReserve } from 'tools/apiHandler';
 import dateToJsonTime from 'tools/dateToJsonTime';
 import ReserveResult from './ReserveResult';
 
-const sendCreateReserve = (date, place, purpose, targetStaffName, visitor) => {
-  const newVistor = visitor.map((elem) => ({
+const sendCreateReserve = (date, place, purpose, targetStaffName, visitors) => {
+  const newVistors = visitors.map((elem) => ({
     name: elem.name,
     organization: elem.organization,
     phone: elem.phone,
@@ -18,17 +18,17 @@ const sendCreateReserve = (date, place, purpose, targetStaffName, visitor) => {
     place,
     purpose,
     targetStaffName,
-    visitor: newVistor,
+    visitor: newVistors,
   };
   return createReserve(data);
 };
 
-const sendUpdateReserve = (date, place, purpose, targetStaffName, visitor) => {
-  const newVistor = visitor.map((elem) => ({
+const sendUpdateReserve = (date, place, purpose, targetStaffName, visitors) => {
+  const newVistors = visitors.map((elem) => ({
     name: elem.name,
     organization: elem.organization,
     phone: elem.phone,
-    reserveId: visitor[0].reserveId,
+    reserveId: visitors[0].reserveId,
     isChanged: elem.isChanged,
   }));
   const data = {
@@ -36,8 +36,8 @@ const sendUpdateReserve = (date, place, purpose, targetStaffName, visitor) => {
     place,
     purpose,
     targetStaffName,
-    reserveId: visitor[0].reserveId,
-    visitor: newVistor,
+    reserveId: visitors[0].reserveId,
+    visitor: newVistors,
   };
   return updateReserve(data);
 };
@@ -48,7 +48,7 @@ const ReserveSubmit = () => {
     place,
     purpose,
     targetStaffName,
-    visitor,
+    visitors,
     isSubmitButtonAcitve,
     setIsSubmitButtonAcitve,
   } = useContext(ReserveContext);
@@ -56,11 +56,16 @@ const ReserveSubmit = () => {
   const [reserveId, setReserveId] = useState(-1);
   const location = useLocation();
 
+  const apiSelector = () => {
+    if (location.state) return sendUpdateReserve;
+    else return sendCreateReserve;
+  };
+
   const handleClick = async () => {
-    let callApi = location.state ? sendUpdateReserve : sendCreateReserve;
+    const postApi = apiSelector();
 
     setIsSubmitButtonAcitve(false);
-    const { data } = await callApi(date, place, purpose, targetStaffName, visitor);
+    const { data } = await postApi(date, place, purpose, targetStaffName, visitors);
     if (data.error) {
       let errorMessage = 'empty error message';
       if (Array.isArray(data.error.message)) {

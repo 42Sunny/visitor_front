@@ -35,13 +35,13 @@ const ReserveBackground = () => {
 
 const ReservePage = () => {
   const location = useLocation();
-  const { setDate, setPlace, setPurpose, setTargetStaffName, setVisitor } =
+  const { setDate, setPlace, setPurpose, setTargetStaffName, setVisitors } =
     useContext(ReserveContext);
 
   useTitle(!location.state ? TITLE_RESERVE : TITLE_UPDATE);
 
   const fillContents = useCallback(() => {
-    const visitor = location.state.visitor.map((elem) =>
+    const visitors = location.state.visitor.map((elem) =>
       makeVisitor(elem.name, elem.organization, elem.phone, false, false, false, elem.reserveId),
     );
     /*
@@ -52,8 +52,8 @@ const ReservePage = () => {
     setPlace(location.state.place);
     setPurpose(location.state.purpose);
     setTargetStaffName(location.state.staff.name);
-    setVisitor(visitor);
-  }, [location.state, setDate, setPlace, setPurpose, setTargetStaffName, setVisitor]);
+    setVisitors(visitors);
+  }, [location.state, setDate, setPlace, setPurpose, setTargetStaffName, setVisitors]);
 
   useEffect(() => {
     if (location.state) {

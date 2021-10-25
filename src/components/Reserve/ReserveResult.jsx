@@ -15,9 +15,9 @@ const ReserveResult = ({ isOpen, reserveId }) => {
     else {
       if (location.state) {
         const {
-          state: { visitors },
+          state: { visitor },
         } = location;
-        const reserveId = visitors[0].reserveId;
+        const reserveId = visitor[0].reserveId;
         history.push({ pathname: `/reserve-info/${reserveId}`, state: { isSubmit: true } });
       } else history.push('/');
     }
