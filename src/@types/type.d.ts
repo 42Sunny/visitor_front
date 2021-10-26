@@ -1,4 +1,5 @@
 module 'loadsh';
+module 'package.json';
 
 interface visitor {
   name: string;

@@ -9,6 +9,7 @@ import ReserveInfoPage from 'pages/ReserveInfoPage';
 import ReservePage from 'pages/ReservePage';
 import { Header } from './Header/Header';
 import Page from 'components/Common/Page';
+import Footer from './Footer/Footer';
 
 const AppRouter = () => {
   return (
@@ -40,6 +41,7 @@ const AppRouter = () => {
           </Route>
         </Switch>
       </Page>
+      <Footer />
     </Router>
   );
 };
