@@ -7,13 +7,15 @@ interface PropTypes {
   children?: React.ReactNode;
   hidden?: boolean;
   isGrid?: boolean;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const WhiteBox = ({ children, className, hidden, isGrid = false }: PropTypes) => {
+const WhiteBox = ({ children, className, hidden, isGrid = false, onClick }: PropTypes) => {
   return (
     <div
       className={classNames(className, classes.box, isGrid === true ? classes.grid : null)}
       hidden={hidden}
+      onClick={onClick}
     >
       {children}
     </div>

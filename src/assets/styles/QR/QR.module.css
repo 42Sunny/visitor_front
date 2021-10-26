@@ -1,0 +1,7 @@
+.QR {
+  width: 40vh;
+  height: 40vh;
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: contain;
+}
