@@ -9,9 +9,18 @@
 .QRMessage {
   font-size: 1.3rem;
   margin-bottom: 0.3rem;
+  color: black;
+  font-weight: bold;
 }
 
 .QRMessageDetail {
   font-size: 0.9rem;
-  color: #9b9b9b;
+}
+
+.Red {
+  color: red;
+}
+
+.Grey {
+  color: grey;
 }

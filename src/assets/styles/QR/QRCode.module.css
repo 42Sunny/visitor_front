@@ -4,4 +4,10 @@
   max-width: 400px;
   max-height: 400px;
   object-fit: contain;
+  box-sizing: border-box;
+}
+
+.QRCodeBox {
+  transition: 0.7s;
+  box-sizing: border-box;
 }
