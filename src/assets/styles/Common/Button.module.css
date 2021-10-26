@@ -1,0 +1,14 @@
+.Button {
+  appearance: none;
+  color: white;
+  border-radius: 0.3rem;
+  background-color: #03d5a3;
+  font-size: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-style: none;
+}
+
+.Button:disabled {
+  background-color: #c6c6c6;
+}
