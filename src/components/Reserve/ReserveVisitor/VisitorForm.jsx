@@ -80,6 +80,7 @@ const VisitorForm = ({ vis }) => {
         name={NAME_PHONE}
         value={vis.phone}
         isEditable={vis.isEditable}
+        type="tel"
       />
 
       <div className={classes.InputButtonBox}>
