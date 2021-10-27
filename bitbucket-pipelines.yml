@@ -4,6 +4,7 @@ pipelines:
     develop:
       - step:
           name: Installing & Build
+          deployment: develop
           caches:
             - node
           script:
@@ -27,6 +28,7 @@ pipelines:
                 LOCAL_PATH: 'build/build_dev'
       - step:
           name: Invalidate Cloudfront Cache
+          deployment: develop
           script:
             - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
               variables:
