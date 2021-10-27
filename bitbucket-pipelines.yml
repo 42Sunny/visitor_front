@@ -16,7 +16,6 @@ pipelines:
             - build/build_dev/**
       - step:
           name: Deploy to S3
-          deployment: develop
           script:
             - pipe: atlassian/aws-s3-deploy:1.1.0
               variables:
@@ -28,7 +27,6 @@ pipelines:
                 LOCAL_PATH: 'build/build_dev'
       - step:
           name: Invalidate Cloudfront Cache
-          deployment: develop
           script:
             - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
               variables:
