@@ -1,6 +1,8 @@
 .CheckBox {
   width: 2rem;
   height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
   background-image: url('/src/assets/images/checkbox_unchecked.png');
   cursor: pointer;
   background-repeat: no-repeat;
@@ -37,18 +39,16 @@
   width: 95%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.3rem;
+  justify-content: flex-start;
+  gap: 1rem;
   cursor: pointer;
   box-sizing: border-box;
 }
 
 .Content {
-  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   font-size: 1rem;
   font-weight: bold;
 }
@@ -61,6 +61,6 @@
   filter: blur(0.5rem);
 }
 
-.QRContainer {
-  overflow-y: hidden;
+.Bold {
+  font-size: 1.3rem;
 }

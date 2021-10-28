@@ -8,6 +8,10 @@
 }
 
 .QRCodeBox {
+  width: 40vh;
+  height: 40vh;
+  max-width: 400px;
+  max-height: 400px;
   transition: 0.7s;
   box-sizing: border-box;
 }
