@@ -17,8 +17,12 @@ const LookupResults = ({ reserves }: PropTypes) => {
   const [openReserves, setOpenReserves] = useState<reserve[]>([]);
 
   useEffect(() => {
-    const expiredReserves = reserves.filter((reserve) => new Date(reserve.date) <= new Date());
-    const openReserves = reserves.filter((reserve) => new Date(reserve.date) > new Date());
+    const expiredReserves = reserves.filter(
+      (reserve) => new Date(reserve.date.replace(/-/g, '/')) <= new Date(),
+    );
+    const openReserves = reserves.filter(
+      (reserve) => new Date(reserve.date.replace(/-/g, '/')) > new Date(),
+    );
     setExpriedReserves(expiredReserves);
     setOpenReserves(openReserves);
   }, [reserves]);
