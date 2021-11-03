@@ -10,7 +10,7 @@ import GreyBox from 'components/Common/GreyBox';
 const LookupInput = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const { setReserve } = useContext(LookupContext);
+  const { setReserves } = useContext(LookupContext);
 
   const handleChangeName = ({ target: { value } }) => {
     setName(value);
@@ -27,14 +27,15 @@ const LookupInput = () => {
           data: { error },
         } = response;
         if (!error) {
-          const results = response.data;
+          let results = response.data;
           results.reverse();
-          setReserve(response.data);
-        } else setReserve([]);
+          results = results.map((result) => ({ ...result, visitors: result.visitor }));
+          setReserves(results);
+        } else setReserves([]);
       })
       .catch(() => {
         //TODO: postError
-        setReserve([]);
+        setReserves([]);
       });
   };
 

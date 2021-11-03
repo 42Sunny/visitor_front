@@ -45,7 +45,7 @@ const getReserve = (id: string) => {
   return apiHandler(httpMethod.GET, makeApiPath(`reserve/${id}`), data);
 };
 
-const deleteReserve = (reserve_id: string) => {
+const deleteReserve = (reserve_id: string | number) => {
   return apiHandler(httpMethod.DELETE, makeApiPath(`reserve/${reserve_id}`), {});
 };
 
