@@ -2,15 +2,22 @@ import { debounce } from 'loadsh';
 import { useCallback, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
+export type VisitorReturnTypes = [
+  visitor[],
+  React.Dispatch<React.SetStateAction<visitor[]>>,
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+];
+
 const IDLE_TIME = 500;
 const ERROR_BLANK_VISITOR = '방문자를 추가해주세요.';
 const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
 const ERROR_NONE = '';
 
-interface checker {
+type checker = {
   [index: string]: boolean;
-}
+};
 
 const isDuplicatePhone = (visitors: visitor[]) => {
   const checker: checker = {};
@@ -32,7 +39,7 @@ const isFullVisitor = (visitors: visitor[]) => {
   );
 };
 
-const useVisitor = (initialVisitor: visitor) => {
+const useVisitor = (initialVisitor: visitor): VisitorReturnTypes => {
   const [visitors, setVisitor] = useState([initialVisitor]);
   const [errorMessage, setErrorMessage] = useState('');
 

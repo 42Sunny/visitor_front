@@ -3,7 +3,11 @@ import ReactLoading from 'react-loading';
 import classes from 'assets/styles/Common/Loading.module.css';
 import classNames from 'classnames';
 
-const Loading = ({ isHidden }) => {
+type PropTypes = {
+  isHidden: boolean;
+};
+
+const Loading = ({ isHidden }: PropTypes) => {
   return (
     <div className={classNames(classes.LoadingContainer, { [classes.Hidden]: isHidden })}>
       <ReactLoading type={'spin'} />

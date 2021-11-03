@@ -1,19 +1,26 @@
 import { createContext, ReactNode, useState } from 'react';
 
-interface PropsType {
+type PropTypes = {
   children: ReactNode;
-}
+};
 
-const LookupContext = createContext({});
+type LookUpContextTypes = {
+  reserves: reserve[];
+  setReserves?: React.Dispatch<React.SetStateAction<reserve[]>>;
+};
 
-const LookupProvider = ({ children }: PropsType) => {
-  const [reserve, setReserve] = useState(null);
+const LookupContext = createContext<LookUpContextTypes>({
+  reserves: [],
+});
+
+const LookupProvider = ({ children }: PropTypes) => {
+  const [reserves, setReserves] = useState<reserve[]>([]);
 
   return (
     <LookupContext.Provider
       value={{
-        reserve,
-        setReserve,
+        reserves,
+        setReserves,
       }}
     >
       {children}

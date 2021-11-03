@@ -3,6 +3,12 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import classes from 'assets/styles/Reserve/ReservePolicyModal.module.css';
 
+type PropTypes = {
+  isOpen: boolean;
+  onRequestClose: any;
+  onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+
 const policy = [
   'Ⅰ. 개인정보의 수집 및 이용 동의서',
   '- 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.',
@@ -24,7 +30,7 @@ const policy = [
   '알려드립니다.',
 ];
 
-const ReservePolicyModal = ({ isOpen, onRequestClose, onButtonClick }) => {
+const ReservePolicyModal = ({ isOpen, onRequestClose, onButtonClick }: PropTypes) => {
   return (
     <ReactModal
       isOpen={isOpen}

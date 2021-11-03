@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from 'assets/styles/LookupPage.module.css';
 import LookupInput from 'components/Lookup/LookupInput';
-import LookupResult from 'components/Lookup/LookupResult';
+import LookupResultContainer from 'components/Lookup/LookupResultContainer';
 import { LookupProvider } from 'contexts/LookupContext';
 
 const LookupBackground = () => {
@@ -13,7 +13,7 @@ const LookupContent = () => {
     <div className={styles.LookupContent}>
       <LookupProvider>
         <LookupInput />
-        <LookupResult />
+        <LookupResultContainer />
       </LookupProvider>
     </div>
   );

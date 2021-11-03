@@ -1,7 +1,8 @@
 module 'loadsh';
 module 'package.json';
+module 'react-modal';
 
-interface visitor {
+type visitor = {
   name: string;
   organization: string;
   phone: string;
@@ -11,4 +12,18 @@ interface visitor {
   autoSave: boolean;
   reserveId: number;
   id: string;
-}
+};
+
+type staff = {
+  name: string;
+  phone: string;
+};
+
+type reserve = {
+  date: string;
+  place: string;
+  targetStaffName: string;
+  purpose: string;
+  visitors: visitor[];
+  staff: staff;
+};
