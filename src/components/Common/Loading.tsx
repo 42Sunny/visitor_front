@@ -15,4 +15,4 @@ const Loading = ({ isHidden }: PropTypes) => {
   );
 };
 
-export default Loading;
+export default React.memo(Loading);

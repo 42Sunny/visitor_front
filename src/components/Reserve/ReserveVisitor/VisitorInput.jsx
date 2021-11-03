@@ -1,8 +1,7 @@
-import SmallTitle from 'components/Common/SmallTitle';
 import React from 'react';
-import ReserveStar from '../ReserveStar';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 import { formattedPhone } from 'tools/formattedPhone';
+import ReserveSmallTitle from '../ReserveSmallTitle';
 
 const formattedValue = (name, value) => {
   if (name === 'phone') {
@@ -15,10 +14,7 @@ const formattedValue = (name, value) => {
 const VisitorInput = ({ isEditable, handleChange, title, placeholder, name, value, type }) => {
   return (
     <div className={classes.InputBox}>
-      <SmallTitle>
-        {`${title} `}
-        <ReserveStar />
-      </SmallTitle>
+      <ReserveSmallTitle title={title} />
       <div className={classes.ValueBox}>
         {isEditable === true ? (
           <input
@@ -37,4 +33,4 @@ const VisitorInput = ({ isEditable, handleChange, title, placeholder, name, valu
   );
 };
 
-export default VisitorInput;
+export default React.memo(VisitorInput);

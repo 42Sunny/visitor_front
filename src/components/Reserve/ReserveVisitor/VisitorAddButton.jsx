@@ -1,10 +1,9 @@
-import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext } from 'react';
+import React from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
-const VisitorAddButton = (props) => {
-  const { visitors, setVisitors } = useContext(ReserveContext);
+const VISITOR_ADD_BUTTON_TEXT = '+ 방문자 추가';
 
+const VisitorAddButton = ({ className, visitors, setVisitors }) => {
   const handleClick = () => {
     const newVisitor = makeVisitor();
     const newVisitors = [...visitors, newVisitor];
@@ -12,10 +11,10 @@ const VisitorAddButton = (props) => {
   };
 
   return (
-    <button className={props.className} onClick={handleClick}>
-      + 방문자 추가
+    <button className={className} onClick={handleClick}>
+      {VISITOR_ADD_BUTTON_TEXT}
     </button>
   );
 };
 
-export default VisitorAddButton;
+export default React.memo(VisitorAddButton);

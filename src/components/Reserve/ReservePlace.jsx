@@ -1,34 +1,42 @@
-import BigTitle from 'components/Common/BigTitle';
 import WhiteBox from 'components/Common/WhiteBox';
 import { ReserveContext } from 'contexts/ReserveContext';
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import classes from 'assets/styles/Reserve/ReservePlace.module.css';
-import ReserveStar from './ReserveStar';
+import ReserveBigTitle from './ReserveBigTitle';
+
+const PLACE_TITLE = '장소';
 
 const ReservePlace = () => {
   const { place, setPlace } = useContext(ReserveContext);
 
-  const handleClick = (event) => {
-    const {
-      target: { value, innerText },
-    } = event;
-    if (value) setPlace(value);
-    else setPlace(innerText);
-  };
+  const onChange = useCallback(
+    (event) => {
+      const {
+        target: { value, innerText },
+      } = event;
+      if (value) setPlace(value);
+      else setPlace(innerText);
+    },
+    [setPlace],
+  );
 
+  const placeProps = { place, onChange };
+
+  return <VReservePlace {...placeProps} />;
+};
+
+const VReservePlace = React.memo(({ onChange, place }) => {
   return (
     <WhiteBox isGrid>
-      <BigTitle>
-        장소 <ReserveStar />
-      </BigTitle>
+      <ReserveBigTitle title={PLACE_TITLE} />
       <div className={classes.InputContent}>
         <div className={classes.InputBox}>
-          <button value="개포" onClick={handleClick} className={classes.InputButton}>
+          <button value="개포" onClick={onChange} className={classes.InputButton}>
             <input
               type="radio"
               name="reservePlace"
               value="개포"
-              onChange={handleClick}
+              onChange={onChange}
               checked={place === '개포'}
               className={classes.Input}
             />
@@ -36,12 +44,12 @@ const ReservePlace = () => {
           </button>
         </div>
         <div className={classes.InputBox}>
-          <button value="서초" onClick={handleClick} className={classes.InputButton}>
+          <button value="서초" onClick={onChange} className={classes.InputButton}>
             <input
               type="radio"
               name="reservePlace"
               value="서초"
-              onChange={handleClick}
+              onChange={onChange}
               checked={place === '서초'}
               className={classes.Input}
             />
@@ -51,6 +59,6 @@ const ReservePlace = () => {
       </div>
     </WhiteBox>
   );
-};
+});
 
 export default ReservePlace;

@@ -12,4 +12,4 @@ const Spacing = ({ one, two, three }: PropTypes) => {
   );
 };
 
-export default Spacing;
+export default React.memo(Spacing);

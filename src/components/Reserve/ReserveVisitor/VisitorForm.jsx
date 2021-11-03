@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import GreyBox from 'components/Common/GreyBox';
-import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
+import React from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
@@ -19,24 +18,22 @@ const PH_PHONE = '휴대폰 번호을 입력해주세요';
 
 const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
 
-const VisitorForm = ({ vis }) => {
-  const { visitors, setVisitors } = useContext(ReserveContext);
-
+const VisitorForm = ({ visitor, visitors, setVisitors }) => {
   const handleSave = () => {
-    vis.isEditable = false;
-    vis.isChanged = true;
+    visitor.isEditable = false;
+    visitor.isChanged = true;
     setVisitors([...visitors]);
   };
 
   const handleDeleteClick = () => {
     if (visitors.length !== 1) {
-      const notDeleted = visitors.filter((v) => v.id !== vis.id);
+      const notDeleted = visitors.filter((v) => v.id !== visitor.id);
       setVisitors(notDeleted);
     }
   };
 
   const handleUpdateClick = () => {
-    vis.isEditable = true;
+    visitor.isEditable = true;
     setVisitors([...visitors]);
   };
 
@@ -46,11 +43,11 @@ const VisitorForm = ({ vis }) => {
       nativeEvent: { data },
     } = event;
     if (name === NAME_ORGANIZATION) {
-      vis.organization = value;
+      visitor.organization = value;
     } else if (name === NAME_NAME) {
-      vis.name = value;
+      visitor.name = value;
     } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
-      vis.phone = value;
+      visitor.phone = value;
     }
     setVisitors([...visitors]);
   };
@@ -62,24 +59,24 @@ const VisitorForm = ({ vis }) => {
         placeholder={PH_ORGANIZATION}
         handleChange={handleChange}
         name={NAME_ORGANIZATION}
-        value={vis.organization}
-        isEditable={vis.isEditable}
+        value={visitor.organization}
+        isEditable={visitor.isEditable}
       />
       <VisitorInput
         title={TITLE_NAME}
         placeholder={PH_NAME}
         handleChange={handleChange}
         name={NAME_NAME}
-        value={vis.name}
-        isEditable={vis.isEditable}
+        value={visitor.name}
+        isEditable={visitor.isEditable}
       />
       <VisitorInput
         title={TITLE_PHONE}
         placeholder={PH_PHONE}
         handleChange={handleChange}
         name={NAME_PHONE}
-        value={vis.phone}
-        isEditable={vis.isEditable}
+        value={visitor.phone}
+        isEditable={visitor.isEditable}
         type="tel"
       />
 
@@ -90,7 +87,7 @@ const VisitorForm = ({ vis }) => {
         >
           삭제
         </button>
-        {vis.isEditable === true ? (
+        {visitor.isEditable === true ? (
           <button className={classNames(classes.Button, classes.InsertButton)} onClick={handleSave}>
             저장
           </button>
@@ -107,4 +104,4 @@ const VisitorForm = ({ vis }) => {
   );
 };
 
-export default VisitorForm;
+export default React.memo(VisitorForm);

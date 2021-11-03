@@ -20,4 +20,4 @@ const GreyBox = ({ className, children, hidden, isGrid }: PropTypes) => {
   );
 };
 
-export default GreyBox;
+export default React.memo(GreyBox);

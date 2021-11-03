@@ -22,4 +22,4 @@ const WhiteBox = ({ children, className, hidden, isGrid = false, onClick }: Prop
   );
 };
 
-export default WhiteBox;
+export default React.memo(WhiteBox);

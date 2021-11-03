@@ -1,10 +1,15 @@
-import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
+import React from 'react';
 import VisitorForm from './VisitorForm';
 
-const VisitorFormBox = () => {
-  const { visitors } = useContext(ReserveContext);
-  return visitors.map((elem) => <VisitorForm key={elem.key} vis={elem} />);
+const VisitorFormBox = ({ visitors, setVisitors }) => {
+  return visitors.map((visitor) => (
+    <VisitorForm
+      key={visitor.key}
+      visitor={visitor}
+      visitors={visitors}
+      setVisitors={setVisitors}
+    />
+  ));
 };
 
-export default VisitorFormBox;
+export default React.memo(VisitorFormBox);

@@ -5,4 +5,4 @@ const ReserveStar = () => {
   return <span className={styles.ReserveStar}>*</span>;
 };
 
-export default ReserveStar;
+export default React.memo(ReserveStar);
