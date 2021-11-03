@@ -15,19 +15,24 @@ const VERSION_PATH = '/v1';
 const makeApiPath = (path: string) => `${VERSION_PATH}/${path}`;
 
 const apiHandler = async (method: httpMethod, path: string, data: Object) => {
-  return await axios(
-    {
-      method,
-      url: `${url}${path}`,
-      data,
-      headers: {
-        [X_42CADET_AUTH_KEY]: process.env.REACT_APP_AUTH_KEY,
+  try {
+    const response = await axios(
+      {
+        method,
+        url: `${url}${path}`,
+        data,
+        headers: {
+          [X_42CADET_AUTH_KEY]: process.env.REACT_APP_AUTH_KEY,
+        },
       },
-    },
-    {
-      withCredentials: true,
-    },
-  );
+      {
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch {
+    return { data: { error: { message: '에러가 발생했습니다.' } } };
+  }
 };
 
 const getReserves = (name: string, phone: string) => {
