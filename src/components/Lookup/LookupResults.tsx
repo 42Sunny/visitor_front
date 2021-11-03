@@ -3,6 +3,9 @@ import classes from 'assets/styles/LookupPage.module.css';
 import LookupResult from './LookupResult';
 import classNames from 'classnames';
 
+const OPEN_EXPIRED_MESSAGE = '지난 예약 감추기 <';
+const CLOSE_EXPIRED_MESSAGE = '지난 예약 보기 >';
+
 type PropTypes = {
   reserves: reserve[];
 };
@@ -36,9 +39,11 @@ const LookupResults = ({ reserves }: PropTypes) => {
           />
         ))}
       </div>
-      <div className={classes.ExpiredReserveButton} onClick={handleClickExpiredToggle}>
-        {openExpired ? '지난 예약 감추기 <' : '지난 예약 보기 >'}
-      </div>
+      {expiredReserves.length !== 0 && (
+        <div className={classes.ExpiredReserveButton} onClick={handleClickExpiredToggle}>
+          {openExpired ? OPEN_EXPIRED_MESSAGE : CLOSE_EXPIRED_MESSAGE}
+        </div>
+      )}
       <div
         className={classNames(classes.ExpiredReserveContainer, classes.LookupCardsContent, {
           [classes.Hidden]: !openExpired,

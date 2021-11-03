@@ -7,9 +7,10 @@ const LookupResultContainer = () => {
   const { reserves } = useContext(LookupContext);
   const firstEnter = useRef(true);
 
+  // 첫 진입 시에는 결과값을 숨기기 위함.
   useEffect(() => {
     firstEnter.current = false;
-  });
+  }, []);
 
   return (
     <>
