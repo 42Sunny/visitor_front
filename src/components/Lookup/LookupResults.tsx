@@ -1,17 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from 'assets/styles/LookupPage.module.css';
 import LookupResult from './LookupResult';
+import classNames from 'classnames';
 
 type PropTypes = {
   reserves: reserve[];
 };
 
 const LookupResults = ({ reserves }: PropTypes) => {
+  const [openExpired, setOpenExied] = useState(false);
+  const handleClickExpiredToggle = () => setOpenExied(!openExpired);
+  const [expiredReserves, setExpriedReserves] = useState<reserve[]>([]);
+  const [openReserves, setOpenReserves] = useState<reserve[]>([]);
+
+  useEffect(() => {
+    const expiredReserves = reserves.filter((reserve) => new Date(reserve.date) <= new Date());
+    const openReserves = reserves.filter((reserve) => new Date(reserve.date) > new Date());
+    setExpriedReserves(expiredReserves);
+    setOpenReserves(openReserves);
+  }, [reserves]);
+
   return (
     <div className={classes.LookupCardsBox}>
-      <div className={classes.LookupCardsHeader}>총 {reserves.length}건</div>
+      <div className={classes.LookupCardsHeader}>총 {openReserves.length}건</div>
       <div className={classes.LookupCardsContent}>
-        {reserves.map((reserve) => (
+        {openReserves.map((reserve) => (
+          <LookupResult
+            key={reserve.visitors[0].reserveId}
+            reserve={reserve}
+            reserveId={reserve.visitors[0].reserveId}
+            date={reserve.date}
+            place={reserve.place}
+            targetStaffName={reserve.staff.name}
+            purpose={reserve.purpose}
+          />
+        ))}
+      </div>
+      <div className={classes.ExpiredReserveButton} onClick={handleClickExpiredToggle}>
+        {openExpired ? '지난 예약 감추기 <' : '지난 예약 보기 >'}
+      </div>
+      <div
+        className={classNames(classes.ExpiredReserveContainer, classes.LookupCardsContent, {
+          [classes.Hidden]: !openExpired,
+        })}
+      >
+        {expiredReserves.map((reserve) => (
           <LookupResult
             key={reserve.visitors[0].reserveId}
             reserve={reserve}
