@@ -7,7 +7,14 @@ const ERROR_BLANK_DATE = '시간을 선택해주세요.';
 const ERROR_INVALID_DATE = '현재 시간보다 빠른 시간으로는 예약이 불가능합니다.';
 const ERROR_NONE = '';
 
-const useDate = (initialDate: Date) => {
+export type DateReturnTypes = [
+  Date,
+  React.Dispatch<React.SetStateAction<Date>>,
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+];
+
+const useDate = (initialDate: Date): DateReturnTypes => {
   const [date, setDate] = useState(initialDate);
   const [errorMessage, setErrorMessage] = useState('');
 

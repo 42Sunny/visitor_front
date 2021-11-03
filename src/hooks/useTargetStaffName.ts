@@ -3,12 +3,19 @@ import { useCallback, useState } from 'react';
 import { checkStaff } from 'tools/apiHandler';
 import useDidMountEffect from './useDidMountEffect';
 
+export type TargetStaffNameReturnTypes = [
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+];
+
 const IDLE_TIME = 500;
 const ERROR_BLANK_TARGET_STAFF_NAME = '이름을 입력해주세요.';
 const ERROR_INVALID_TARGET_STAFF_NAME = '등록되지 않은 직원입니다.';
 const ERROR_NONE = '';
 
-const useTargetStaffName = (initialTargetStaffName: string) => {
+const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameReturnTypes => {
   const [targetStaffName, setTargetStaffName] = useState(initialTargetStaffName);
   const [errorMessage, setErrorMessage] = useState('');
 

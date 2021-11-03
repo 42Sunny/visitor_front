@@ -1,5 +1,6 @@
 module 'loadsh';
 module 'package.json';
+module 'react-modal';
 
 interface visitor {
   name: string;
