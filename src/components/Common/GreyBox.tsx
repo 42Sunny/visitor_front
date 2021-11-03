@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import React from 'react';
 import classes from 'assets/styles/Common/GreyBox.module.css';
 
-interface PropTypes {
+type PropTypes = {
   className?: string;
   children?: React.ReactNode;
   hidden?: boolean;
   isGrid?: boolean;
-}
+};
 
 const GreyBox = ({ className, children, hidden, isGrid }: PropTypes) => {
   return (

@@ -6,9 +6,9 @@ import useVisitors from 'hooks/useVisitors';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
-interface PropsType {
+type PropTypes = {
   children: ReactNode;
-}
+};
 
 const ReserveContext = createContext({});
 
@@ -27,7 +27,7 @@ const isAvailableSubmit = (
   errorTargetStaffNameMessage === '' &&
   errorVisitorMessage === '';
 
-const ReserveProvider = ({ children }: PropsType) => {
+const ReserveProvider = ({ children }: PropTypes) => {
   const [date, setDate, errorDateMessage, setErrorDateMessage] = useDate(new Date());
   const [place, setPlace, errorPlaceMessage, setErrorPlaceMessage] = usePlace('개포');
   const [purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage] = usePurpose('');

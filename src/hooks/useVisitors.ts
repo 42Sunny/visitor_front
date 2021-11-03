@@ -8,9 +8,9 @@ const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
 const ERROR_NONE = '';
 
-interface checker {
+type checker = {
   [index: string]: boolean;
-}
+};
 
 const isDuplicatePhone = (visitors: visitor[]) => {
   const checker: checker = {};
