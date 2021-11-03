@@ -6,6 +6,7 @@ import { updateReserve } from 'tools/apiHandler';
 import { createReserve } from 'tools/apiHandler';
 import dateToJsonTime from 'tools/dateToJsonTime';
 import ReserveResult from './ReserveResult';
+import Loading from '../Common/Loading';
 
 const sendCreateReserve = (date, place, purpose, targetStaffName, visitors) => {
   const newVistors = visitors.map((elem) => ({
@@ -13,6 +14,7 @@ const sendCreateReserve = (date, place, purpose, targetStaffName, visitors) => {
     organization: elem.organization,
     phone: elem.phone,
   }));
+
   const data = {
     date: dateToJsonTime(date),
     place,
@@ -31,6 +33,7 @@ const sendUpdateReserve = (date, place, purpose, targetStaffName, visitors) => {
     reserveId: visitors[0].reserveId,
     isChanged: elem.isChanged,
   }));
+
   const data = {
     date: dateToJsonTime(date),
     place,
@@ -52,9 +55,11 @@ const ReserveSubmit = () => {
     isSubmitButtonAcitve,
     setIsSubmitButtonAcitve,
   } = useContext(ReserveContext);
+
   const [isOpen, setIsOpen] = useState(false);
   const [reserveId, setReserveId] = useState(-1);
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const apiSelector = () => {
     if (location.state) return sendUpdateReserve;
@@ -65,6 +70,7 @@ const ReserveSubmit = () => {
     const postApi = apiSelector();
 
     setIsSubmitButtonAcitve(false);
+    setIsLoading(true);
     const { data } = await postApi(date, place, purpose, targetStaffName, visitors);
     if (data.error) {
       let errorMessage = 'empty error message';
@@ -79,6 +85,7 @@ const ReserveSubmit = () => {
       setReserveId(reserveId);
       setIsOpen(true);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -91,6 +98,7 @@ const ReserveSubmit = () => {
         신청
       </button>
       <ReserveResult isOpen={isOpen} reserveId={reserveId} />
+      <Loading isHidden={!isLoading} />
     </>
   );
 };
