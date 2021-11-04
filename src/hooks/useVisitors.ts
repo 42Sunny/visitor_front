@@ -19,6 +19,7 @@ type checker = {
   [index: string]: boolean;
 };
 
+// TODO: 번호가 비어있을 경우 중복 처리 하지 않음
 const isDuplicatePhone = (visitors: visitor[]) => {
   const checker: checker = {};
   return visitors.some((elem) => {

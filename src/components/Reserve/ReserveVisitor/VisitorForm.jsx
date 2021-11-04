@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import GreyBox from 'components/Common/GreyBox';
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
@@ -18,39 +18,44 @@ const PH_PHONE = '휴대폰 번호을 입력해주세요';
 
 const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
 
-const VisitorForm = ({ visitor, visitors, setVisitors }) => {
+const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors }) => {
+  const [phone, setPhone] = useState('');
+  const [name, setName] = useState('');
+  const [organization, setOrganization] = useState('');
+
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;
-    setVisitors([...visitors]);
+    visitor.phone = phone;
+    visitor.name = name;
+    visitor.organization = organization;
+    saveVisitors();
   };
 
   const handleDeleteClick = () => {
-    if (visitors.length !== 1) {
-      const notDeleted = visitors.filter((v) => v.id !== visitor.id);
-      setVisitors(notDeleted);
+    if (numberOfVisitors !== 1) {
+      deleteVisitor(visitor.id);
     }
   };
 
   const handleUpdateClick = () => {
     visitor.isEditable = true;
-    setVisitors([...visitors]);
+    saveVisitors();
   };
 
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     const {
       target: { value, name },
       nativeEvent: { data },
     } = event;
     if (name === NAME_ORGANIZATION) {
-      visitor.organization = value;
+      setOrganization(value);
     } else if (name === NAME_NAME) {
-      visitor.name = value;
+      setName(value);
     } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
-      visitor.phone = value;
+      setPhone(value);
     }
-    setVisitors([...visitors]);
-  };
+  }, []);
 
   return (
     <GreyBox isGrid>
@@ -59,7 +64,7 @@ const VisitorForm = ({ visitor, visitors, setVisitors }) => {
         placeholder={PH_ORGANIZATION}
         handleChange={handleChange}
         name={NAME_ORGANIZATION}
-        value={visitor.organization}
+        value={organization}
         isEditable={visitor.isEditable}
       />
       <VisitorInput
@@ -67,7 +72,7 @@ const VisitorForm = ({ visitor, visitors, setVisitors }) => {
         placeholder={PH_NAME}
         handleChange={handleChange}
         name={NAME_NAME}
-        value={visitor.name}
+        value={name}
         isEditable={visitor.isEditable}
       />
       <VisitorInput
@@ -75,7 +80,7 @@ const VisitorForm = ({ visitor, visitors, setVisitors }) => {
         placeholder={PH_PHONE}
         handleChange={handleChange}
         name={NAME_PHONE}
-        value={visitor.phone}
+        value={phone}
         isEditable={visitor.isEditable}
         type="tel"
       />
