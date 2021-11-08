@@ -4,19 +4,19 @@ import VisitorForm from './VisitorForm';
 const VisitorFormBox = ({ visitors, setVisitors }) => {
   const deleteVisitor = useCallback(
     (targetId) => {
-      setVisitors(visitors.filter((visitor) => visitor.id !== targetId));
+      if (visitors.length !== 1) {
+        setVisitors((visitors) => visitors.filter((visitor) => visitor.id !== targetId));
+      }
     },
-    [setVisitors, visitors],
+    [setVisitors, visitors.length],
   );
 
-  const saveVisitors = useCallback(() => {
-    setVisitors([...visitors]);
-  }, [setVisitors, visitors]);
+  const saveVisitor = useCallback(() => {
+    setVisitors((visitors) => [...visitors]);
+  }, [setVisitors]);
 
   const VisitorFormProps = {
-    setVisitors,
-    numberOfVisitors: visitors.length,
-    saveVisitors,
+    saveVisitor,
     deleteVisitor,
   };
 

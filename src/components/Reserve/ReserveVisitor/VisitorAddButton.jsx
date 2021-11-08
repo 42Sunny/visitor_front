@@ -1,17 +1,11 @@
 import React from 'react';
-import makeVisitor from 'tools/makeVisitor';
+import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
 const VISITOR_ADD_BUTTON_TEXT = '+ 방문자 추가';
 
-const VisitorAddButton = ({ className, visitors, setVisitors }) => {
-  const handleClick = () => {
-    const newVisitor = makeVisitor();
-    const newVisitors = [...visitors, newVisitor];
-    setVisitors(newVisitors);
-  };
-
+const VisitorAddButton = ({ handleClick }) => {
   return (
-    <button className={className} onClick={handleClick}>
+    <button className={classes.AddButton} onClick={handleClick}>
       {VISITOR_ADD_BUTTON_TEXT}
     </button>
   );

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import GreyBox from 'components/Common/GreyBox';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
@@ -16,46 +16,45 @@ const PH_ORGANIZATION = '소속을 입력해주세요';
 const PH_NAME = '이름을 입력해주세요';
 const PH_PHONE = '휴대폰 번호을 입력해주세요';
 
+const BUTTON_TEXT_DELETE = '삭제';
+const BUTTON_TEXT_SAVE = '저장';
+const BUTTON_TEXT_UPDATE = '수정';
+
 const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
 
-const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors }) => {
-  const [phone, setPhone] = useState('');
-  const [name, setName] = useState('');
-  const [organization, setOrganization] = useState('');
-
+const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }) => {
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;
-    visitor.phone = phone;
-    visitor.name = name;
-    visitor.organization = organization;
-    saveVisitors();
+    saveVisitor();
   };
 
   const handleDeleteClick = () => {
-    if (numberOfVisitors !== 1) {
-      deleteVisitor(visitor.id);
-    }
+    deleteVisitor(visitor.id);
   };
 
   const handleUpdateClick = () => {
     visitor.isEditable = true;
-    saveVisitors();
+    saveVisitor();
   };
 
-  const handleChange = useCallback((event) => {
-    const {
-      target: { value, name },
-      nativeEvent: { data },
-    } = event;
-    if (name === NAME_ORGANIZATION) {
-      setOrganization(value);
-    } else if (name === NAME_NAME) {
-      setName(value);
-    } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
-      setPhone(value);
-    }
-  }, []);
+  const handleChange = useCallback(
+    (event) => {
+      const {
+        target: { value, name },
+        nativeEvent: { data },
+      } = event;
+      if (name === NAME_ORGANIZATION) {
+        visitor.organization = value;
+      } else if (name === NAME_NAME) {
+        visitor.name = value;
+      } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
+        visitor.phone = value;
+      }
+      saveVisitor();
+    },
+    [saveVisitor, visitor],
+  );
 
   return (
     <GreyBox isGrid>
@@ -64,7 +63,7 @@ const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors })
         placeholder={PH_ORGANIZATION}
         handleChange={handleChange}
         name={NAME_ORGANIZATION}
-        value={organization}
+        value={visitor.organization}
         isEditable={visitor.isEditable}
       />
       <VisitorInput
@@ -72,7 +71,7 @@ const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors })
         placeholder={PH_NAME}
         handleChange={handleChange}
         name={NAME_NAME}
-        value={name}
+        value={visitor.name}
         isEditable={visitor.isEditable}
       />
       <VisitorInput
@@ -80,7 +79,7 @@ const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors })
         placeholder={PH_PHONE}
         handleChange={handleChange}
         name={NAME_PHONE}
-        value={phone}
+        value={visitor.phone}
         isEditable={visitor.isEditable}
         type="tel"
       />
@@ -90,18 +89,18 @@ const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors })
           className={classNames(classes.Button, classes.DeleteButton)}
           onClick={handleDeleteClick}
         >
-          삭제
+          {BUTTON_TEXT_DELETE}
         </button>
         {visitor.isEditable === true ? (
           <button className={classNames(classes.Button, classes.InsertButton)} onClick={handleSave}>
-            저장
+            {BUTTON_TEXT_SAVE}
           </button>
         ) : (
           <button
             className={classNames(classes.Button, classes.UpdateButton)}
             onClick={handleUpdateClick}
           >
-            수정
+            {BUTTON_TEXT_UPDATE}
           </button>
         )}
       </div>
@@ -109,4 +108,4 @@ const VisitorForm = ({ visitor, numberOfVisitors, deleteVisitor, saveVisitors })
   );
 };
 
-export default React.memo(VisitorForm);
+export default VisitorForm;
