@@ -1,10 +1,28 @@
-import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
+import React, { useCallback } from 'react';
 import VisitorForm from './VisitorForm';
 
-const VisitorFormBox = () => {
-  const { visitors } = useContext(ReserveContext);
-  return visitors.map((elem) => <VisitorForm key={elem.key} vis={elem} />);
+const VisitorFormBox = ({ visitors, setVisitors }) => {
+  const deleteVisitor = useCallback(
+    (targetId) => {
+      if (visitors.length !== 1) {
+        setVisitors((visitors) => visitors.filter((visitor) => visitor.id !== targetId));
+      }
+    },
+    [setVisitors, visitors.length],
+  );
+
+  const saveVisitor = useCallback(() => {
+    setVisitors((visitors) => [...visitors]);
+  }, [setVisitors]);
+
+  const VisitorFormProps = {
+    saveVisitor,
+    deleteVisitor,
+  };
+
+  return visitors.map((visitor) => (
+    <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} />
+  ));
 };
 
-export default VisitorFormBox;
+export default React.memo(VisitorFormBox);

@@ -20,4 +20,4 @@ const TransparentInput = ({ className, onChange, placeholder, value }: PropTypes
   );
 };
 
-export default TransparentInput;
+export default React.memo(TransparentInput);

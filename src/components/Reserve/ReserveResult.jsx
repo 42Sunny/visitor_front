@@ -1,5 +1,5 @@
 import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { useHistory, useLocation } from 'react-router';
 import classes from 'assets/styles/Reserve/ReserveResult.module.css';
@@ -36,4 +36,4 @@ const ReserveResult = ({ isOpen, reserveId }) => {
   );
 };
 
-export default ReserveResult;
+export default React.memo(ReserveResult);

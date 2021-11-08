@@ -1,21 +1,32 @@
 import React, { useContext } from 'react';
-import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 import { ReserveContext } from 'contexts/ReserveContext';
 import ReserveError from '../ReserveError';
-// import { formattedPhone } from 'tools/formattedPhone';
 import WhiteBox from 'components/Common/WhiteBox';
 import VisitorHeader from './VisitorHeader';
 import VisitorFormBox from './VisitorFormBox';
 import VisitorAddButton from './VisitorAddButton';
+import makeVisitor from 'tools/makeVisitor';
+import { useCallback } from 'react';
 
 const ReserveVisitor = () => {
-  const { errorVisitorMessage } = useContext(ReserveContext);
+  const { visitors, setVisitors, errorVisitorMessage } = useContext(ReserveContext);
+
+  const visitorHeaderProps = {
+    numberOfVisitor: visitors?.length,
+  };
+
+  const visitorAddButtonProps = {
+    handleClick: useCallback(() => {
+      const newVisitor = makeVisitor();
+      setVisitors((visitors) => [...visitors, newVisitor]);
+    }, [setVisitors]),
+  };
 
   return (
     <WhiteBox isGrid>
-      <VisitorHeader className={classes.Header} />
-      <VisitorFormBox />
-      <VisitorAddButton className={classes.AddButton} />
+      <VisitorHeader {...visitorHeaderProps} />
+      <VisitorFormBox visitors={visitors} setVisitors={setVisitors} />
+      <VisitorAddButton {...visitorAddButtonProps} />
       <ReserveError>{errorVisitorMessage}</ReserveError>
     </WhiteBox>
   );

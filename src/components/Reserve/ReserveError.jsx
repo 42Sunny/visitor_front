@@ -5,4 +5,4 @@ const ReserveError = ({ children }) => {
   return <div className={styles.ReserveError}>{children}</div>;
 };
 
-export default ReserveError;
+export default React.memo(ReserveError);

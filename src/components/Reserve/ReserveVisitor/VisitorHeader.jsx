@@ -1,22 +1,16 @@
-import BigTitle from 'components/Common/BigTitle';
-import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
-import ReserveStar from '../ReserveStar';
+import React from 'react';
+import ReserveBigTitle from '../ReserveBigTitle';
+import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
-const NumberOfVisitorMessage = (visitors) =>
-  `총 ${visitors.filter((elem) => elem.isEditable === false).length}명`;
+const VISITOR_TITLE = '방문자 정보';
 
-const VisitorHeader = (props) => {
-  const { visitors } = useContext(ReserveContext);
-
+const VisitorHeader = ({ numberOfVisitor }) => {
   return (
-    <div className={props.className}>
-      <BigTitle>
-        방문자 정보 <ReserveStar />
-      </BigTitle>
-      <div>{NumberOfVisitorMessage(visitors)}</div>
+    <div className={classes.Header}>
+      <ReserveBigTitle title={VISITOR_TITLE} />
+      <div>{`총 ${numberOfVisitor}명`}</div>
     </div>
   );
 };
 
-export default VisitorHeader;
+export default React.memo(VisitorHeader);

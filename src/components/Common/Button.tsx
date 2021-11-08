@@ -17,4 +17,4 @@ const Button = ({ onClick, disabled, children, className }: PropTypes) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);

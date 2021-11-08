@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export type PlaceReturnTypes = [
   string,
@@ -11,7 +11,9 @@ const usePlace = (initialPlace: string): PlaceReturnTypes => {
   const [place, setPlace] = useState(initialPlace);
   const [errorMessage, setErrorMessage] = useState('');
 
-  return [place, setPlace, errorMessage, setErrorMessage];
+  const value = useMemo(() => ({ place, setPlace }), [place]);
+
+  return [value.place, value.setPlace, errorMessage, setErrorMessage];
 };
 
 export default usePlace;

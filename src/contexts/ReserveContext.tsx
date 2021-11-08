@@ -3,7 +3,7 @@ import usePlace from 'hooks/usePlace';
 import usePurpose from 'hooks/usePurpose';
 import useTargetStaffName from 'hooks/useTargetStaffName';
 import useVisitors from 'hooks/useVisitors';
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState, useCallback } from 'react';
 import makeVisitor from 'tools/makeVisitor';
 
 type PropTypes = {
@@ -11,6 +11,7 @@ type PropTypes = {
 };
 
 export type ReserveContextTypes = {
+  handleClickPlace?: React.MouseEventHandler<HTMLButtonElement>;
   date?: Date;
   setDate?: React.Dispatch<React.SetStateAction<Date>>;
   errorDateMessage?: string;
@@ -96,9 +97,21 @@ const ReserveProvider = ({ children }: PropTypes) => {
     errorVisitorMessage,
   ]);
 
+  const handleClickPlace = useCallback(
+    (event) => {
+      const {
+        target: { value, innerText },
+      } = event;
+      if (value) setPlace(value);
+      else setPlace(innerText);
+    },
+    [setPlace],
+  );
+
   return (
     <ReserveContext.Provider
       value={{
+        handleClickPlace,
         date,
         setDate,
         errorDateMessage,

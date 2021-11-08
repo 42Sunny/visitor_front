@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import GreyBox from 'components/Common/GreyBox';
-import { ReserveContext } from 'contexts/ReserveContext';
-import { useContext } from 'react';
+import React, { useCallback } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 
@@ -17,43 +16,45 @@ const PH_ORGANIZATION = '소속을 입력해주세요';
 const PH_NAME = '이름을 입력해주세요';
 const PH_PHONE = '휴대폰 번호을 입력해주세요';
 
+const BUTTON_TEXT_DELETE = '삭제';
+const BUTTON_TEXT_SAVE = '저장';
+const BUTTON_TEXT_UPDATE = '수정';
+
 const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
 
-const VisitorForm = ({ vis }) => {
-  const { visitors, setVisitors } = useContext(ReserveContext);
-
+const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }) => {
   const handleSave = () => {
-    vis.isEditable = false;
-    vis.isChanged = true;
-    setVisitors([...visitors]);
+    visitor.isEditable = false;
+    visitor.isChanged = true;
+    saveVisitor();
   };
 
   const handleDeleteClick = () => {
-    if (visitors.length !== 1) {
-      const notDeleted = visitors.filter((v) => v.id !== vis.id);
-      setVisitors(notDeleted);
-    }
+    deleteVisitor(visitor.id);
   };
 
   const handleUpdateClick = () => {
-    vis.isEditable = true;
-    setVisitors([...visitors]);
+    visitor.isEditable = true;
+    saveVisitor();
   };
 
-  const handleChange = (event) => {
-    const {
-      target: { value, name },
-      nativeEvent: { data },
-    } = event;
-    if (name === NAME_ORGANIZATION) {
-      vis.organization = value;
-    } else if (name === NAME_NAME) {
-      vis.name = value;
-    } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
-      vis.phone = value;
-    }
-    setVisitors([...visitors]);
-  };
+  const handleChange = useCallback(
+    (event) => {
+      const {
+        target: { value, name },
+        nativeEvent: { data },
+      } = event;
+      if (name === NAME_ORGANIZATION) {
+        visitor.organization = value;
+      } else if (name === NAME_NAME) {
+        visitor.name = value;
+      } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
+        visitor.phone = value;
+      }
+      saveVisitor();
+    },
+    [saveVisitor, visitor],
+  );
 
   return (
     <GreyBox isGrid>
@@ -62,24 +63,24 @@ const VisitorForm = ({ vis }) => {
         placeholder={PH_ORGANIZATION}
         handleChange={handleChange}
         name={NAME_ORGANIZATION}
-        value={vis.organization}
-        isEditable={vis.isEditable}
+        value={visitor.organization}
+        isEditable={visitor.isEditable}
       />
       <VisitorInput
         title={TITLE_NAME}
         placeholder={PH_NAME}
         handleChange={handleChange}
         name={NAME_NAME}
-        value={vis.name}
-        isEditable={vis.isEditable}
+        value={visitor.name}
+        isEditable={visitor.isEditable}
       />
       <VisitorInput
         title={TITLE_PHONE}
         placeholder={PH_PHONE}
         handleChange={handleChange}
         name={NAME_PHONE}
-        value={vis.phone}
-        isEditable={vis.isEditable}
+        value={visitor.phone}
+        isEditable={visitor.isEditable}
         type="tel"
       />
 
@@ -88,18 +89,18 @@ const VisitorForm = ({ vis }) => {
           className={classNames(classes.Button, classes.DeleteButton)}
           onClick={handleDeleteClick}
         >
-          삭제
+          {BUTTON_TEXT_DELETE}
         </button>
-        {vis.isEditable === true ? (
+        {visitor.isEditable === true ? (
           <button className={classNames(classes.Button, classes.InsertButton)} onClick={handleSave}>
-            저장
+            {BUTTON_TEXT_SAVE}
           </button>
         ) : (
           <button
             className={classNames(classes.Button, classes.UpdateButton)}
             onClick={handleUpdateClick}
           >
-            수정
+            {BUTTON_TEXT_UPDATE}
           </button>
         )}
       </div>

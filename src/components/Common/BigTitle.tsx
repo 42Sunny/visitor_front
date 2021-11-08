@@ -11,4 +11,4 @@ const BigTitle = ({ className, children }: PropTypes) => {
   return <div className={classNames(className, classes.text)}>{children}</div>;
 };
 
-export default BigTitle;
+export default React.memo(BigTitle);

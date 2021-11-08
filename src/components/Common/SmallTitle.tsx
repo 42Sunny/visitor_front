@@ -11,4 +11,4 @@ const SmallTitle = ({ children, className }: PropTypes) => {
   return <div className={classNames(className, classes.text)}>{children}</div>;
 };
 
-export default SmallTitle;
+export default React.memo(SmallTitle);
