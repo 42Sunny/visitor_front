@@ -33,8 +33,16 @@ const ReserveBackground = () => {
   return <div className={styles.ReserveBackground} />;
 };
 
+type LocationTypes = {
+  visitor: Visitor[];
+  date: string;
+  place: string;
+  purpose: string;
+  staff: Staff;
+};
+
 const ReservePage = () => {
-  const location = useLocation();
+  const location = useLocation<LocationTypes>();
   const { setDate, setPlace, setPurpose, setVisitors, setIsUpdatePage, setTargetStaffName } =
     useContext(ReserveContext);
 

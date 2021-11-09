@@ -4,7 +4,7 @@ import QRMessage from './QRMessage';
 import classes from 'assets/styles/QR/QRContainer.module.css';
 import classNames from 'classnames';
 
-type PropTypes = { className: string | object };
+type PropTypes = { className?: string | object };
 
 const QRContainer = ({ className }: PropTypes) => {
   return (

@@ -41,13 +41,14 @@ const ReserveInfoContent = () => {
       const result = await getReserve(reserveId);
       const {
         data: { date, place, purpose, visitor },
+        data,
       } = result;
       setDate(date);
       setPlace(place);
       setPurpose(purpose);
       setVisitor(visitor);
       setIsLoading(true);
-      setResult(result);
+      setResult(data);
     }
   }, [reserveId]);
 

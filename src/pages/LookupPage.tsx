@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from 'assets/styles/LookupPage.module.css';
 import LookupInput from 'components/Lookup/LookupInput';
 import LookupResultContainer from 'components/Lookup/LookupResultContainer';
 import { LookupProvider } from 'contexts/LookupContext';
+import useTitle from 'hooks/useTitle';
+
+type PropTypes = {
+  children: React.ReactNode;
+};
 
 const LookupBackground = () => {
   return <div className={styles.LookupBackground} />;
@@ -19,15 +24,12 @@ const LookupContent = () => {
   );
 };
 
-const Lookup = ({ children }) => {
+const Lookup = ({ children }: PropTypes) => {
   return <div className={styles.Lookup}>{children}</div>;
 };
 
 const LookupPage = () => {
-  useEffect(() => {
-    const htmlTitle = document.querySelector('title');
-    htmlTitle.innerHTML = '예약 조회 - IA Visitor';
-  }, []);
+  useTitle('예약 조회 - IA Visitor');
 
   return (
     <Lookup>

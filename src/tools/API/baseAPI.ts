@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+import axios, { AxiosResponse } from 'axios';
 
 const url = process.env.REACT_APP_API_URL;
 const X_42CADET_AUTH_KEY = 'X-42Cadet-Auth-Key';
@@ -15,21 +15,17 @@ const ERROR_MESSAGE = '에러가 발생했습니다.';
 
 export const makeApiPath = (path: string) => `${VERSION_PATH}/${path}`;
 
-const baseAPI = async (method: httpMethod, path: string, data: Object) => {
+const baseAPI = async <T = any>(method: httpMethod, path: string, data: Object = {}) => {
   try {
-    const response = await axios(
-      {
-        method,
-        url: `${url}${path}`,
-        data,
-        headers: {
-          [X_42CADET_AUTH_KEY]: process.env.REACT_APP_AUTH_KEY,
-        },
+    const response: AxiosResponse<T> = await axios({
+      method,
+      url: `${url}${path}`,
+      data,
+      headers: {
+        [X_42CADET_AUTH_KEY]: process.env.REACT_APP_AUTH_KEY,
       },
-      {
-        withCredentials: true,
-      },
-    );
+      withCredentials: true,
+    });
     return response;
   } catch {
     return { data: { error: { message: ERROR_MESSAGE } } };
