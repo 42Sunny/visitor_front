@@ -1,7 +1,11 @@
 import React from 'react';
 import styles from 'assets/styles/ReservePage.module.css';
 
-const ReserveError = ({ children }) => {
+type PropTypes = {
+  children: JSX.Element | string;
+};
+
+const ReserveError = ({ children }: PropTypes) => {
   return <div className={styles.ReserveError}>{children}</div>;
 };
 

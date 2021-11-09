@@ -35,10 +35,14 @@ const ReserveBackground = () => {
 
 const ReservePage = () => {
   const location = useLocation();
-  const { setDate, setPlace, setPurpose, setTargetStaffName, setVisitors } =
+  const { setDate, setPlace, setPurpose, setVisitors, setIsUpdatePage, setTargetStaffName } =
     useContext(ReserveContext);
 
-  useTitle(!location.state ? TITLE_RESERVE : TITLE_UPDATE);
+  useEffect(() => {
+    setIsUpdatePage(location.state !== undefined);
+  }, [location, setIsUpdatePage]);
+
+  useTitle(location.state !== undefined ? TITLE_UPDATE : TITLE_RESERVE);
 
   const fillContents = useCallback(() => {
     const visitors = location.state.visitor.map((elem) =>

@@ -49,11 +49,13 @@ const deleteReserve = (reserve_id: string | number) => {
   return apiHandler(httpMethod.DELETE, makeApiPath(`reserve/${reserve_id}`), {});
 };
 
-const createReserve = (data: string) => {
+//TODO: 타입 재선언
+const createReserve = (data: any) => {
   return apiHandler(httpMethod.POST, makeApiPath('reserve/create'), data);
 };
 
-const updateReserve = (data: string) => {
+//TODO: 타입 재선언
+const updateReserve = (data: any) => {
   return apiHandler(httpMethod.PUT, makeApiPath('reserve'), data);
 };
 

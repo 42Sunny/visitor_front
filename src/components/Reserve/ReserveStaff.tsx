@@ -6,21 +6,30 @@ import GreyBox from 'components/Common/GreyBox';
 import TransparentInput from 'components/Common/TransparentInput';
 import ReserveBigTitle from './ReserveBigTitle';
 
-const STAFF_TITLE = '직원';
+type PropTypes = {
+  targetStaffName: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  errorTargetStaffNameMessage: string;
+};
 
-const VReserveStaff = React.memo(({ targetStaffName, onChange, errorTargetStaffNameMessage }) => (
-  <WhiteBox isGrid>
-    <ReserveBigTitle title={STAFF_TITLE} />
-    <GreyBox>
-      <TransparentInput
-        placeholder="방문할 직원의 이름을 입력해주세요"
-        value={targetStaffName}
-        onChange={onChange}
-      />
-    </GreyBox>
-    <ReserveError>{errorTargetStaffNameMessage}</ReserveError>
-  </WhiteBox>
-));
+const STAFF_TITLE = '직원';
+const STAFF_INPUT_PLACE_HOLDER = '방문할 직원의 이름을 입력해주세요';
+
+const VReserveStaff = React.memo(
+  ({ targetStaffName, onChange, errorTargetStaffNameMessage }: PropTypes) => (
+    <WhiteBox isGrid>
+      <ReserveBigTitle title={STAFF_TITLE} />
+      <GreyBox>
+        <TransparentInput
+          placeholder={STAFF_INPUT_PLACE_HOLDER}
+          value={targetStaffName}
+          onChange={onChange}
+        />
+      </GreyBox>
+      <ReserveError>{errorTargetStaffNameMessage}</ReserveError>
+    </WhiteBox>
+  ),
+);
 
 const ReserveStaff = () => {
   const { targetStaffName, setTargetStaffName, errorTargetStaffNameMessage } =

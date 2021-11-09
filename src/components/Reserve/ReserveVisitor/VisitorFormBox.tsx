@@ -1,7 +1,12 @@
 import React, { useCallback } from 'react';
 import VisitorForm from './VisitorForm';
 
-const VisitorFormBox = ({ visitors, setVisitors }) => {
+type PropTypes = {
+  visitors: visitor[];
+  setVisitors: React.Dispatch<React.SetStateAction<visitor[]>>;
+};
+
+const VisitorFormBox = ({ visitors, setVisitors }: PropTypes) => {
   const deleteVisitor = useCallback(
     (targetId) => {
       if (visitors.length !== 1) {
@@ -20,9 +25,13 @@ const VisitorFormBox = ({ visitors, setVisitors }) => {
     deleteVisitor,
   };
 
-  return visitors.map((visitor) => (
-    <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} />
-  ));
+  return (
+    <>
+      {visitors.map((visitor) => (
+        <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} />
+      ))}
+    </>
+  );
 };
 
 export default React.memo(VisitorFormBox);

@@ -6,11 +6,29 @@ import WhiteBox from 'components/Common/WhiteBox';
 import GreyBox from 'components/Common/GreyBox';
 import ReserveBigTitle from './ReserveBigTitle';
 
+type PropTypes = {
+  onSelect: React.ChangeEventHandler<HTMLSelectElement>;
+  selected: string;
+  isDirectInput: boolean;
+  onChange: React.ReactEventHandler;
+  purpose: string;
+  purposeInput: React.MutableRefObject<any>;
+  errorPurposeMessage: string;
+};
+
 const DIRECT_INPUT = 'direct_input';
 const PURPOSE_TITLE = '목적';
 
 const VReservePurpose = React.memo(
-  ({ onSelect, selected, isDirectInput, onChange, purpose, purposeInput, errorPurposeMessage }) => (
+  ({
+    onSelect,
+    selected,
+    isDirectInput,
+    onChange,
+    purpose,
+    purposeInput,
+    errorPurposeMessage,
+  }: PropTypes) => (
     <WhiteBox isGrid>
       <ReserveBigTitle title={PURPOSE_TITLE} />
       <GreyBox>
@@ -39,7 +57,7 @@ const ReservePurpose = () => {
   const { purpose, setPurpose, errorPurposeMessage } = useContext(ReserveContext);
   const [isDirectInput, setIsDirectInput] = useState(false);
   const [selected, setSelected] = useState('');
-  const purposeInput = useRef();
+  const purposeInput = useRef<any>();
 
   useEffect(() => {
     if (purpose !== '') {

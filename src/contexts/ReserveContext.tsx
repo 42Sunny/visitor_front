@@ -11,40 +11,80 @@ type PropTypes = {
 };
 
 export type ReserveContextTypes = {
-  handleClickPlace?: React.MouseEventHandler<HTMLButtonElement>;
-  date?: Date;
-  setDate?: React.Dispatch<React.SetStateAction<Date>>;
-  errorDateMessage?: string;
-  setErrorDateMessage?: React.Dispatch<React.SetStateAction<string>>;
+  handleClickPlace: React.MouseEventHandler<HTMLButtonElement>;
+  date: Date;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  errorDateMessage: string;
+  setErrorDateMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  place?: string;
-  setPlace?: React.Dispatch<React.SetStateAction<string>>;
-  errorPlaceMessage?: string;
-  setErrorPlaceMessage?: React.Dispatch<React.SetStateAction<string>>;
+  place: string;
+  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  errorPlaceMessage: string;
+  setErrorPlaceMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  purpose?: string;
-  setPurpose?: React.Dispatch<React.SetStateAction<string>>;
-  errorPurposeMessage?: string;
-  setErrorPurposeMessage?: React.Dispatch<React.SetStateAction<string>>;
+  purpose: string;
+  setPurpose: React.Dispatch<React.SetStateAction<string>>;
+  errorPurposeMessage: string;
+  setErrorPurposeMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  targetStaffName?: string;
-  setTargetStaffName?: React.Dispatch<React.SetStateAction<string>>;
-  errorTargetStaffNameMessage?: string;
-  setErrorTargetStaffNameMessage?: React.Dispatch<React.SetStateAction<string>>;
+  targetStaffName: string;
+  setTargetStaffName: React.Dispatch<React.SetStateAction<string>>;
+  errorTargetStaffNameMessage: string;
+  setErrorTargetStaffNameMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  visitors?: visitor[];
-  setVisitors?: React.Dispatch<React.SetStateAction<visitor[]>>;
-  errorVisitorMessage?: string;
-  setErrorVisitorMessage?: React.Dispatch<React.SetStateAction<string>>;
+  visitors: visitor[];
+  setVisitors: React.Dispatch<React.SetStateAction<visitor[]>>;
+  errorVisitorMessage: string;
+  setErrorVisitorMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  isPolicyChecked?: boolean;
-  setIsPolicyChecked?: React.Dispatch<React.SetStateAction<boolean>>;
+  isPolicyChecked: boolean;
+  setIsPolicyChecked: React.Dispatch<React.SetStateAction<boolean>>;
 
-  isSubmitButtonAcitve?: boolean;
-  setIsSubmitButtonAcitve?: React.Dispatch<React.SetStateAction<boolean>>;
+  isSubmitButtonAcitve: boolean;
+  setIsSubmitButtonAcitve: React.Dispatch<React.SetStateAction<boolean>>;
+
+  isUpdatePage: boolean;
+  setIsUpdatePage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ReserveContext = createContext<ReserveContextTypes>({});
+const initialContext = {
+  handleClickPlace: () => {},
+  date: new Date(),
+  setDate: () => {},
+  errorDateMessage: '',
+  setErrorDateMessage: () => {},
+
+  place: '',
+  setPlace: () => {},
+  errorPlaceMessage: '',
+  setErrorPlaceMessage: () => {},
+
+  purpose: '',
+  setPurpose: () => {},
+  errorPurposeMessage: '',
+  setErrorPurposeMessage: () => {},
+
+  targetStaffName: '',
+  setTargetStaffName: () => {},
+  errorTargetStaffNameMessage: '',
+  setErrorTargetStaffNameMessage: () => {},
+
+  visitors: [],
+  setVisitors: () => {},
+  errorVisitorMessage: '',
+  setErrorVisitorMessage: () => {},
+
+  isPolicyChecked: false,
+  setIsPolicyChecked: () => {},
+
+  isSubmitButtonAcitve: false,
+  setIsSubmitButtonAcitve: () => {},
+
+  isUpdatePage: false,
+  setIsUpdatePage: () => {},
+};
+
+const ReserveContext = createContext<ReserveContextTypes>(initialContext);
 
 const isAvailableSubmit = (
   isPolicyChecked: boolean,
@@ -75,6 +115,7 @@ const ReserveProvider = ({ children }: PropTypes) => {
     makeVisitor(),
   );
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
+  const [isUpdatePage, setIsUpdatePage] = useState(false);
   const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
 
   useEffect(() => {
@@ -142,6 +183,9 @@ const ReserveProvider = ({ children }: PropTypes) => {
 
         isSubmitButtonAcitve,
         setIsSubmitButtonAcitve,
+
+        isUpdatePage,
+        setIsUpdatePage,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import ReserveStar from './ReserveStar';
 
 type PropTypes = {
   title: string;
-  isEssential: boolean;
+  isEssential?: boolean;
 };
 
 const ReserveBigTitle = ({ title, isEssential = true }: PropTypes) => {

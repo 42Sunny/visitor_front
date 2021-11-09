@@ -20,9 +20,15 @@ const BUTTON_TEXT_DELETE = '삭제';
 const BUTTON_TEXT_SAVE = '저장';
 const BUTTON_TEXT_UPDATE = '수정';
 
-const isPhoneCharacter = (ch) => isNaN(ch) === false || ch === '-';
+type PropTypes = {
+  visitor: visitor;
+  deleteVisitor: (visitorId: string) => void;
+  saveVisitor: () => void;
+};
 
-const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }) => {
+const isPhoneCharacter = (ch: any) => isNaN(ch) === false || ch === '-';
+
+const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;

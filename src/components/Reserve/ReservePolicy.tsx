@@ -5,6 +5,16 @@ import ReservePolicyModal from './ReservePolicyModal';
 import WhiteBox from 'components/Common/WhiteBox';
 import ReserveBigTitle from './ReserveBigTitle';
 
+type PropTypes = {
+  isPolicyOpen: boolean;
+  onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
+  onPolicyClose: any;
+  onPolicyChange: React.ChangeEventHandler<HTMLInputElement>;
+  isPolicyChecked: boolean;
+  onPolicyDetailClick: React.MouseEventHandler<HTMLDivElement>;
+  onPolicyButtonClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+
 const TITLE_POLICY = `개인정보 수집, 이용 동의 `;
 
 const VReservePolicy = React.memo(
@@ -16,7 +26,7 @@ const VReservePolicy = React.memo(
     isPolicyChecked,
     onPolicyDetailClick,
     onPolicyButtonClick,
-  }) => (
+  }: PropTypes) => (
     <>
       <WhiteBox>
         <button onClick={onButtonClick} className={classes.CheckButton}>
@@ -50,11 +60,11 @@ const ReservePolicy = () => {
     const body = window.document.querySelector('body');
     const html = window.document.querySelector('html');
     if (open === true) {
-      body.classList.add('BlockScroll');
-      html.classList.add('BlockScroll');
+      body?.classList.add('BlockScroll');
+      html?.classList.add('BlockScroll');
     } else {
-      body.classList.remove('BlockScroll');
-      html.classList.remove('BlockScroll');
+      body?.classList.remove('BlockScroll');
+      html?.classList.remove('BlockScroll');
     }
   }, []);
 
