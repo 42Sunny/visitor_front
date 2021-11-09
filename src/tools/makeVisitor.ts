@@ -1,11 +1,11 @@
 const makeVisitor: (
-  name: string,
-  organization: string,
-  phone: string,
-  isEditable: boolean,
-  isChanged: boolean,
-  autoSave: boolean,
-  reserveId: number,
+  name?: string,
+  organization?: string,
+  phone?: string,
+  isEditable?: boolean,
+  isChanged?: boolean,
+  autoSave?: boolean,
+  reserveId?: number,
 ) => Visitor = (
   name = '',
   organization = '',

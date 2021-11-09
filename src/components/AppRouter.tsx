@@ -2,7 +2,6 @@ import { ReserveProvider } from 'contexts/ReserveContext';
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ErrorPage from 'pages/ErrorPage';
-import IndexPage from 'pages/IndexPage';
 import LookupPage from 'pages/LookupPage';
 import QRPage from 'pages/QRPage';
 import ReserveInfoPage from 'pages/ReserveInfoPage';
@@ -36,9 +35,6 @@ const AppRouter = () => {
           </Route>
           <Redirect from="/" to="/reserve" />
           <Redirect from="*" to="/error" />
-          <Route path="/" exact>
-            <IndexPage />
-          </Route>
         </Switch>
       </Page>
       <Footer />
