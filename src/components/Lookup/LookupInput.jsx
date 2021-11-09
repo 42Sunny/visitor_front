@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import icon_search from 'assets/images/icon_search.svg';
 import classes from 'assets/styles/LookupPage.module.css';
-import { getReserves } from 'tools/apiHandler';
+import { getReserves } from 'tools/API';
 import { LookupContext } from 'contexts/LookupContext';
 import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';

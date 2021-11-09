@@ -1,6 +1,6 @@
 import { debounce } from 'loadsh';
 import { useCallback, useState } from 'react';
-import { checkStaff } from 'tools/apiHandler';
+import { checkStaff } from 'tools/API';
 import useDidMountEffect from './useDidMountEffect';
 
 export type TargetStaffNameReturnTypes = [

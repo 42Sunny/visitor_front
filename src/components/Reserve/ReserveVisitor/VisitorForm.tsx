@@ -21,7 +21,7 @@ const BUTTON_TEXT_SAVE = '저장';
 const BUTTON_TEXT_UPDATE = '수정';
 
 type PropTypes = {
-  visitor: visitor;
+  visitor: Visitor;
   deleteVisitor: (visitorId: string) => void;
   saveVisitor: () => void;
 };

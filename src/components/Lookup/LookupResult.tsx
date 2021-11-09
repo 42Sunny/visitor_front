@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import classes from 'assets/styles/LookupPage.module.css';
 import { useHistory } from 'react-router';
-import { deleteReserve } from 'tools/apiHandler';
+import { deleteReserve } from 'tools/API';
 import LookupDeleteModal from './LookupDeleteModal';
 import { LookupContext } from 'contexts/LookupContext';
 
@@ -41,7 +41,7 @@ const LookupResult = ({ place, targetStaffName, purpose, date, reserveId, reserv
   const handleUpdateClick = () => {
     history.push({
       pathname: '/reserve',
-      state: { ...reserve, isUpdate: true },
+      state: { ...reserve },
     });
   };
 

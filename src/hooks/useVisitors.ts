@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 export type VisitorReturnTypes = [
-  visitor[],
-  React.Dispatch<React.SetStateAction<visitor[]>>,
+  Visitor[],
+  React.Dispatch<React.SetStateAction<Visitor[]>>,
   string,
   React.Dispatch<React.SetStateAction<string>>,
 ];
@@ -20,7 +20,7 @@ type checker = {
 };
 
 // TODO: 번호가 비어있을 경우 중복 처리 하지 않음
-const isDuplicatePhone = (visitors: visitor[]) => {
+const isDuplicatePhone = (visitors: Visitor[]) => {
   const checker: checker = {};
   return visitors.some((elem) => {
     if (checker[elem.phone] === true) {
@@ -32,7 +32,7 @@ const isDuplicatePhone = (visitors: visitor[]) => {
   });
 };
 
-const isFullVisitor = (visitors: visitor[]) => {
+const isFullVisitor = (visitors: Visitor[]) => {
   return visitors.every(
     (elem) =>
       elem.isEditable === true ||
@@ -40,12 +40,12 @@ const isFullVisitor = (visitors: visitor[]) => {
   );
 };
 
-const useVisitor = (initialVisitor: visitor): VisitorReturnTypes => {
+const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
   const [visitors, setVisitor] = useState([initialVisitor]);
   const [errorMessage, setErrorMessage] = useState('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkError = (visitors: visitor[]) => {
+  const checkError = (visitors: Visitor[]) => {
     if (!visitors || visitors.length === 0) setErrorMessage(ERROR_BLANK_VISITOR);
     else if (isDuplicatePhone(visitors) === true) {
       setErrorMessage(ERROR_DUPLICATE_PHONE_NUM);
@@ -56,7 +56,7 @@ const useVisitor = (initialVisitor: visitor): VisitorReturnTypes => {
     }
   };
 
-  const autoSave = (visitors: visitor[]) => {
+  const autoSave = (visitors: Visitor[]) => {
     visitors.forEach((elem) => {
       if (
         elem.autoSave &&
@@ -74,7 +74,7 @@ const useVisitor = (initialVisitor: visitor): VisitorReturnTypes => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyCheckError = useCallback(
-    debounce((visitors: visitor[]) => {
+    debounce((visitors: Visitor[]) => {
       checkError(visitors);
     }, IDLE_TIME),
     [checkError],

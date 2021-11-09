@@ -32,8 +32,8 @@ export type ReserveContextTypes = {
   errorTargetStaffNameMessage: string;
   setErrorTargetStaffNameMessage: React.Dispatch<React.SetStateAction<string>>;
 
-  visitors: visitor[];
-  setVisitors: React.Dispatch<React.SetStateAction<visitor[]>>;
+  visitors: Visitor[];
+  setVisitors: React.Dispatch<React.SetStateAction<Visitor[]>>;
   errorVisitorMessage: string;
   setErrorVisitorMessage: React.Dispatch<React.SetStateAction<string>>;
 

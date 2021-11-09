@@ -25,7 +25,7 @@ const AppRouter = () => {
           <Route path="/lookup" exact>
             <LookupPage />
           </Route>
-          <Route path="/reserve-info/:id" exact>
+          <Route path="/reserve-info/:reserveId" exact>
             <ReserveInfoPage />
           </Route>
           <Route path="/qr/:code" exact>

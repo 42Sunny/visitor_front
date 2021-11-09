@@ -2,7 +2,7 @@ module 'loadsh';
 module 'package.json';
 module 'react-modal';
 
-type visitor = {
+type Visitor = {
   name: string;
   organization: string;
   phone: string;
@@ -14,7 +14,14 @@ type visitor = {
   id: string;
 };
 
-type staff = {
+type CompactVisitor = {
+  name: string;
+  phone: string;
+  organization: string;
+  isChanged?: boolean;
+};
+
+type Staff = {
   name: string;
   phone: string;
 };
@@ -24,6 +31,6 @@ type reserve = {
   place: string;
   targetStaffName: string;
   purpose: string;
-  visitors: visitor[];
-  staff: staff;
+  visitors: Visitor[];
+  staff: Staff;
 };

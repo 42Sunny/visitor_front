@@ -1,8 +1,8 @@
 import { ReserveContext } from 'contexts/ReserveContext';
 import React, { useContext, useState, useCallback, useMemo } from 'react';
 import classes from 'assets/styles/Reserve/ReserveSubmit.module.css';
-import { updateReserve } from 'tools/apiHandler';
-import { createReserve } from 'tools/apiHandler';
+import { updateReserve } from 'tools/API';
+import { createReserve } from 'tools/API';
 import dateToJsonTime from 'tools/dateToJsonTime';
 import ReserveResultModal from './ReserveResultModal';
 import Loading from '../Common/Loading';
@@ -99,9 +99,9 @@ const sendCreateReserve = (
   place: string,
   purpose: string,
   targetStaffName: string,
-  visitors: visitor[],
+  visitors: Visitor[],
 ) => {
-  const newVistors = visitors.map((elem) => ({
+  const newVistors: CompactVisitor[] = visitors.map((elem) => ({
     name: elem.name,
     organization: elem.organization,
     phone: elem.phone,
@@ -122,7 +122,7 @@ const sendUpdateReserve = (
   place: string,
   purpose: string,
   targetStaffName: string,
-  visitors: visitor[],
+  visitors: Visitor[],
 ) => {
   const newVistors = visitors.map((elem) => ({
     name: elem.name,

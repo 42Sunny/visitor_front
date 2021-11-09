@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import VisitorForm from './VisitorForm';
 
 type PropTypes = {
-  visitors: visitor[];
-  setVisitors: React.Dispatch<React.SetStateAction<visitor[]>>;
+  visitors: Visitor[];
+  setVisitors: React.Dispatch<React.SetStateAction<Visitor[]>>;
 };
 
 const VisitorFormBox = ({ visitors, setVisitors }: PropTypes) => {
