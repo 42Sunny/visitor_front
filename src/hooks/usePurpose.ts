@@ -1,5 +1,5 @@
 import { debounce } from 'loadsh';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 export type PurposeReturnTypes = [
@@ -22,15 +22,14 @@ const usePurpose = (initialPurpose: string): PurposeReturnTypes => {
     else setErrorMessage(ERROR_NONE);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lazyCheckPurpose = useCallback(
-    debounce((purpose: string) => {
-      checkPurpose(purpose);
-    }, IDLE_TIME),
+  const lazyCheckPurpose = useMemo(
+    () =>
+      debounce((purpose: string) => {
+        checkPurpose(purpose);
+      }, IDLE_TIME),
     [],
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useDidMountEffect(() => lazyCheckPurpose(purpose), [purpose]);
 
   return [purpose, setPurpose, errorMessage, setErrorMessage];

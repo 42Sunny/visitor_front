@@ -1,5 +1,5 @@
 import { debounce } from 'loadsh';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { checkStaff } from 'tools/API';
 import useDidMountEffect from './useDidMountEffect';
 
@@ -19,7 +19,6 @@ const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameRetu
   const [targetStaffName, setTargetStaffName] = useState(initialTargetStaffName);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkTargetStaffName = (targetStaffName: string) => {
     if (targetStaffName === '') setErrorMessage(ERROR_BLANK_TARGET_STAFF_NAME);
     else {
@@ -34,11 +33,11 @@ const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameRetu
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lazyCheckTargetStaffName = useCallback(
-    debounce((targetStaffName: string) => {
-      checkTargetStaffName(targetStaffName);
-    }, IDLE_TIME),
+  const lazyCheckTargetStaffName = useMemo(
+    () =>
+      debounce((targetStaffName: string) => {
+        checkTargetStaffName(targetStaffName);
+      }, IDLE_TIME),
     [],
   );
 
