@@ -56,7 +56,7 @@ const ReservePolicy = () => {
   // eslint-disable-next-line no-unused-vars
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
 
-  const handlePreventScroll = useCallback((open) => {
+  const handlePreventScroll = (open: boolean) => {
     const body = window.document.querySelector('body');
     const html = window.document.querySelector('html');
     if (open === true) {
@@ -66,11 +66,11 @@ const ReservePolicy = () => {
       body?.classList.remove('BlockScroll');
       html?.classList.remove('BlockScroll');
     }
-  }, []);
+  };
 
   useEffect(() => {
     handlePreventScroll(isPolicyOpen);
-  }, [handlePreventScroll, isPolicyOpen]);
+  }, [isPolicyOpen]);
 
   const ReservePolicyProps = {
     isPolicyOpen,

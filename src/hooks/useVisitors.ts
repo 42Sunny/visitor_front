@@ -1,5 +1,5 @@
 import { debounce } from 'loadsh';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 export type VisitorReturnTypes = [
@@ -73,10 +73,11 @@ const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lazyCheckError = useCallback(
-    debounce((visitors: Visitor[]) => {
-      checkError(visitors);
-    }, IDLE_TIME),
+  const lazyCheckError = useMemo(
+    () =>
+      debounce((visitors: Visitor[]) => {
+        checkError(visitors);
+      }, IDLE_TIME),
     [checkError],
   );
 

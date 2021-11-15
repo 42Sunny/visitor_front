@@ -1,5 +1,5 @@
 import { debounce } from 'loadsh';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 const IDLE_TIME = 200;
@@ -18,18 +18,13 @@ const useDate = (initialDate: Date): DateReturnTypes => {
   const [date, setDate] = useState(initialDate);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkDate = (date: Date) => {
     if (date === null) setErrorMessage(ERROR_BLANK_DATE);
     else if (date < new Date()) setErrorMessage(ERROR_INVALID_DATE);
     else setErrorMessage(ERROR_NONE);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lazyCheckDate = useCallback(
-    debounce((date: Date) => checkDate(date), IDLE_TIME),
-    [checkDate],
-  );
+  const lazyCheckDate = useMemo(() => debounce((date: Date) => checkDate(date), IDLE_TIME), []);
 
   useDidMountEffect(() => lazyCheckDate(date), [date]);
 
