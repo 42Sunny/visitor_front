@@ -5,8 +5,8 @@ type PropTypes = {
 };
 
 type LookUpContextTypes = {
-  reserves: reserve[];
-  setReserves: React.Dispatch<React.SetStateAction<reserve[]>>;
+  reserves: Reserve[];
+  setReserves: React.Dispatch<React.SetStateAction<Reserve[]>>;
 };
 
 const LookupContext = createContext<LookUpContextTypes>({
@@ -15,7 +15,7 @@ const LookupContext = createContext<LookUpContextTypes>({
 });
 
 const LookupProvider = ({ children }: PropTypes) => {
-  const [reserves, setReserves] = useState<reserve[]>([]);
+  const [reserves, setReserves] = useState<Reserve[]>([]);
 
   return (
     <LookupContext.Provider

@@ -11,7 +11,7 @@ type PropTypes = {
   purpose: string;
   date: string;
   reserveId: number;
-  reserve: reserve;
+  reserve: Reserve;
 };
 
 const LookupResult = ({ place, targetStaffName, purpose, date, reserveId, reserve }: PropTypes) => {

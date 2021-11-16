@@ -16,6 +16,7 @@ export type ReserveContextTypes = {
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   errorDateMessage: string;
   setErrorDateMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkDate: (date: Date) => void;
 
   place: string;
   setPlace: React.Dispatch<React.SetStateAction<string>>;
@@ -26,16 +27,19 @@ export type ReserveContextTypes = {
   setPurpose: React.Dispatch<React.SetStateAction<string>>;
   errorPurposeMessage: string;
   setErrorPurposeMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkPurpose: (purpose: string) => void;
 
   targetStaffName: string;
   setTargetStaffName: React.Dispatch<React.SetStateAction<string>>;
   errorTargetStaffNameMessage: string;
   setErrorTargetStaffNameMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkTargetStaffName: (targetStaffName: string) => void;
 
   visitors: Visitor[];
   setVisitors: React.Dispatch<React.SetStateAction<Visitor[]>>;
-  errorVisitorMessage: string;
-  setErrorVisitorMessage: React.Dispatch<React.SetStateAction<string>>;
+  errorVisitorsMessage: string;
+  setErrorVisitorsMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkVisitors: (visitors: Visitor[]) => void;
 
   isPolicyChecked: boolean;
   setIsPolicyChecked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,6 +57,7 @@ const initialContext = {
   setDate: () => {},
   errorDateMessage: '',
   setErrorDateMessage: () => {},
+  checkDate: () => {},
 
   place: '',
   setPlace: () => {},
@@ -63,16 +68,19 @@ const initialContext = {
   setPurpose: () => {},
   errorPurposeMessage: '',
   setErrorPurposeMessage: () => {},
+  checkPurpose: () => {},
 
   targetStaffName: '',
   setTargetStaffName: () => {},
   errorTargetStaffNameMessage: '',
   setErrorTargetStaffNameMessage: () => {},
+  checkTargetStaffName: () => {},
 
   visitors: [],
   setVisitors: () => {},
-  errorVisitorMessage: '',
-  setErrorVisitorMessage: () => {},
+  errorVisitorsMessage: '',
+  setErrorVisitorsMessage: () => {},
+  checkVisitors: () => {},
 
   isPolicyChecked: false,
   setIsPolicyChecked: () => {},
@@ -92,28 +100,29 @@ const isAvailableSubmit = (
   errorPlaceMessage: string,
   errorPurposeMessage: string,
   errorTargetStaffNameMessage: string,
-  errorVisitorMessage: string,
+  errorVisitorsMessage: string,
 ) =>
   isPolicyChecked === true &&
   errorDateMessage === '' &&
   errorPlaceMessage === '' &&
   errorPurposeMessage === '' &&
   errorTargetStaffNameMessage === '' &&
-  errorVisitorMessage === '';
+  errorVisitorsMessage === '';
 
 const ReserveProvider = ({ children }: PropTypes) => {
-  const [date, setDate, errorDateMessage, setErrorDateMessage] = useDate(new Date());
-  const [place, setPlace, errorPlaceMessage, setErrorPlaceMessage] = usePlace('개포');
-  const [purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage] = usePurpose('');
-  const [
+  const { date, setDate, errorDateMessage, setErrorDateMessage, checkDate } = useDate(new Date());
+  const { place, setPlace, errorPlaceMessage, setErrorPlaceMessage } = usePlace('개포');
+  const { purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage, checkPurpose } =
+    usePurpose('');
+  const {
     targetStaffName,
     setTargetStaffName,
     errorTargetStaffNameMessage,
     setErrorTargetStaffNameMessage,
-  ] = useTargetStaffName('');
-  const [visitors, setVisitors, errorVisitorMessage, setErrorVisitorMessage] = useVisitors(
-    makeVisitor(),
-  );
+    checkTargetStaffName,
+  } = useTargetStaffName('');
+  const { visitors, setVisitors, errorVisitorsMessage, setErrorVisitorsMessage, checkVisitors } =
+    useVisitors(makeVisitor());
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
   const [isUpdatePage, setIsUpdatePage] = useState(false);
   const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
@@ -126,7 +135,7 @@ const ReserveProvider = ({ children }: PropTypes) => {
         errorPlaceMessage as string,
         errorPurposeMessage as string,
         errorTargetStaffNameMessage as string,
-        errorVisitorMessage as string,
+        errorVisitorsMessage as string,
       ),
     );
   }, [
@@ -135,7 +144,7 @@ const ReserveProvider = ({ children }: PropTypes) => {
     errorPlaceMessage,
     errorPurposeMessage,
     errorTargetStaffNameMessage,
-    errorVisitorMessage,
+    errorVisitorsMessage,
   ]);
 
   const handleClickPlace = useCallback(
@@ -157,6 +166,7 @@ const ReserveProvider = ({ children }: PropTypes) => {
         setDate,
         errorDateMessage,
         setErrorDateMessage,
+        checkDate,
 
         place,
         setPlace,
@@ -167,16 +177,19 @@ const ReserveProvider = ({ children }: PropTypes) => {
         setPurpose,
         errorPurposeMessage,
         setErrorPurposeMessage,
+        checkPurpose,
 
         targetStaffName,
         setTargetStaffName,
         errorTargetStaffNameMessage,
         setErrorTargetStaffNameMessage,
+        checkTargetStaffName,
 
         visitors,
         setVisitors,
-        errorVisitorMessage,
-        setErrorVisitorMessage,
+        errorVisitorsMessage,
+        setErrorVisitorsMessage,
+        checkVisitors,
 
         isPolicyChecked,
         setIsPolicyChecked,

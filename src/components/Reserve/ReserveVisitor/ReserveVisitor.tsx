@@ -9,7 +9,7 @@ import makeVisitor from 'tools/makeVisitor';
 import { useCallback } from 'react';
 
 const ReserveVisitor = () => {
-  const { visitors, setVisitors, errorVisitorMessage } = useContext(ReserveContext);
+  const { visitors, setVisitors, errorVisitorsMessage } = useContext(ReserveContext);
 
   const visitorHeaderProps = {
     numberOfVisitor: visitors?.length,
@@ -27,7 +27,7 @@ const ReserveVisitor = () => {
       <VisitorHeader {...visitorHeaderProps} />
       <VisitorFormBox visitors={visitors} setVisitors={setVisitors} />
       <VisitorAddButton {...visitorAddButtonProps} />
-      <ReserveError>{errorVisitorMessage}</ReserveError>
+      <ReserveError>{errorVisitorsMessage}</ReserveError>
     </WhiteBox>
   );
 };

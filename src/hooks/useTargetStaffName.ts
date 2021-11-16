@@ -3,12 +3,13 @@ import { useMemo, useState } from 'react';
 import { checkStaff } from 'tools/API';
 import useDidMountEffect from './useDidMountEffect';
 
-export type TargetStaffNameReturnTypes = [
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-];
+export type TargetStaffNameReturnTypes = {
+  targetStaffName: string;
+  setTargetStaffName: React.Dispatch<React.SetStateAction<string>>;
+  errorTargetStaffNameMessage: string;
+  setErrorTargetStaffNameMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkTargetStaffName: (targetStaffName: string) => void;
+};
 
 const IDLE_TIME = 500;
 const ERROR_BLANK_TARGET_STAFF_NAME = '이름을 입력해주세요.';
@@ -17,17 +18,17 @@ const ERROR_NONE = '';
 
 const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameReturnTypes => {
   const [targetStaffName, setTargetStaffName] = useState(initialTargetStaffName);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorTargetStaffNameMessage, setErrorTargetStaffNameMessage] = useState('');
 
   const checkTargetStaffName = (targetStaffName: string) => {
-    if (targetStaffName === '') setErrorMessage(ERROR_BLANK_TARGET_STAFF_NAME);
+    if (targetStaffName === '') setErrorTargetStaffNameMessage(ERROR_BLANK_TARGET_STAFF_NAME);
     else {
       checkStaff(targetStaffName).then((res) => {
         const { data } = res;
         if (data.hasOwnProperty('error')) {
-          setErrorMessage(ERROR_INVALID_TARGET_STAFF_NAME);
+          setErrorTargetStaffNameMessage(ERROR_INVALID_TARGET_STAFF_NAME);
         } else {
-          setErrorMessage(ERROR_NONE);
+          setErrorTargetStaffNameMessage(ERROR_NONE);
         }
       });
     }
@@ -45,7 +46,13 @@ const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameRetu
     lazyCheckTargetStaffName(targetStaffName);
   }, [targetStaffName]);
 
-  return [targetStaffName, setTargetStaffName, errorMessage, setErrorMessage];
+  return {
+    targetStaffName,
+    setTargetStaffName,
+    errorTargetStaffNameMessage,
+    setErrorTargetStaffNameMessage,
+    checkTargetStaffName,
+  };
 };
 
 export default useTargetStaffName;

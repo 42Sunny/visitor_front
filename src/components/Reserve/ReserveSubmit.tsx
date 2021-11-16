@@ -27,6 +27,10 @@ const ReserveSubmit = () => {
     isUpdatePage,
     targetStaffName,
     isSubmitButtonAcitve,
+    checkDate,
+    checkPurpose,
+    checkVisitors,
+    checkTargetStaffName,
     setIsSubmitButtonAcitve,
   } = useContext(ReserveContext);
 
@@ -38,6 +42,16 @@ const ReserveSubmit = () => {
     [isUpdatePage],
   );
 
+  const checkValues = useCallback(
+    (date, purpose, visitors, targetStaffName) => {
+      checkDate(date);
+      checkPurpose(purpose);
+      checkVisitors(visitors);
+      checkTargetStaffName(targetStaffName);
+    },
+    [checkDate, checkPurpose, checkTargetStaffName, checkVisitors],
+  );
+
   const reserveSubmitProps = {
     isOpen,
     isLoading,
@@ -47,6 +61,7 @@ const ReserveSubmit = () => {
     handleClick: useCallback(async () => {
       setIsLoading(true);
       setIsSubmitButtonAcitve(false);
+      checkValues(date, purpose, visitors, targetStaffName);
       const { data } = await submitData(date, place, purpose, targetStaffName, visitors);
       if (data.hasOwnProperty('error')) {
         alertError(data.error);
@@ -64,6 +79,7 @@ const ReserveSubmit = () => {
       isUpdatePage,
       targetStaffName,
       submitData,
+      checkValues,
       setIsSubmitButtonAcitve,
     ]),
   };

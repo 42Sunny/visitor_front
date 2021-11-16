@@ -1,19 +1,17 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
-export type PlaceReturnTypes = [
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-];
+export type PlaceReturnTypes = {
+  place: string;
+  setPlace: React.Dispatch<React.SetStateAction<string>>;
+  errorPlaceMessage: string;
+  setErrorPlaceMessage: React.Dispatch<React.SetStateAction<string>>;
+};
 
 const usePlace = (initialPlace: string): PlaceReturnTypes => {
   const [place, setPlace] = useState(initialPlace);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorPlaceMessage, setErrorPlaceMessage] = useState('');
 
-  const value = useMemo(() => ({ place, setPlace }), [place]);
-
-  return [value.place, value.setPlace, errorMessage, setErrorMessage];
+  return { place, setPlace, errorPlaceMessage, setErrorPlaceMessage };
 };
 
 export default usePlace;

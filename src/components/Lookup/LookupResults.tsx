@@ -7,14 +7,14 @@ const OPEN_EXPIRED_MESSAGE = '지난 예약 감추기 <';
 const CLOSE_EXPIRED_MESSAGE = '지난 예약 보기 >';
 
 type PropTypes = {
-  reserves: reserve[];
+  reserves: Reserve[];
 };
 
 const LookupResults = ({ reserves }: PropTypes) => {
   const [openExpired, setOpenExied] = useState(false);
   const handleClickExpiredToggle = () => setOpenExied(!openExpired);
-  const [expiredReserves, setExpriedReserves] = useState<reserve[]>([]);
-  const [openReserves, setOpenReserves] = useState<reserve[]>([]);
+  const [expiredReserves, setExpriedReserves] = useState<Reserve[]>([]);
+  const [openReserves, setOpenReserves] = useState<Reserve[]>([]);
 
   useEffect(() => {
     const expiredReserves = reserves.filter(

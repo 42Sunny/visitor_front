@@ -26,7 +26,7 @@ type Staff = {
   phone: string;
 };
 
-type reserve = {
+type Reserve = {
   date: string;
   place: string;
   targetStaffName: string;

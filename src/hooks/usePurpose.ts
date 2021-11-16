@@ -2,12 +2,13 @@ import { debounce } from 'loadsh';
 import { useMemo, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
-export type PurposeReturnTypes = [
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-  string,
-  React.Dispatch<React.SetStateAction<string>>,
-];
+export type PurposeReturnTypes = {
+  purpose: string;
+  setPurpose: React.Dispatch<React.SetStateAction<string>>;
+  errorPurposeMessage: string;
+  setErrorPurposeMessage: React.Dispatch<React.SetStateAction<string>>;
+  checkPurpose: (purpose: string) => void;
+};
 
 const IDLE_TIME = 500;
 const ERROR_BLANK_PURPOSE = '목적을 입력해주세요.';
@@ -15,11 +16,11 @@ const ERROR_NONE = '';
 
 const usePurpose = (initialPurpose: string): PurposeReturnTypes => {
   const [purpose, setPurpose] = useState(initialPurpose);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorPurposeMessage, setErrorPurposeMessage] = useState('');
 
   const checkPurpose = (purpose: string) => {
-    if (purpose === '') setErrorMessage(ERROR_BLANK_PURPOSE);
-    else setErrorMessage(ERROR_NONE);
+    if (purpose === '') setErrorPurposeMessage(ERROR_BLANK_PURPOSE);
+    else setErrorPurposeMessage(ERROR_NONE);
   };
 
   const lazyCheckPurpose = useMemo(
@@ -32,7 +33,7 @@ const usePurpose = (initialPurpose: string): PurposeReturnTypes => {
 
   useDidMountEffect(() => lazyCheckPurpose(purpose), [purpose]);
 
-  return [purpose, setPurpose, errorMessage, setErrorMessage];
+  return { purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage, checkPurpose };
 };
 
 export default usePurpose;
