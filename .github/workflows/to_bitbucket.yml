@@ -1,0 +1,23 @@
+name: To Bitbucket
+
+on:
+  push:
+    branches: [develop]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: unshallow
+        run: git fetch --unshallow
+
+      - name: setup
+        run: git remote add bitbucket https://42jayi:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42jayi/github_action_test_2.git
+
+      - name: push bitbucket
+        run: git push bitbucket develop
