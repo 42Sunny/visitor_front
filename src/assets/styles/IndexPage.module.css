@@ -60,12 +60,8 @@
   border-radius: 5px;
   border-style: none;
   cursor: pointer;
-  font-family: 'Spoqa Han Sans Neo';
+  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
 }
-
-/* .IndexButton:focus {
-  background-color: #00c994;
-} */
 
 .IndexReserveButton {
   background-color: #00e0a4;
