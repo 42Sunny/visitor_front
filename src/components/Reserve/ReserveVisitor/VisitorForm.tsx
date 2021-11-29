@@ -3,6 +3,7 @@ import GreyBox from 'components/Common/GreyBox';
 import React, { useCallback } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
+import { convertPhone } from 'hooks/useVisitors';
 
 const NAME_ORGANIZATION = 'organization';
 const NAME_NAME = 'name';
@@ -32,6 +33,7 @@ const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;
+    visitor.phone = convertPhone(visitor.phone);
     saveVisitor();
   };
 

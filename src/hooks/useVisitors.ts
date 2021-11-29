@@ -10,24 +10,25 @@ export type VisitorReturnTypes = {
   checkVisitors: (visitors: Visitor[]) => void;
 };
 
-const IDLE_TIME = 200;
+const IDLE_TIME = 50;
 const ERROR_BLANK_VISITOR = '방문자를 추가해주세요.';
 const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
 const ERROR_NONE = '';
+const PHONE_REG_EXP = /^01\d{9}$/; // 휴대폰 번호 유효성 검사 정규표현식
 
-type checker = {
+type Checker = {
   [index: string]: boolean;
 };
 
-// TODO: 번호가 비어있을 경우 중복 처리 하지 않음
 const isDuplicatePhone = (visitors: Visitor[]) => {
-  const checker: checker = {};
+  const checker: Checker = {};
   return visitors.some((elem) => {
-    if (checker[elem.phone] === true) {
+    const converted = convertPhone(elem.phone);
+    if (checker[converted] === true) {
       return true;
     } else {
-      checker[elem.phone] = true;
+      checker[converted] = true;
       return false;
     }
   });
@@ -39,16 +40,22 @@ const isFullVisitor = (visitors: Visitor[]) => {
   );
 };
 
+export const convertPhone = (rawPhone: string) =>
+  Array.from(rawPhone)
+    .filter((ch) => ch !== '-')
+    .join('')
+    .toString();
+
 const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
   const [visitors, setVisitors] = useState([initialVisitor]);
   const [errorVisitorsMessage, setErrorVisitorsMessage] = useState('');
 
   const checkVisitors = useCallback((visitors: Visitor[]) => {
     if (!visitors || visitors.length === 0) setErrorVisitorsMessage(ERROR_BLANK_VISITOR);
+    else if (isFullVisitor(visitors) !== true) setErrorVisitorsMessage(ERROR_NOT_FULL_VISITOR);
     else if (isDuplicatePhone(visitors) === true) {
       setErrorVisitorsMessage(ERROR_DUPLICATE_PHONE_NUM);
-    } else if (isFullVisitor(visitors) !== true) setErrorVisitorsMessage(ERROR_NOT_FULL_VISITOR);
-    else {
+    } else {
       autoSave(visitors);
       setErrorVisitorsMessage(ERROR_NONE);
     }
@@ -60,17 +67,17 @@ const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
         elem.autoSave &&
         elem.name !== '' &&
         elem.organization !== '' &&
-        elem.phone.length >= 11
+        PHONE_REG_EXP.exec(convertPhone(elem.phone)) !== null
       ) {
         elem.isEditable = false;
         elem.isChanged = true;
         elem.autoSave = false;
+        elem.phone = convertPhone(elem.phone);
         setVisitors([...visitors]);
       }
     });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const lazyCheckError = useMemo(
     () =>
       debounce((visitors: Visitor[]) => {
