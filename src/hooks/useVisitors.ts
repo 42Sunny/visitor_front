@@ -1,5 +1,4 @@
-import { debounce } from 'loadsh';
-import { useMemo, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 export type VisitorReturnTypes = {
@@ -10,7 +9,6 @@ export type VisitorReturnTypes = {
   checkVisitors: (visitors: Visitor[]) => void;
 };
 
-const IDLE_TIME = 50;
 const ERROR_BLANK_VISITOR = '방문자를 추가해주세요.';
 const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
@@ -40,11 +38,7 @@ const isFullVisitor = (visitors: Visitor[]) => {
   );
 };
 
-export const convertPhone = (rawPhone: string) =>
-  Array.from(rawPhone)
-    .filter((ch) => ch !== '-')
-    .join('')
-    .toString();
+export const convertPhone = (rawPhone: string) => rawPhone.replaceAll('-', '');
 
 const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
   const [visitors, setVisitors] = useState([initialVisitor]);
@@ -78,15 +72,7 @@ const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
     });
   };
 
-  const lazyCheckError = useMemo(
-    () =>
-      debounce((visitors: Visitor[]) => {
-        checkVisitors(visitors);
-      }, IDLE_TIME),
-    [checkVisitors],
-  );
-
-  useDidMountEffect(() => lazyCheckError(visitors), [visitors]);
+  useDidMountEffect(() => checkVisitors(visitors), [visitors]);
 
   return {
     visitors,
