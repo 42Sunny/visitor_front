@@ -2,7 +2,7 @@
   margin: 0px;
   width: 100%;
   height: 40px;
-  background-color: #03d5a3;
+  background-color: var(--green-color);
   border-style: none;
   color: white;
   border-radius: 5px;

@@ -44,7 +44,7 @@
 
 .CheckButton {
   border-style: none;
-  background-color: #03d5a3;
+  background-color: var(--green-color);
   color: white;
   margin: 1rem;
   width: 8rem;

@@ -27,7 +27,7 @@
 }
 
 .Link {
-  color: #03d5a3;
+  color: var(--green-color);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: normal;
@@ -36,5 +36,5 @@
 }
 
 .Link:visited {
-  color: #03d5a3;
+  color: var(--green-color);
 }

@@ -8,7 +8,7 @@
   background: white;
   border-color: #e7e7e7;
   border-style: solid;
-  color: #03d5a3;
+  color: var(--green-color);
   width: 100%;
   padding: 0.7rem;
   font-size: 0.9rem;
@@ -65,9 +65,9 @@
 }
 
 .UpdateButton {
-  color: #03d5a3;
+  color: var(--green-color);
 }
 
 .InsertButton {
-  color: #03d5a3;
+  color: var(--green-color);
 }

@@ -2,7 +2,7 @@
   appearance: none;
   color: white;
   border-radius: 0.3rem;
-  background-color: #03d5a3;
+  background-color: var(--green-color);
   font-size: 1rem;
   padding: 0.5rem;
   box-sizing: border-box;

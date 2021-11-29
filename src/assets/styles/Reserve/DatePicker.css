@@ -1,9 +1,9 @@
 .react-datepicker__time-list-item--selected {
-  background-color: #03d5a3 !important;
+  background-color: var(--green-color) !important;
 }
 
 .react-datepicker__day--selected {
-  background-color: #03d5a3 !important;
+  background-color: var(--green-color) !important;
 }
 
 .react-datepicker__day--keyboard-selected {

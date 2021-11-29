@@ -4,5 +4,5 @@
   box-sizing: border-box;
   padding: 10px;
   margin: auto;
-  background-color: #f6f6f6;
+  background-color: var(--grey-color);
 }

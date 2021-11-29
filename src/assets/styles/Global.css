@@ -1,6 +1,7 @@
 :root {
   --basic-font: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
   --green-color: #03d5a3;
+  --grey-color: #f6f6f6;
 }
 
 @font-face {
@@ -92,7 +93,7 @@ input:checked {
 }
 
 body {
-  background-color: #f6f6f6;
+  background-color: var(--grey-color);
   overflow: overlay;
 }
 

@@ -6,7 +6,7 @@
 
 @media (min-width: 768px) {
   .LookupBackground {
-    background-color: #f6f6f6;
+    background-color: var(--grey-color);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -17,7 +17,7 @@
 
 @media (max-width: 768px) {
   .LookupBackground {
-    background-color: #f6f6f6;
+    background-color: var(--grey-color);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -65,7 +65,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #03d5a3;
+  color: var(--green-color);
   font-size: 1.1rem;
   width: 100%;
   box-sizing: border-box;
@@ -172,7 +172,7 @@
   border-style: none;
   cursor: pointer;
   font-size: 1rem;
-  color: #03d5a3;
+  color: var(--green-color);
 }
 
 .LookupDeleteModal {
