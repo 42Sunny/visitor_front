@@ -1,40 +1,45 @@
+:root {
+  --basic-font: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  --green-color: #03d5a3;
+}
+
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   font-weight: 200;
   src: url('../fonts/SpoqaHanSansNeo-Thin.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   font-weight: 300;
   src: url('../fonts/SpoqaHanSansNeo-Light.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   font-weight: 400;
   src: url('../fonts/SpoqaHanSansNeo-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   src: url('../fonts/SpoqaHanSansNeo-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   font-weight: 500;
   src: url('../fonts/SpoqaHanSansNeo-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   font-weight: bold;
   src: url('../fonts/SpoqaHanSansNeo-Bold.ttf') format('truetype');
 }
 
 html {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
 }
 
 body {
@@ -42,7 +47,7 @@ body {
 }
 
 button {
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
+  font-family: var(--basic-font);
   cursor: pointer;
 }
 

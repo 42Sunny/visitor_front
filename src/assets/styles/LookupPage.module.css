@@ -52,17 +52,6 @@
   flex-direction: column;
 }
 
-.LookupInputInput {
-  border-style: none;
-  margin-bottom: 0.6rem;
-  background-color: #f6f6f6;
-  height: 2.5rem;
-  border-radius: 5px;
-  padding: 0.8rem;
-  box-sizing: border-box;
-  font-family: 'Spoqa Han Sans Neo', Arial, Helvetica, sans-serif;
-}
-
 .LookupInputButtonBox {
   width: 100%;
   display: flex;
