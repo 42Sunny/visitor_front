@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 import { convertPhone } from 'hooks/useVisitors';
+import isNumber from 'tools/isNumber';
 
 const NAME_ORGANIZATION = 'organization';
 const NAME_NAME = 'name';
@@ -27,7 +28,7 @@ type PropTypes = {
   saveVisitor: () => void;
 };
 
-const isPhoneCharacter = (ch: any) => isNaN(ch) === false || ch === '-';
+const isPhoneCharacter = (ch: string) => ch === '-' || isNumber(ch);
 
 const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
   const handleSave = () => {
