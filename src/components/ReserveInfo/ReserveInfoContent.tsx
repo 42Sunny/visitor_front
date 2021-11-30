@@ -37,20 +37,24 @@ const ReserveInfoContent = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const loadReserve = useCallback(async () => {
-    if (!isNaN(parseInt(reserveId))) {
+    if (!isNaN(parseInt(reserveId, 10))) {
       const result = await getReserve(reserveId);
-      const {
-        data: { date, place, purpose, visitor },
-        data,
-      } = result;
-      setDate(date);
-      setPlace(place);
-      setPurpose(purpose);
-      setVisitor(visitor);
-      setIsLoading(true);
-      setResult(data);
+      if (result?.data.error === undefined) {
+        const {
+          data: { date, place, purpose, visitor },
+          data,
+        } = result;
+        if (date) setDate(date);
+        if (place) setPlace(place);
+        if (purpose) setPurpose(purpose);
+        if (visitor) setVisitor(visitor);
+        if (data) setResult(data);
+        setIsLoading(true);
+      } else {
+        history.push('/error');
+      }
     }
-  }, [reserveId]);
+  }, [history, reserveId]);
 
   useEffect(() => {
     loadReserve();

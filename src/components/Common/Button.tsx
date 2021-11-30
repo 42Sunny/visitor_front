@@ -6,7 +6,7 @@ type PropTypes = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   children?: React.ReactNode;
-  className: string | Object;
+  className?: string | Object;
 };
 
 const Button = ({ onClick, disabled, children, className }: PropTypes) => {
