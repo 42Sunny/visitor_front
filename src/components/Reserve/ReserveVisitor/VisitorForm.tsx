@@ -28,6 +28,8 @@ type PropTypes = {
   saveVisitor: () => void;
 };
 
+const isValidPhoneCharacter = (ch?: string) =>
+  ch === null || ch === undefined ? true : isPhoneCharacter(ch);
 const isPhoneCharacter = (ch: string) => ch === '-' || isNumber(ch);
 
 const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
@@ -57,7 +59,7 @@ const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
         visitor.organization = value;
       } else if (name === NAME_NAME) {
         visitor.name = value;
-      } else if (name === NAME_PHONE && isPhoneCharacter(data)) {
+      } else if (name === NAME_PHONE && isValidPhoneCharacter(data)) {
         visitor.phone = value;
       }
       saveVisitor();
