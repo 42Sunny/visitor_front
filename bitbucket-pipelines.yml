@@ -8,6 +8,7 @@ pipelines:
           caches:
             - node
           script:
+            - echo $REACT_APP_ENVIRONMENT
             - npm install
             - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
             - export REACT_APP_API_URL=$REACT_APP_API_URL
@@ -43,6 +44,7 @@ pipelines:
           caches:
             - node
           script:
+            - echo $REACT_APP_ENVIRONMENT
             - npm install
             - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
             - export REACT_APP_API_URL=$REACT_APP_API_URL
@@ -65,7 +67,6 @@ pipelines:
                 LOCAL_PATH: 'build/build_prod'
       - step:
           name: Invalidate Cloudfront Cache
-          trigger: manual
           script:
             - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
               variables:
