@@ -22,7 +22,7 @@ type ResultTypes = {
   visitor?: Visitor[];
 };
 
-const INVALID_RESERVE_ID_MESSAGE = '유효하지 않은 접근입니다.';
+const LOADING_RESERVE_ID_MESSAGE = '서버에서 데이터를 받아오고 있습니다.';
 
 const ReserveInfoContent = () => {
   const { reserveId } = useParams<ParamsType>();
@@ -144,7 +144,7 @@ const ReserveInfoContent = () => {
       />
     </>
   ) : (
-    <div>{INVALID_RESERVE_ID_MESSAGE}</div>
+    <div>{LOADING_RESERVE_ID_MESSAGE}</div>
   );
 };
 
