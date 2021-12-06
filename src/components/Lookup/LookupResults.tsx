@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import classes from 'assets/styles/LookupPage.module.css';
 import LookupResult from './LookupResult';
 import classNames from 'classnames';
+import { compareNow } from 'hooks/useDate';
 
-const OPEN_EXPIRED_MESSAGE = '지난 예약 감추기 <';
+const OPEN_EXPIRED_MESSAGE = '지난 예약 숨기기 <';
 const CLOSE_EXPIRED_MESSAGE = '지난 예약 보기 >';
 
 type PropTypes = {
@@ -18,10 +19,10 @@ const LookupResults = ({ reserves }: PropTypes) => {
 
   useEffect(() => {
     const expiredReserves = reserves.filter(
-      (reserve) => new Date(reserve.date.replace(/-/g, '/')) <= new Date(),
+      (reserve) => compareNow(new Date(reserve.date.replace(/-/g, '/'))) < 0,
     );
     const openReserves = reserves.filter(
-      (reserve) => new Date(reserve.date.replace(/-/g, '/')) > new Date(),
+      (reserve) => compareNow(new Date(reserve.date.replace(/-/g, '/'))) >= 0,
     );
     setExpriedReserves(expiredReserves);
     setOpenReserves(openReserves);
@@ -40,6 +41,7 @@ const LookupResults = ({ reserves }: PropTypes) => {
             place={reserve.place}
             targetStaffName={reserve.staff.name}
             purpose={reserve.purpose}
+            editable={true}
           />
         ))}
       </div>
@@ -62,6 +64,7 @@ const LookupResults = ({ reserves }: PropTypes) => {
             place={reserve.place}
             targetStaffName={reserve.staff.name}
             purpose={reserve.purpose}
+            editable={false}
           />
         ))}
       </div>

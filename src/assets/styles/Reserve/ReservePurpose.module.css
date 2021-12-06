@@ -5,4 +5,11 @@
   font-size: 0.9rem;
   border-style: none;
   background-color: rgba(0, 0, 0, 0);
+  background-image: url('../../images/expand_more.png');
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+}
+
+.Input {
+  width: 100%;
 }

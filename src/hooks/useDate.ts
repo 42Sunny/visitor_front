@@ -21,7 +21,7 @@ const useDate = (initialDate: Date): DateReturnTypes => {
 
   const checkDate = (date: Date) => {
     if (date === null) setErrorDateMessage(ERROR_BLANK_DATE);
-    else if (date < new Date()) setErrorDateMessage(ERROR_INVALID_DATE);
+    else if (compareNow(date) < 0) setErrorDateMessage(ERROR_INVALID_DATE);
     else setErrorDateMessage(ERROR_NONE);
   };
 
@@ -30,6 +30,28 @@ const useDate = (initialDate: Date): DateReturnTypes => {
   useDidMountEffect(() => lazyCheckDate(date), [date]);
 
   return { date, setDate, errorDateMessage, setErrorDateMessage, checkDate };
+};
+
+/*
+인자인 date와 현재 시간의 년도, 월, 일만 비교하여
+인자가 과거라면 양수를 반환한다.
+인자가 현재라면 0을 반환한다.
+인자가 미래라면 음수을 반환한다.
+*/
+export const compareNow = (date: Date) => {
+  const temp = new Date(date);
+  const now = new Date();
+
+  temp.setHours(0);
+  temp.setMinutes(0);
+  temp.setSeconds(0);
+  temp.setMilliseconds(0);
+  now.setHours(0);
+  now.setMinutes(0);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+
+  return temp.getTime() - now.getTime();
 };
 
 export default useDate;

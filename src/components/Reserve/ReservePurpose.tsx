@@ -46,6 +46,7 @@ const VReservePurpose = React.memo(
           value={purpose}
           ref={purposeInput}
           hidden={!isDirectInput}
+          className={classes.Input}
         />
       </GreyBox>
       <ReserveError>{errorPurposeMessage}</ReserveError>

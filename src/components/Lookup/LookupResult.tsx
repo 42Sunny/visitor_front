@@ -12,9 +12,18 @@ type PropTypes = {
   date: string;
   reserveId: number;
   reserve: Reserve;
+  editable: boolean;
 };
 
-const LookupResult = ({ place, targetStaffName, purpose, date, reserveId, reserve }: PropTypes) => {
+const LookupResult = ({
+  place,
+  targetStaffName,
+  purpose,
+  date,
+  reserveId,
+  reserve,
+  editable,
+}: PropTypes) => {
   const { reserves, setReserves } = useContext(LookupContext);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const history = useHistory();
@@ -67,10 +76,18 @@ const LookupResult = ({ place, targetStaffName, purpose, date, reserveId, reserv
           </div>
         </div>
         <div className={classes.LookupCardButtons}>
-          <button className={classes.LookupCardDeleteButton} onClick={handleDeleteClick}>
+          <button
+            className={classes.LookupCardDeleteButton}
+            onClick={handleDeleteClick}
+            hidden={!editable}
+          >
             삭제
           </button>
-          <button className={classes.LookupCardUpdateButton} onClick={handleUpdateClick}>
+          <button
+            className={classes.LookupCardUpdateButton}
+            onClick={handleUpdateClick}
+            hidden={!editable}
+          >
             수정
           </button>
         </div>
