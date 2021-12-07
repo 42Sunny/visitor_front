@@ -35,7 +35,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "dotenv -e .env.local react-scripts start",
+    "start": "react-scripts start",
+    "start:local": "PORT=3002 dotenv -e .env.local react-scripts start",
     "build:prod": "BUILD_PATH='./build/build_prod' dotenv -e .env.production react-scripts build",
     "build:dev": "BUILD_PATH='./build/build_dev' react-scripts build",
     "test": "react-scripts test",
