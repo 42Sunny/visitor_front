@@ -9,9 +9,10 @@ import ReservePage from 'pages/ReservePage';
 import { Header } from './Header/Header';
 import Page from 'components/Common/Page';
 import Footer from './Footer/Footer';
+import NotSupport from './NotSupport/NotSupport';
 
 const AppRouter = () => {
-  return (
+  return typeof Object.assign === 'function' ? (
     <Router>
       <Header />
       <Page>
@@ -37,6 +38,18 @@ const AppRouter = () => {
           <Redirect from="*" to="/error" />
         </Switch>
       </Page>
+      <Footer />
+    </Router>
+  ) : (
+    <Router>
+      <Header />
+      <Switch>
+        <Page>
+          <Route path="*">
+            <NotSupport />
+          </Route>
+        </Page>
+      </Switch>
       <Footer />
     </Router>
   );

@@ -3,7 +3,7 @@ import getReserves from './getReserves';
 import deleteReserve from './deleteReserve';
 import createReserve from './createReserve';
 import updateReserve from './updateReserve';
-import postError from './postError';
+import sendError from './sendError';
 import checkStaff from './checkStaff';
 
 export {
@@ -12,6 +12,6 @@ export {
   deleteReserve,
   createReserve,
   updateReserve,
-  postError,
+  sendError,
   checkStaff,
 };
