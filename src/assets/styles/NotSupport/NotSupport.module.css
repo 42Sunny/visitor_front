@@ -1,0 +1,6 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.3rem;
+}
