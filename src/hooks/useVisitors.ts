@@ -38,7 +38,10 @@ const isFullVisitor = (visitors: Visitor[]) => {
   );
 };
 
-export const convertPhone = (rawPhone: string) => rawPhone?.replaceAll('-', '');
+export const convertPhone = (rawPhone: string) => {
+  const rawPhoneArray = rawPhone.split('');
+  return rawPhoneArray.filter((ch) => ch !== '-').join('');
+};
 
 const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
   const [visitors, setVisitors] = useState([initialVisitor]);
