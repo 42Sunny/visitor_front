@@ -1,0 +1,132 @@
+.Container {
+  display: flex;
+  max-width: 768px;
+  max-height: 768px;
+  min-width: 500px;
+  min-height: 500px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0);
+}
+
+.Clock {
+  border-radius: 50%;
+  background: var(--grey-color);
+  max-width: 26rem;
+  max-height: 26rem;
+  min-width: 26rem;
+  min-height: 26rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Target {
+  position: absolute;
+  color: black;
+  font-size: 1.3rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  border-style: none;
+  transition: background-color 0.3s;
+  user-select: none;
+  z-index: 1;
+}
+
+.Circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--green-color);
+  transition: all 0.4s ease-out;
+}
+
+.Line {
+  background-color: var(--green-color);
+  width: 0.3rem;
+  height: 11rem;
+  position: absolute;
+  transition: all 0.4s ease-out;
+}
+
+.Center {
+  width: 0.5rem;
+  height: 0.5rem;
+  position: absolute;
+  background-color: var(--green-color);
+  border-radius: 50%;
+}
+
+.AMPMBox {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.AMPMButton {
+  height: 3rem;
+}
+
+.Target:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.Target:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.Target-0 {
+  transform: rotate(0deg) translateY(-11rem);
+}
+
+.Target-1 {
+  transform: rotate(30deg) translateY(-11rem) rotate(-30deg);
+}
+
+.Target-2 {
+  transform: rotate(calc(30 * 2deg)) translateY(-11rem) rotate(calc(-30 * 2deg));
+}
+
+.Target-3 {
+  transform: rotate(calc(30 * 3deg)) translateY(-11rem) rotate(calc(-30 * 3deg));
+}
+
+.Target-4 {
+  transform: rotate(calc(30 * 4deg)) translateY(-11rem) rotate(calc(-30 * 4deg));
+}
+
+.Target-5 {
+  transform: rotate(calc(30 * 5deg)) translateY(-11rem) rotate(calc(-30 * 5deg));
+}
+
+.Target-6 {
+  transform: rotate(calc(30 * 6deg)) translateY(-11rem) rotate(calc(-30 * 6deg));
+}
+
+.Target-7 {
+  transform: rotate(calc(30 * 7deg)) translateY(-11rem) rotate(calc(-30 * 7deg));
+}
+
+.Target-8 {
+  transform: rotate(calc(30 * 8deg)) translateY(-11rem) rotate(calc(-30 * 8deg));
+}
+
+.Target-9 {
+  transform: rotate(calc(30 * 9deg)) translateY(-11rem) rotate(calc(-30 * 9deg));
+}
+
+.Target-10 {
+  transform: rotate(calc(30 * 10deg)) translateY(-11rem) rotate(calc(-30 * 10deg));
+}
+
+.Target-11 {
+  transform: rotate(calc(30 * 11deg)) translateY(-11rem) rotate(calc(-30 * 11deg));
+}
