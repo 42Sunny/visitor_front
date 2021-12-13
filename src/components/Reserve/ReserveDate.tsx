@@ -73,15 +73,15 @@ const ReserveDate = () => {
     isOpen,
     errorDateMessage,
     onChangeDate: useCallback(
-      (value) => {
+      (value, event) => {
         setDate(value);
-        if (date === null) return;
-        if (value.getHours() === 0 && value.getMinutes() === 0) return;
-        if (date.getHours() !== value.getHours() || date.getMinutes() !== value.getMinutes()) {
+        // 시간을 클릭하면 event가 undefined로 설정된다.
+        // 해당 사실을 이용해서 시간을 클릭하면 자동으로 창이 꺼질 수 있도록 설정함.
+        if (event === undefined) {
           setIsOpen(false);
         }
       },
-      [date, setDate],
+      [setDate],
     ),
     onClickOpen: useCallback(() => {
       setIsOpen(true);
