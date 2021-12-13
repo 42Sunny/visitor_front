@@ -5,7 +5,7 @@ type ArgTypes = {
   place: string;
   targetStaffName: string;
   purpose: string;
-  date: string;
+  date: string | null;
   visitor: CompactVisitor[];
 };
 

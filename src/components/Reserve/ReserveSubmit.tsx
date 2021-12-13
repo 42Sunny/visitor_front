@@ -111,7 +111,7 @@ const VReserveSubmit = React.memo(
 );
 
 const sendCreateReserve = (
-  date: Date,
+  date: Date | null,
   place: string,
   purpose: string,
   targetStaffName: string,
@@ -124,7 +124,7 @@ const sendCreateReserve = (
   }));
 
   const data = {
-    date: dateToJsonTime(date),
+    date: date && dateToJsonTime(date),
     place,
     purpose,
     targetStaffName,
@@ -134,7 +134,7 @@ const sendCreateReserve = (
 };
 
 const sendUpdateReserve = (
-  date: Date,
+  date: Date | null,
   place: string,
   purpose: string,
   targetStaffName: string,
@@ -149,7 +149,7 @@ const sendUpdateReserve = (
   }));
 
   const data = {
-    date: dateToJsonTime(date),
+    date: date && dateToJsonTime(date),
     place,
     purpose,
     targetStaffName,

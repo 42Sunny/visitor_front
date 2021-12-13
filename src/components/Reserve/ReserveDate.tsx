@@ -13,7 +13,7 @@ import GreyBox from 'components/Common/GreyBox';
 import ReserveBigTitle from './ReserveBigTitle';
 
 type PropTypes = {
-  date: Date;
+  date: Date | null;
   onChangeDate: any;
   onClickOutside: any;
   isOpen: boolean;
@@ -32,16 +32,17 @@ const VReserveDate = React.memo(
         <ReserveBigTitle title={DATE_TITLE} />
         <GreyBox className={classes.DatePickerBox}>
           <DatePicker
-            showTimeSelect
-            selected={date}
-            locale="ko"
-            onChange={onChangeDate}
             onClickOutside={onClickOutside}
+            className={classes.DatePicker}
+            onChange={onChangeDate}
+            showPopperArrow={false}
+            minDate={new Date()}
+            selected={date}
             open={isOpen}
+            showTimeSelect
+            locale="ko"
             readOnly
             disabled
-            minDate={new Date()}
-            className={classes.DatePicker}
             dayClassName={(day: Date) => {
               if (day.getDay() === 0) return 'datepicker__sun';
               else if (day.getDay() === 6) return 'datepicker__sat';
@@ -51,7 +52,7 @@ const VReserveDate = React.memo(
           <button onClick={onClickOpen} className={classes.DatePickerButton}>
             <div className={classes.DatePickerContent}>
               <div className={classes.DatePickerText}>
-                {moment(date).format('YYYY. MM. DD HH:mm')}
+                {date ? moment(date).format('YYYY. MM. DD HH:mm') : '----. --. -- --:--'}
               </div>
               <img src={icon_calendar} alt="icon-calendar" className={classes.DatePickerImg} />
             </div>
@@ -74,6 +75,8 @@ const ReserveDate = () => {
     onChangeDate: useCallback(
       (value) => {
         setDate(value);
+        if (date === null) return;
+        if (value.getHours() === 0 && value.getMinutes() === 0) return;
         if (date.getHours() !== value.getHours() || date.getMinutes() !== value.getMinutes()) {
           setIsOpen(false);
         }

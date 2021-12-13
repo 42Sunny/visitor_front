@@ -3,24 +3,27 @@ import { useMemo, useState } from 'react';
 import useDidMountEffect from './useDidMountEffect';
 
 const IDLE_TIME = 200;
-const ERROR_BLANK_DATE = '시간을 선택해주세요.';
+const ERROR_BLANK_DATE = '날짜 및 시간을 선택해주세요.';
+const ERROR_INVALID_TIME = '예약이 불가능한 시간입니다.';
 const ERROR_INVALID_DATE = '현재 시간보다 빠른 시간으로는 예약이 불가능합니다.';
 const ERROR_NONE = '';
 
 export type DateReturnTypes = {
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  date: Date | null;
+  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
   errorDateMessage: string;
   setErrorDateMessage: React.Dispatch<React.SetStateAction<string>>;
   checkDate: (date: Date) => void;
 };
 
-const useDate = (initialDate: Date): DateReturnTypes => {
+const useDate = (initialDate: Date | null): DateReturnTypes => {
   const [date, setDate] = useState(initialDate);
   const [errorDateMessage, setErrorDateMessage] = useState('');
 
   const checkDate = (date: Date) => {
     if (date === null) setErrorDateMessage(ERROR_BLANK_DATE);
+    else if (date.getHours() === 0 && date.getMinutes() === 0)
+      setErrorDateMessage(ERROR_INVALID_TIME);
     else if (compareNow(date) < 0) setErrorDateMessage(ERROR_INVALID_DATE);
     else setErrorDateMessage(ERROR_NONE);
   };

@@ -12,8 +12,8 @@ type PropTypes = {
 
 export type ReserveContextTypes = {
   handleClickPlace: React.MouseEventHandler<HTMLButtonElement>;
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  date: Date | null;
+  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
   errorDateMessage: string;
   setErrorDateMessage: React.Dispatch<React.SetStateAction<string>>;
   checkDate: (date: Date) => void;
@@ -110,7 +110,7 @@ const isAvailableSubmit = (
   errorVisitorsMessage === '';
 
 const ReserveProvider = ({ children }: PropTypes) => {
-  const { date, setDate, errorDateMessage, setErrorDateMessage, checkDate } = useDate(new Date());
+  const { date, setDate, errorDateMessage, setErrorDateMessage, checkDate } = useDate(null);
   const { place, setPlace, errorPlaceMessage, setErrorPlaceMessage } = usePlace('개포');
   const { purpose, setPurpose, errorPurposeMessage, setErrorPurposeMessage, checkPurpose } =
     usePurpose('');
