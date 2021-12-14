@@ -13,7 +13,7 @@ import GreyBox from 'components/Common/GreyBox';
 import ReserveBigTitle from './ReserveBigTitle';
 
 type PropTypes = {
-  date: Date;
+  date: Date | null;
   onChangeDate: any;
   onClickOutside: any;
   isOpen: boolean;
@@ -32,16 +32,17 @@ const VReserveDate = React.memo(
         <ReserveBigTitle title={DATE_TITLE} />
         <GreyBox className={classes.DatePickerBox}>
           <DatePicker
-            showTimeSelect
-            selected={date}
-            locale="ko"
-            onChange={onChangeDate}
             onClickOutside={onClickOutside}
+            className={classes.DatePicker}
+            onChange={onChangeDate}
+            showPopperArrow={false}
+            minDate={new Date()}
+            selected={date}
             open={isOpen}
+            showTimeSelect
+            locale="ko"
             readOnly
             disabled
-            minDate={new Date()}
-            className={classes.DatePicker}
             dayClassName={(day: Date) => {
               if (day.getDay() === 0) return 'datepicker__sun';
               else if (day.getDay() === 6) return 'datepicker__sat';
@@ -51,7 +52,7 @@ const VReserveDate = React.memo(
           <button onClick={onClickOpen} className={classes.DatePickerButton}>
             <div className={classes.DatePickerContent}>
               <div className={classes.DatePickerText}>
-                {moment(date).format('YYYY. MM. DD HH:mm')}
+                {date ? moment(date).format('YYYY. MM. DD HH:mm') : '----. --. -- --:--'}
               </div>
               <img src={icon_calendar} alt="icon-calendar" className={classes.DatePickerImg} />
             </div>
@@ -72,13 +73,15 @@ const ReserveDate = () => {
     isOpen,
     errorDateMessage,
     onChangeDate: useCallback(
-      (value) => {
+      (value, event) => {
         setDate(value);
-        if (date.getHours() !== value.getHours() || date.getMinutes() !== value.getMinutes()) {
+        // 시간을 클릭하면 event가 undefined로 설정된다.
+        // 해당 사실을 이용해서 시간을 클릭하면 자동으로 창이 꺼질 수 있도록 설정함.
+        if (event === undefined) {
           setIsOpen(false);
         }
       },
-      [date, setDate],
+      [setDate],
     ),
     onClickOpen: useCallback(() => {
       setIsOpen(true);
