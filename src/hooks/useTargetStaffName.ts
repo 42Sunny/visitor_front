@@ -25,7 +25,7 @@ const useTargetStaffName = (initialTargetStaffName: string): TargetStaffNameRetu
     else {
       checkStaff(targetStaffName).then((res) => {
         const { data } = res;
-        if (data.hasOwnProperty('error')) {
+        if (data.hasOwnProperty('errors')) {
           setErrorTargetStaffNameMessage(ERROR_INVALID_TARGET_STAFF_NAME);
         } else {
           setErrorTargetStaffNameMessage(ERROR_NONE);
