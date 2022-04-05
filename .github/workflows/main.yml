@@ -18,7 +18,11 @@ jobs:
       - name: Build
         run: yarn build:prod
         env:
+<<<<<<< HEAD
           REACT_APP_BLIND_API_DOMAIN: https://api.visitor.42seoul.io
+=======
+          REACT_APP_API_URL: https://api.visitor.42seoul.io
+>>>>>>> 0f9ccbd (api url 주소가 잘못된 현상 수정)
           REACT_APP_AUTH_KEY: ${{ secrets.REACT_APP_AUTH_KEY }}
 
       - name: S3 Deploy
