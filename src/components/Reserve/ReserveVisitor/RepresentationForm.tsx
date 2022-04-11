@@ -12,11 +12,11 @@ const NAME_PHONE = 'phone';
 
 const TITLE_ORGANIZATION = '소속';
 const TITLE_NAME = '이름';
-const TITLE_PHONE = '휴대폰 번호';
+const TITLE_PHONE = '대표자 휴대폰 번호';
 
 const PH_ORGANIZATION = '소속을 입력해주세요';
 const PH_NAME = '이름을 입력해주세요';
-const PH_PHONE = '휴대폰 번호을 입력해주세요';
+const PH_PHONE = '대표자 휴대폰 번호을 입력해주세요';
 
 const BUTTON_TEXT_DELETE = '삭제';
 const BUTTON_TEXT_SAVE = '저장';
@@ -33,7 +33,7 @@ const isValidPhoneCharacter = (ch?: string) =>
   ch === null || ch === undefined ? true : isPhoneCharacter(ch);
 const isPhoneCharacter = (ch: string) => ch === '-' || isNumber(ch);
 
-const VisitorForm = ({ visitor, deleteVisitor, saveVisitor, index }: PropTypes) => {
+const RepresentationForm = ({ visitor, deleteVisitor, saveVisitor, index }: PropTypes) => {
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;
@@ -86,15 +86,17 @@ const VisitorForm = ({ visitor, deleteVisitor, saveVisitor, index }: PropTypes) 
         value={visitor.name}
         isEditable={visitor.isEditable}
       />
-      <VisitorInput
-        title={TITLE_PHONE}
-        placeholder={PH_PHONE}
-        handleChange={handleChange}
-        name={NAME_PHONE}
-        value={visitor.phone}
-        isEditable={visitor.isEditable}
-        type="tel"
-      />
+      {index === 0 && (
+        <VisitorInput
+          title={TITLE_PHONE}
+          placeholder={PH_PHONE}
+          handleChange={handleChange}
+          name={NAME_PHONE}
+          value={visitor.phone}
+          isEditable={visitor.isEditable}
+          type="tel"
+        />
+      )}
 
       <div className={classes.InputButtonBox}>
         <button
@@ -120,4 +122,4 @@ const VisitorForm = ({ visitor, deleteVisitor, saveVisitor, index }: PropTypes) 
   );
 };
 
-export default VisitorForm;
+export default RepresentationForm;
