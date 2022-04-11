@@ -49,6 +49,9 @@ export type ReserveContextTypes = {
 
   isUpdatePage: boolean;
   setIsUpdatePage: React.Dispatch<React.SetStateAction<boolean>>;
+
+  representative: boolean;
+  setRepresentative: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const initialContext = {
@@ -90,6 +93,9 @@ const initialContext = {
 
   isUpdatePage: false,
   setIsUpdatePage: () => {},
+
+  representative: false,
+  setRepresentative: () => {},
 };
 
 const ReserveContext = createContext<ReserveContextTypes>(initialContext);
@@ -126,6 +132,7 @@ const ReserveProvider = ({ children }: PropTypes) => {
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
   const [isUpdatePage, setIsUpdatePage] = useState(false);
   const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
+  const [representative, setRepresentative] = useState(false);
 
   useEffect(() => {
     setIsSubmitButtonAcitve(
@@ -199,6 +206,9 @@ const ReserveProvider = ({ children }: PropTypes) => {
 
         isUpdatePage,
         setIsUpdatePage,
+
+        representative,
+        setRepresentative,
       }}
     >
       {children}

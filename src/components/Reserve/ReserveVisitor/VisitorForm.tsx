@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import GreyBox from 'components/Common/GreyBox';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import VisitorInput from './VisitorInput';
 import classes from 'assets/styles/Reserve/ReserveVisitor.module.css';
 import { convertPhone } from 'hooks/useVisitors';
 import isNumber from 'tools/isNumber';
+import { ReserveContext } from 'contexts/ReserveContext';
 
 const NAME_ORGANIZATION = 'organization';
 const NAME_NAME = 'name';
@@ -26,13 +27,15 @@ type PropTypes = {
   visitor: Visitor;
   deleteVisitor: (visitorId: string) => void;
   saveVisitor: () => void;
+  index: number;
 };
 
 const isValidPhoneCharacter = (ch?: string) =>
   ch === null || ch === undefined ? true : isPhoneCharacter(ch);
 const isPhoneCharacter = (ch: string) => ch === '-' || isNumber(ch);
 
-const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
+const VisitorForm = ({ visitor, deleteVisitor, saveVisitor, index }: PropTypes) => {
+  const { representative } = useContext(ReserveContext);
   const handleSave = () => {
     visitor.isEditable = false;
     visitor.isChanged = true;
@@ -92,6 +95,7 @@ const VisitorForm = ({ visitor, deleteVisitor, saveVisitor }: PropTypes) => {
         name={NAME_PHONE}
         value={visitor.phone}
         isEditable={visitor.isEditable}
+        disabled={index !== 0 && representative}
         type="tel"
       />
 

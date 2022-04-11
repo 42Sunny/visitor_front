@@ -27,8 +27,8 @@ const VisitorFormBox = ({ visitors, setVisitors }: PropTypes) => {
 
   return (
     <>
-      {visitors.map((visitor) => (
-        <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} />
+      {visitors.map((visitor, index) => (
+        <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} index={index} />
       ))}
     </>
   );

@@ -10,6 +10,7 @@ type PropTypes = {
   value: string;
   name: string;
   type?: string;
+  disabled?: boolean;
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -29,6 +30,7 @@ const VisitorInput = ({
   name,
   value,
   type,
+  disabled,
 }: PropTypes) => {
   return (
     <div className={classes.InputBox}>
@@ -42,6 +44,7 @@ const VisitorInput = ({
             value={value}
             name={name}
             type={type}
+            disabled={disabled}
           />
         ) : (
           formattedValue(name, value)
