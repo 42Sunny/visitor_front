@@ -72,7 +72,7 @@ const ReserveSubmit = () => {
         representative ? 'REPRESENTATIVE' : 'DEFAULT',
       );
       if (data.hasOwnProperty('error') || data.hasOwnProperty('errors')) {
-        alertError(data.error);
+        alertError(data.message);
       } else {
         setReserveId(!isUpdatePage ? data.reserveId : visitors[0].reserveId);
         setIsOpen(true);
@@ -172,16 +172,12 @@ const sendUpdateReserve = (
   return updateReserve(data);
 };
 
-type errorMessage = {
-  message: string;
-};
-
-const alertError = (error: errorMessage[] | errorMessage) => {
+const alertError = (message: string[] | string) => {
   let errorMessage = 'empty error message';
-  if (Array.isArray(error)) {
-    errorMessage = error.map(({ message }) => message).join('\n');
+  if (Array.isArray(message)) {
+    errorMessage = message.map((msg) => msg).join('\n');
   } else {
-    errorMessage = error.message;
+    errorMessage = message;
   }
   window.alert(errorMessage);
 };
