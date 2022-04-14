@@ -28,7 +28,7 @@ const baseAPI = async <T = any>(method: httpMethod, path: string, data: Object =
     });
     return response;
   } catch {
-    return { data: { message: ERROR_MESSAGE } };
+    return { data: { message: ERROR_MESSAGE, error: 400 } };
   }
 };
 
