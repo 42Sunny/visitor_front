@@ -6,6 +6,7 @@ type ArgTypes = {
   purpose: string;
   date: string | null;
   visitor: CompactVisitor[];
+  type: string;
 };
 
 const createReserve = (data: ArgTypes) => {

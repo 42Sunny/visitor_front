@@ -49,6 +49,9 @@ export type ReserveContextTypes = {
 
   isUpdatePage: boolean;
   setIsUpdatePage: React.Dispatch<React.SetStateAction<boolean>>;
+
+  representative: boolean;
+  setRepresentative: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const initialContext = {
@@ -90,6 +93,9 @@ const initialContext = {
 
   isUpdatePage: false,
   setIsUpdatePage: () => {},
+
+  representative: false,
+  setRepresentative: () => {},
 };
 
 const ReserveContext = createContext<ReserveContextTypes>(initialContext);
@@ -121,8 +127,15 @@ const ReserveProvider = ({ children }: PropTypes) => {
     setErrorTargetStaffNameMessage,
     checkTargetStaffName,
   } = useTargetStaffName('');
-  const { visitors, setVisitors, errorVisitorsMessage, setErrorVisitorsMessage, checkVisitors } =
-    useVisitors(makeVisitor());
+  const {
+    visitors,
+    setVisitors,
+    errorVisitorsMessage,
+    setErrorVisitorsMessage,
+    checkVisitors,
+    representative,
+    setRepresentative,
+  } = useVisitors(makeVisitor());
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
   const [isUpdatePage, setIsUpdatePage] = useState(false);
   const [isSubmitButtonAcitve, setIsSubmitButtonAcitve] = useState(false);
@@ -199,6 +212,9 @@ const ReserveProvider = ({ children }: PropTypes) => {
 
         isUpdatePage,
         setIsUpdatePage,
+
+        representative,
+        setRepresentative,
       }}
     >
       {children}

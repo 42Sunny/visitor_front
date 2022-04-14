@@ -1,4 +1,6 @@
-import React, { useCallback } from 'react';
+import { ReserveContext } from 'contexts/ReserveContext';
+import React, { useCallback, useContext } from 'react';
+import RepresentationForm from './RepresentationForm';
 import VisitorForm from './VisitorForm';
 
 type PropTypes = {
@@ -7,6 +9,7 @@ type PropTypes = {
 };
 
 const VisitorFormBox = ({ visitors, setVisitors }: PropTypes) => {
+  const { representative } = useContext(ReserveContext);
   const deleteVisitor = useCallback(
     (targetId) => {
       if (visitors.length !== 1) {
@@ -27,9 +30,18 @@ const VisitorFormBox = ({ visitors, setVisitors }: PropTypes) => {
 
   return (
     <>
-      {visitors.map((visitor) => (
-        <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} />
-      ))}
+      {visitors.map((visitor, index) =>
+        representative === false ? (
+          <VisitorForm key={visitor.key} visitor={visitor} {...VisitorFormProps} index={index} />
+        ) : (
+          <RepresentationForm
+            key={visitor.key}
+            visitor={visitor}
+            {...VisitorFormProps}
+            index={index}
+          />
+        ),
+      )}
     </>
   );
 };

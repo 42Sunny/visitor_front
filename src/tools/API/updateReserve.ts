@@ -7,6 +7,7 @@ type ArgTypes = {
   purpose: string;
   date: string | null;
   visitor: CompactVisitor[];
+  type: string;
 };
 
 const updateReserve = (data: ArgTypes) => {

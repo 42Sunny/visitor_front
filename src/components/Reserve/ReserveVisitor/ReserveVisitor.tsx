@@ -7,6 +7,7 @@ import VisitorFormBox from './VisitorFormBox';
 import VisitorAddButton from './VisitorAddButton';
 import makeVisitor from 'tools/makeVisitor';
 import { useCallback } from 'react';
+import RepresentationCheck from './RepresentationCheck';
 
 const ReserveVisitor = () => {
   const { visitors, setVisitors, errorVisitorsMessage } = useContext(ReserveContext);
@@ -25,6 +26,7 @@ const ReserveVisitor = () => {
   return (
     <WhiteBox isGrid>
       <VisitorHeader {...visitorHeaderProps} />
+      <RepresentationCheck />
       <VisitorFormBox visitors={visitors} setVisitors={setVisitors} />
       <VisitorAddButton {...visitorAddButtonProps} />
       <ReserveError>{errorVisitorsMessage}</ReserveError>

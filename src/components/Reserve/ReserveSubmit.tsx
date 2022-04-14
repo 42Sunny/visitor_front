@@ -27,6 +27,7 @@ const ReserveSubmit = () => {
     isUpdatePage,
     targetStaffName,
     isSubmitButtonAcitve,
+    representative,
     checkDate,
     checkPurpose,
     checkVisitors,
@@ -62,7 +63,14 @@ const ReserveSubmit = () => {
       setIsLoading(true);
       setIsSubmitButtonAcitve(false);
       checkValues(date, purpose, visitors, targetStaffName);
-      const { data } = await submitData(date, place, purpose, targetStaffName, visitors);
+      const { data } = await submitData(
+        date,
+        place,
+        purpose,
+        targetStaffName,
+        visitors,
+        representative ? 'REPRESENTATIVE' : 'DEFAULT',
+      );
       if (data.hasOwnProperty('error')) {
         alertError(data.error);
       } else {
@@ -72,15 +80,16 @@ const ReserveSubmit = () => {
       setIsLoading(false);
       setIsSubmitButtonAcitve(true);
     }, [
+      setIsSubmitButtonAcitve,
+      checkValues,
       date,
-      place,
       purpose,
       visitors,
-      isUpdatePage,
       targetStaffName,
       submitData,
-      checkValues,
-      setIsSubmitButtonAcitve,
+      place,
+      representative,
+      isUpdatePage,
     ]),
   };
 
@@ -116,6 +125,7 @@ const sendCreateReserve = (
   purpose: string,
   targetStaffName: string,
   visitors: Visitor[],
+  type: 'DEFAULT' | 'REPRESENTATIVE',
 ) => {
   const newVistors: CompactVisitor[] = visitors.map((elem) => ({
     name: elem.name,
@@ -129,6 +139,7 @@ const sendCreateReserve = (
     purpose,
     targetStaffName,
     visitor: newVistors,
+    type,
   };
   return createReserve(data);
 };
@@ -139,6 +150,7 @@ const sendUpdateReserve = (
   purpose: string,
   targetStaffName: string,
   visitors: Visitor[],
+  type: 'DEFAULT' | 'REPRESENTATIVE',
 ) => {
   const newVistors = visitors.map((elem) => ({
     name: elem.name,
@@ -155,6 +167,7 @@ const sendUpdateReserve = (
     targetStaffName,
     reserveId: visitors[0].reserveId,
     visitor: newVistors,
+    type,
   };
   return updateReserve(data);
 };

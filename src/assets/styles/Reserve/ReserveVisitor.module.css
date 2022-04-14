@@ -43,6 +43,10 @@
   font-size: 0.9rem;
 }
 
+.Input:disabled {
+  opacity: 0.3;
+}
+
 .Input::placeholder {
   font-size: 0.9rem;
   color: grey;
@@ -70,4 +74,37 @@
 
 .InsertButton {
   color: var(--green-color);
+}
+
+.RepresentationCheck {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.RepresentationCheck h6 {
+  margin: 0px;
+  font-size: 0.9rem;
+}
+
+.RepresentationCheck input {
+  width: 1.7rem;
+  height: 1.7rem;
+  min-width: 1.7rem;
+  min-height: 1.7rem;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('/src/assets/images/checkbox_unchecked.png');
+}
+
+.RepresentationCheck input:checked {
+  width: 1.7rem;
+  height: 1.7rem;
+  min-width: 1.7rem;
+  min-height: 1.7rem;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('/src/assets/images/checkbox_checked.png');
 }
