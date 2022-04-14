@@ -72,7 +72,7 @@ const ReserveSubmit = () => {
         representative ? 'REPRESENTATIVE' : 'DEFAULT',
       );
       if (data.hasOwnProperty('error') || data.hasOwnProperty('errors')) {
-        alertError(data.error);
+        alertError(data.message);
       } else {
         setReserveId(!isUpdatePage ? data.reserveId : visitors[0].reserveId);
         setIsOpen(true);
