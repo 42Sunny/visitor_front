@@ -35,7 +35,7 @@ const LookupInput = () => {
     else if (isNaN(parseInt(data)) === false) setPhone(value);
   };
 
-  const hanldeClick = async () => {
+  const handleClick = async () => {
     const response = await getReserves(name, phone);
     const {
       data: { error },
@@ -72,7 +72,7 @@ const LookupInput = () => {
           className={classes.Input}
         />
       </GreyBox>
-      <button className={classes.LookupInputSearchButton} onClick={hanldeClick}>
+      <button className={classes.LookupInputSearchButton} onClick={handleClick}>
         <img src={icon_search} alt="search" className={classes.LookupInputSearchImg} />
         {LOOKUP_BUTTON_TEXT}
       </button>
