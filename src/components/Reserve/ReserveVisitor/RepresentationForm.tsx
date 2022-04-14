@@ -12,11 +12,11 @@ const NAME_PHONE = 'phone';
 
 const TITLE_ORGANIZATION = '소속';
 const TITLE_NAME = '이름';
-const TITLE_PHONE = '대표자 휴대폰 번호';
+const TITLE_PHONE = '대표자 번호';
 
 const PH_ORGANIZATION = '소속을 입력해주세요';
 const PH_NAME = '이름을 입력해주세요';
-const PH_PHONE = '대표자 휴대폰 번호을 입력해주세요';
+const PH_PHONE = '대표자 번호을 입력해주세요';
 
 const BUTTON_TEXT_DELETE = '삭제';
 const BUTTON_TEXT_SAVE = '저장';
