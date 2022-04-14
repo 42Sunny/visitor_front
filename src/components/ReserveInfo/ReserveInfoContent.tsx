@@ -10,6 +10,7 @@ import ReactModal from 'react-modal';
 import WhiteBox from 'components/Common/WhiteBox';
 import BigTitle from 'components/Common/BigTitle';
 import SmallTitle from 'components/Common/SmallTitle';
+import { EMPTY_PHONE_NUM } from 'hooks/useVisitors';
 
 type ParamsType = {
   reserveId: string;
@@ -104,10 +105,12 @@ const ReserveInfoContent = () => {
                   <SmallTitle>이름</SmallTitle>
                   <div className={classes.Value}>{elem.name}</div>
                 </div>
-                <div className={classes.Line}>
-                  <SmallTitle>번호</SmallTitle>
-                  <div className={classes.Value}>{formattedPhone(elem.phone)}</div>
-                </div>
+                {elem.phone !== EMPTY_PHONE_NUM && (
+                  <div className={classes.Line}>
+                    <SmallTitle>번호</SmallTitle>
+                    <div className={classes.Value}>{formattedPhone(elem.phone)}</div>
+                  </div>
+                )}
               </WhiteBox>
             ))}
           </div>

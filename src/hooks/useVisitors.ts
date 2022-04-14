@@ -11,12 +11,12 @@ export type VisitorReturnTypes = {
   setRepresentative: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+export const EMPTY_PHONE_NUM = '00000000000';
 const ERROR_BLANK_VISITOR = '방문자를 추가해주세요.';
 const ERROR_NOT_FULL_VISITOR = '방문 정보를 모두 입력해야합니다.';
 const ERROR_DUPLICATE_PHONE_NUM = '휴대폰 번호는 중복될 수 없습니다.';
 const ERROR_NONE = '';
 const PHONE_REG_EXP = /^01\d{9}$/; // 휴대폰 번호 유효성 검사 정규표현식
-const EMPTY_PHONE_NUM = '00000000000';
 
 type Checker = {
   [index: string]: boolean;
@@ -58,11 +58,13 @@ const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
     else if (isDuplicatePhone(visitors) === true) {
       setErrorVisitorsMessage(ERROR_DUPLICATE_PHONE_NUM);
     } else {
-      autoSave(visitors);
+      // autoSave(visitors);
       setErrorVisitorsMessage(ERROR_NONE);
     }
   }, []);
 
+  // TODO : 추후에 추가하기
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const autoSave = (visitors: Visitor[]) => {
     visitors.forEach((elem) => {
       if (
@@ -82,6 +84,8 @@ const useVisitor = (initialVisitor: Visitor): VisitorReturnTypes => {
 
   useDidMountEffect(() => {
     checkVisitors(visitors);
+
+    // 방문자가 추가, 생성되면 상태에 따라 번호를 변경한다.
     if (representative)
       visitors.forEach((visitor, idx) => {
         if (idx !== 0) visitor.phone = EMPTY_PHONE_NUM;
