@@ -71,7 +71,7 @@ const ReserveSubmit = () => {
         visitors,
         representative ? 'REPRESENTATIVE' : 'DEFAULT',
       );
-      if (data.hasOwnProperty('error')) {
+      if (data.hasOwnProperty('error') || data.hasOwnProperty('errors')) {
         alertError(data.error);
       } else {
         setReserveId(!isUpdatePage ? data.reserveId : visitors[0].reserveId);
